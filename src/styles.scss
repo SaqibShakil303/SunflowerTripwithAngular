@@ -1,6 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
-
+/* Global styles to be placed in styles.css */
 *,
 *::after,
 *::before {
@@ -18,21 +16,6 @@
   --accent-color: #6c63ff;
   --text-color: #4a4a4a;
   --white: #ffffff;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  bottom: -5px;
-  left: 0;
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
 }
 
 a {
@@ -56,11 +39,5 @@ body {
   background: #e2d3ce;
 }
 
-/* 
-$primary-color: #ff7e5f;
-$secondary-color: #feb47b;
-$dark-color: #333;
-$light-color: #f4f4f4;
-$accent-color: #6c63ff;
-$text-color: #4a4a4a;
-$white: #ffffff; */
+/* Add Forum font import - either as import or @font-face */
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');

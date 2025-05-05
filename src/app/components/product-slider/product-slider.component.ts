@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, PLATFORM_ID, ElementRef, ViewChild, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 declare var mixitup: any;
 declare var $: any;
@@ -7,7 +8,7 @@ declare var $: any;
 @Component({
   selector: 'app-product-slider',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink,],
   templateUrl: './product-slider.component.html',
   styleUrl: './product-slider.component.scss'
 })
@@ -22,42 +23,42 @@ export class ProductSliderComponent implements OnInit, AfterViewInit {
       id: 1,
       name: 'Beach Resort',
       category: 'beach',
-      image: '/sunflowertrip/public/assets/images/product1.jpg',
+      image: '/assets/images/luxury/luxury-1.jpg',
       price: '$1999'
     },
     {
       id: 2,
       name: 'Mountain Retreat',
       category: 'mountain',
-      image: '/sunflowertrip/public/assets/images/product2.jpg',
+      image: '/assets/images/luxury/luxury-2.jpg',
       price: '$2499'
     },
     {
       id: 3,
       name: 'City Escape',
       category: 'city',
-      image: '/sunflowertrip/public/assets/images/product3.jpg',
+      image: '/assets/images/luxury/luxury-3.jpg',
       price: '$1599'
     },
     {
       id: 4,
       name: 'Safari Adventure',
       category: 'adventure',
-      image: '/sunflowertrip/public/assets/images/product4.jpg',
+      image: '/assets/images/luxury/luxury-4.jpg',
       price: '$3299'
     },
     {
       id: 5,
       name: 'Island Paradise',
       category: 'beach',
-      image: '/sunflowertrip/public/assets/images/product5.jpg',
+      image: '/assets/images/luxury/luxury-5.jpg',
       price: '$2799'
     },
     {
       id: 6,
       name: 'Cultural Tour',
       category: 'city',
-      image: '/sunflowertrip/public/assets/images/product6.jpg',
+      image: '/assets/images/luxury/luxury-1.jpg',
       price: '$1899'
     }
   ];

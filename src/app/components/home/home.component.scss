@@ -1,4 +1,13 @@
-// home.component.scss
+/* Main header styling */
+.header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 1040px;
+  position: relative;
+}
+
+/* Hero text elements */
 .top__text {
   width: 138px;
   margin: 0 auto;
@@ -81,6 +90,7 @@ h2._active {
   transition: all 0.8s ease 0.4s;
 }
 
+/* Diamond shape elements */
 .romb,
 .romb-left,
 .romb-right,

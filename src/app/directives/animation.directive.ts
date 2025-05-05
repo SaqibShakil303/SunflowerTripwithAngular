@@ -14,35 +14,35 @@ export class AnimationDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Only run in browser environment
     if (isPlatformBrowser(this.platformId)) {
-      this.initAnimation();
-    } else {
-      // Optional: Add default class in SSR for initial styling if needed
-      // this.renderer.addClass(this.el.nativeElement, '_active');
+      // Add the '_anim-items' and '_anim-no-hide' classes for consistency with original
+      this.renderer.addClass(this.el.nativeElement, '_anim-items');
+      this.renderer.addClass(this.el.nativeElement, '_anim-no-hide');
+      
+      // Initialize animation with a small delay to ensure DOM is ready
+      setTimeout(() => {
+        this.initAnimation();
+      }, 100);
     }
   }
 
   private initAnimation(): void {
-    // Check if IntersectionObserver is available
     if (typeof IntersectionObserver !== 'undefined') {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               this.renderer.addClass(entry.target, '_active');
-              // Unobserve after adding class to trigger animation only once
               observer.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.1 } // Trigger when 10% of the element is visible
+        { threshold: 0.1 }
       );
 
       observer.observe(this.el.nativeElement);
     } else {
-      // Fallback for environments without IntersectionObserver
-      // Simply add the animation class immediately
+      // Fallback for browsers without IntersectionObserver
       this.renderer.addClass(this.el.nativeElement, '_active');
     }
   }
