@@ -1,7 +1,7 @@
-<div class="header-box">
+<div class="header-box" >
   <img class="header-logo" src="/assets/images/logo21.png" alt="Luxury Travel Logo">
   <div class="header-right">
-    <div class="contact-info">
+    <div class="contact-info" [ngClass]="{'scrolled': isScrolled}">
       <a href="tel:+916-7864-3466">+916-7864-3466</a>
       <a routerLink="/faq">FAQ/Help?</a>
       <a routerLink="/careers">Careers</a>
@@ -9,7 +9,7 @@
       <a routerLink="/travel-guides">TravelGuides</a>
       <a routerLink="/login" class="login">LOGIN / SIGNUP</a>
     </div>
-    <nav class="header__menu">
+    <nav class="header__menu" [ngClass]="{'nav-active': isNavActive}">
       <ul class="menu__list">
         <li class="dropdown-nav">
           <a href="javascript:void(0)">Holiday Packages <span>▼</span></a>

@@ -1,8 +1,11 @@
 .header-box {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 24px 44px;
+
+
 }
 
 .header-logo {
@@ -17,15 +20,22 @@
 }
 
 .contact-info {
+    position: fixed;
+  top: 0;
+  right: 0;
   display: flex;
   gap: 40px;
   font-size: 16px;
   font-weight: bold;
-  padding: 30px 25px 30px 100px;
+  padding: 20px 25px 20px 100px;
   margin-bottom: 20px;
   color: #ffffff;
-  position: relative;
+  // position: relative;
   z-index: 1;
+  // &.scrolled {
+  //   // background-color: rgba(255, 255, 255, 0.95);
+  //   // box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  // }
 }
 
 .contact-info::before {
@@ -54,6 +64,7 @@
 }
 
 .header__menu {
+  padding-top: 3em;
   display: flex;
   justify-content: flex-end;
   align-items: center;

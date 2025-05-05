@@ -1,15 +1,26 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, HostListener } from '@angular/core';
+import { RouterLink, RouterModule } from '@angular/router';
 import { AnimationDirective } from '../../directives/animation.directive';
-import { NgOptimizedImage } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, AnimationDirective,NgOptimizedImage],
+  imports: [RouterLink, AnimationDirective,NgOptimizedImage,CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  isNavActive = false;
+  isScrolled = false;
+
+  toggleNav() {
+    this.isNavActive = !this.isNavActive;
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
  // Navigation dropdown items
  holidayPackages = [
   { name: 'Beach Getaways', route: '/beach-getaways' },
