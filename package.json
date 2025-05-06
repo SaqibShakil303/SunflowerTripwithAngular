@@ -2,6 +2,9 @@
   "name": "sunflowertrip",
   "version": "0.0.0",
   "scripts": {
+    "build:prod": "ng build --configuration production --base-href=/Sunflowertrip/",
+  "postbuild:prod": "ren dist\\sunflowertrip\\browser\\index.csr.html index.html && copy dist\\sunflowertrip\\browser\\index.html dist\\sunflowertrip\\browser\\404.html",
+  "deploy": "ng deploy",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
