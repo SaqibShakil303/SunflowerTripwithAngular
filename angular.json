@@ -83,8 +83,8 @@
         "deploy": {
     "builder": "angular-cli-ghpages:deploy",
     "options": {
-      "baseHref": "/SunflowerTripwithAngular/",
-      "repo": "https://github.com/SaqibShakil303/SunflowerTripwithAngular.git",
+      "baseHref": "/Sunflowertrip/",
+      "repo": "https://github.com/SaqibShakil303/Sunflowertrip.git",
       "dir": "dist/sunflowertrip/browser"
     }
   },
