@@ -1,0 +1,15 @@
+{
+  "routes": [
+    "/home",
+    "/home/about",
+    "/home/contact",
+    "/home/destinations",
+    "/home/itinerary",
+    "/home/map",
+    "/home/newsletter",
+    "/home/services",
+    "/home/testimonials",
+    "/home/top-picks",
+    "/home/why-us"
+  ]
+}
