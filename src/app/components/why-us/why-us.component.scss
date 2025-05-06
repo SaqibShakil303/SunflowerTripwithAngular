@@ -1,35 +1,79 @@
+/* Why Us Section */
 .why-us {
-    background-color: var(--white);
+  background-color: var(--white);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  position: relative;
+}
+
+/* Diagonal alignment for features */
+.feature {
+  text-align: center;
+  padding: 30px 20px;
+  background-color: var(--pink);
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  /* Apply diagonal offset using transform */
+  transform: translateY(0);
+
+  /* Offset each feature based on index */
+  &:nth-child(1) { transform: translateY(0); }
+  &:nth-child(2) { transform: translateY(15px); }
+  &:nth-child(3) { transform: translateY(30px); }
+  &:nth-child(4) { transform: translateY(45px); }
+  /* Add more as needed for additional features */
+
+  &:hover {
+    transform: translateY(-10px); /* Override diagonal offset on hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   }
-  
-  .features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+
+  i {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
-  
-  .feature {
-    text-align: center;
-    padding: 30px 20px;
-    background-color: var(--pink);
-    border-radius: 15px;
-    transition: all 0.3s ease;
-  
+
+  h3 {
+    margin-bottom: 15px;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .destination-grid, .feature-grid {
+    grid-template-columns: 1fr; /* Single column for smaller screens */
+  }
+
+  .destination-card, .feature {
+    /* Reduce diagonal offset for smaller screens */
+    &:nth-child(n) {
+      transform: translateY(0); /* Remove diagonal effect */
+    }
+
     &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    }
-  
-    i {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: var(--primary-color);
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  
-    h3 {
-      margin-bottom: 15px;
+      transform: translateY(-10px); /* Maintain hover effect */
     }
   }
+
+  .destination-card {
+    height: 350px; /* Slightly smaller cards */
+  }
+}
+
+@media (max-width: 480px) {
+  .destination-card {
+    height: 300px;
+  }
+
+  .feature {
+    padding: 20px;
+  }
+}

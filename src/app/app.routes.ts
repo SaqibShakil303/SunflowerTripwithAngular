@@ -13,8 +13,8 @@ import { MapComponent } from './components/map/map.component';
 
 export const routes: Routes = [
     // { path: 'home', component: HomeComponent },
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', redirectTo: '' },
+    // { path: '', redirectTo: 'home', pathMatch: 'full' },
+    // { path: '**', redirectTo: '' },
     {path: 'home',
     component: HomeComponent,
     children: [
