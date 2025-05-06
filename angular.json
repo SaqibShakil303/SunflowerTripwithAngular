@@ -66,7 +66,7 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
+                  "maximumWarning": "3kB",
                   "maximumError": "4kB"
                 }
               ],
@@ -80,6 +80,14 @@
           },
           "defaultConfiguration": "production"
         },
+        "deploy": {
+    "builder": "@angular-devkit/build-angular:deploy",
+    "options": {
+      "builder": "angular-cli-ghpages:deploy",
+      "baseHref": "/SunflowerTripwithAngular/",
+      "repo": "https://github.com/SaqibShakil303/SunflowerTripwithAngular.git"
+    }
+  },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
