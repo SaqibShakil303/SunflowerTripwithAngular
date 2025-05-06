@@ -1,0 +1,52 @@
+<div class="header-box" >
+  <img class="header-logo" src="/assets/images/logo21.png" alt="Luxury Travel Logo">
+  <div class="header-right">
+    <div class="contact-info" [ngClass]="{'scrolled': isScrolled}">
+      <a href="tel:+916-7864-3466">+916-7864-3466</a>
+      <a routerLink="/faq">FAQ/Help?</a>
+      <a routerLink="/careers">Careers</a>
+      <a routerLink="/about-us">About us</a>
+      <a routerLink="/travel-guides">TravelGuides</a>
+      <a routerLink="/login" class="login">LOGIN / SIGNUP</a>
+    </div>
+    <nav class="header__menu" [ngClass]="{'nav-active': isNavActive}">
+      <ul class="menu__list">
+        <li class="dropdown-nav">
+          <a href="javascript:void(0)">Holiday Packages <span>▼</span></a>
+          <ul class="dropdown-content-nav">
+            @for (item of holidayPackages; track item.name) {
+              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+            }
+          </ul>
+        </li>
+        <li class="dropdown-nav">
+          <a href="javascript:void(0)">Group Packages <span>▼</span></a>
+          <ul class="dropdown-content-nav">
+            @for (item of groupPackages; track item.name) {
+              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+            }
+          </ul>
+        </li>
+        <li class="dropdown-nav">
+          <a href="javascript:void(0)">Destinations <span>▼</span></a>
+          <ul class="dropdown-content-nav">
+            @for (item of destinations; track item.name) {
+              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+            }
+          </ul>
+        </li>
+        <li class="dropdown-nav">
+          <a href="javascript:void(0)">Deals & offers <span>▼</span></a>
+          <ul class="dropdown-content-nav">
+            @for (item of dealsOffers; track item.name) {
+              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+            }
+          </ul>
+        </li>
+      </ul>
+      <div class="header__button">
+        <button class="custom-btn" (click)="customizeHoliday()">Customize My Holiday</button>
+      </div>
+    </nav>
+  </div>
+</div>

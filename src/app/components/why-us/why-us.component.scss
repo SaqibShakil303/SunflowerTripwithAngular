@@ -1,0 +1,35 @@
+.why-us {
+    background-color: var(--white);
+  }
+  
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+  }
+  
+  .feature {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: var(--pink);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+  
+    i {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  
+    h3 {
+      margin-bottom: 15px;
+    }
+  }
