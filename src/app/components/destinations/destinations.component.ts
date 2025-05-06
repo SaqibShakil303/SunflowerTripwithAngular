@@ -13,19 +13,19 @@ import AOS from 'aos';
 export class DestinationsComponent implements AfterViewInit {
   destinations = [
     {
-      image: 'https://images.pexels.com/photos/261481/pexels-photo-261481.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/assets/images/luxury/effile-tower.jpg',
       name: 'Paris',
       description: 'Experience the romance of Paris with our curated tours.',
       link: '#'
     },
     {
-      image: 'https://images.pexels.com/photos/162031/dubai-tower-162031.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/assets/images/luxury/dubai-stunning.jpg',
       name: 'Dubai',
       description: 'Discover the luxury and adventure of Dubai’s skyline.',
       link: '#'
     },
     {
-      image: 'https://images.pexels.com/photos/161815/bali-statue-161815.jpeg?auto=compress&cs=tinysrgb&w=400',
+      image: '/assets/images/Thailand.jpg',
       name: 'Bali',
       description: 'Relax in Bali’s serene beaches and vibrant culture.',
       link: '#'

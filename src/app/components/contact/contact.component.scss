@@ -11,7 +11,7 @@ align-items: stretch;
 
 .contact-info {
 flex: 1;
-background: var(--light-color);
+background: var(--pink);
 padding: 30px;
 border-radius: 15px;
 box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
@@ -32,7 +32,9 @@ color: var(--primary-color);
 margin-right: 15px;
 margin-top: 5px;
 }
-
+.form-input{
+    background-color: var(--pink);
+}
 .info-details {
 h4 {
 font-size: 1.2rem;
