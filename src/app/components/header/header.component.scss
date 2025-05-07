@@ -64,6 +64,7 @@
 }
 
 .header__menu {
+
   padding-top: 3em;
   display: flex;
   justify-content: flex-end;
@@ -71,13 +72,14 @@
 }
 
 .menu__list {
+
   display: flex;
   gap: 20px;
   padding-top: 18px;
 }
 
 .menu__list a {
-  font-family: 'Forum', cursive;
+  font-family: 'Poppins', cursive !important;
   font-size: 16px;
   line-height: 18px;
   letter-spacing: 0.04em;
@@ -124,6 +126,7 @@
 }
 
 .custom-btn {
+  margin-top: 10px;
   margin-left: 20px;
   background-color: transparent;
   color: #000;
