@@ -1,14 +1,7 @@
 <div class="header-box" >
   <img class="header-logo" src="https://github.com/SaqibShakil303/Sunflowertrip/blob/master/src/assets/images/logo3.png?raw=true" alt="Luxury Travel Logo">
   <div class="header-right">
-    <div class="contact-info" [ngClass]="{'scrolled': isScrolled}">
-      <a href="tel:+916-7864-3466">+916-7864-3466</a>
-      <a routerLink="/contact">FAQ/Help?</a>
-      <a routerLink="/careers">Careers</a>
-      <a routerLink="/about-us">About us</a>
-      <a routerLink="/travel-guides">TravelGuides</a>
-      <a routerLink="/login" class="login">LOGIN / SIGNUP</a>
-    </div>
+    <app-navbar></app-navbar>
     <nav class="header__menu" [ngClass]="{'nav-active': isNavActive}">
       <ul class="menu__list">
         <li class="dropdown-nav">

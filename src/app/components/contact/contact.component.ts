@@ -5,11 +5,12 @@ import { isPlatformBrowser } from '@angular/common';
 import AOS from 'aos';
 import { HeaderComponent } from "../header/header.component";
 import { FooterComponent } from "../footer/footer.component";
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, FooterComponent],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent, FooterComponent, NavbarComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
