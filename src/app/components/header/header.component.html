@@ -5,34 +5,34 @@
     <nav class="header__menu" [ngClass]="{'nav-active': isNavActive}">
       <ul class="menu__list">
         <li class="dropdown-nav">
-          <a href="javascript:void(0)">Holiday Packages <span>▼</span></a>
+          <a href="javascript:void(0)">Holiday Packages</a>
           <ul class="dropdown-content-nav">
             @for (item of holidayPackages; track item.name) {
-              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+              <li><a [routerLink]="item.route">{{ item.name }} </a></li>
             }
           </ul>
         </li>
         <li class="dropdown-nav">
-          <a href="javascript:void(0)">Group Packages <span>▼</span></a>
+          <a href="javascript:void(0)">Group Packages</a>
           <ul class="dropdown-content-nav">
             @for (item of groupPackages; track item.name) {
-              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+              <li><a [routerLink]="item.route">{{ item.name }} </a></li>
             }
           </ul>
         </li>
         <li class="dropdown-nav">
-          <a href="javascript:void(0)">Destinations <span>▼</span></a>
+          <a href="javascript:void(0)">Destinations </a>
           <ul class="dropdown-content-nav">
             @for (item of destinations; track item.name) {
-              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+              <li><a [routerLink]="item.route">{{ item.name }} </a></li>
             }
           </ul>
         </li>
         <li class="dropdown-nav">
-          <a href="javascript:void(0)">Deals & offers <span>▼</span></a>
+          <a href="javascript:void(0)">Deals & offers</a>
           <ul class="dropdown-content-nav">
             @for (item of dealsOffers; track item.name) {
-              <li><a [routerLink]="item.route">{{ item.name }}</a></li>
+              <li><a [routerLink]="item.route">{{ item.name }} </a></li>
             }
           </ul>
         </li>
