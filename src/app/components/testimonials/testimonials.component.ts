@@ -1,15 +1,23 @@
 import { Component, AfterViewInit, ElementRef, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Swiper from 'swiper';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import AOS from 'aos';
-
+import { trigger, transition, style, animate } from '@angular/animations';
 @Component({
   selector: 'app-testimonials',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './testimonials.component.html',
-  styleUrls: ['./testimonials.component.scss']
+  styleUrls: ['./testimonials.component.scss'],
+  animations: [
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('0.6s ease', style({ opacity: 1, transform: 'translateY(0)' })),
+      ]),
+    ]),
+  ],
 })
 export class TestimonialsComponent implements AfterViewInit {
   @ViewChild('swiperContainer') swiperContainer!: ElementRef;
@@ -49,21 +57,60 @@ export class TestimonialsComponent implements AfterViewInit {
         duration: 800,
         once: true
       });
-
-      new Swiper(this.swiperContainer.nativeElement, {
-        modules: [Autoplay, Pagination],
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false
-        },
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true
-      });
+      this.initSwiper();
+      // new Swiper(this.swiperContainer.nativeElement, {
+      //   modules: [Autoplay, Pagination],
+      //   pagination: {
+      //     el: '.swiper-pagination',
+      //     clickable: true
+      //   },
+      //   autoplay: {
+      //     delay: 5000,
+      //     disableOnInteraction: false
+      //   },
+      //   slidesPerView: 1,
+      //   spaceBetween: 30,
+      //   loop: true
+      // });
     }
+  }
+
+  initSwiper(): void {
+    // Import Swiper styles if needed in your angular.json file
+    
+    // Initialize Swiper
+    const swiper = new Swiper(this.swiperContainer.nativeElement, {
+      modules: [Navigation, Pagination, Autoplay],
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      centeredSlides: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 20
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 30
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 40
+        }
+      }
+    });
   }
 }

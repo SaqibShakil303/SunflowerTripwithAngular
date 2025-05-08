@@ -1,8 +1,19 @@
 .map{
+  padding-top: 50px;
+  padding-bottom: 80px;
+  position: relative;
     // background-color: linear-gradient(135deg, #009688, #b2dfdb);
-    background: linear-gradient( #4db6ac,#b2dfdb);
-
-    padding-bottom: 80px;
+    background: linear-gradient(135deg, rgba(77, 182, 172, 0.85), rgba(0, 150, 136, 0.9));
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+      opacity: 0.15;
+      filter: blur(3px);
+      z-index: 0;
+    }
+  
   }
   
   .map-container {

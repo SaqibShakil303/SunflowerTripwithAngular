@@ -6,7 +6,8 @@
     </div>
     <div class="swiper testimonial-slider" #swiperContainer>
       <div class="swiper-wrapper">
-        <div class="swiper-slide" *ngFor="let testimonial of testimonials; let i = index" [attr.data-aos]="i % 2 === 0 ? 'fade-up' : 'fade-up'" [attr.data-aos-delay]="i * 100">
+        <div class="swiper-slide" *ngFor="let testimonial of testimonials; let i = index" 
+             [attr.data-aos]="'fade-up'" [attr.data-aos-delay]="i * 100" [ngClass]="'fade-in-up'">
           <div class="testimonial">
             <div class="testimonial-content">
               <p>{{ testimonial.quote }}</p>
@@ -24,6 +25,8 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
     </div>
   </div>
 </section>
