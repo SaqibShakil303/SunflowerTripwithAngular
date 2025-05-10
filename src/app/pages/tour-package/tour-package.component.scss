@@ -1,0 +1,63 @@
+.packages {
+    padding: 4rem 2rem;
+    text-align: center;
+  
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--dark-color);
+    }
+  
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+  
+    .package-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      padding: 2rem;
+      transition: transform 0.3s ease;
+      color: var(--text-color);
+  
+      &:hover {
+        transform: translateY(-8px);
+      }
+  
+      img {
+        width: 100%;
+        border-radius: 15px;
+        margin-bottom: 1rem;
+      }
+  
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+  
+      p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+  
+      button {
+        padding: 0.6rem 1.2rem;
+        border: none;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s;
+  
+        &:hover {
+          background: var(--pink);
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,28 @@
+// about-us.component.scss
+.about-us {
+    // @extend .glass-section;
+    .intro {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    .our-story, .mission-vision, .why-choose-us, .contact-info {
+      margin-bottom: 2.5rem;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      li {
+        margin-bottom: 0.75rem;
+        padding-left: 1.2rem;
+        position: relative;
+        &::before {
+          content: '✔';
+          position: absolute;
+          left: 0;
+          color: #00e6d0;
+        }
+      }
+    }
+  } 
+  

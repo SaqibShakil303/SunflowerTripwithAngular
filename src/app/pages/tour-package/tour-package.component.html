@@ -1,0 +1,12 @@
+<section class="packages">
+    <h2>Popular Tour Packages</h2>
+    <div class="package-grid">
+      <div class="package-card" *ngFor="let package of packages">
+        <img [src]="package.imageUrl" [alt]="package.title" />
+        <h3>{{ package.title }}</h3>
+        <p>{{ package.shortDescription }}</p>
+        <button (click)="goToDetails(package.slug)">View Details</button>
+      </div>
+    </div>
+  </section>
+  
