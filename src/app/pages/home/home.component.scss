@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 1040px;
+  height: 100%;
   position: relative;
 }
 
@@ -12,28 +12,30 @@
   width: 138px;
   margin: 0 auto;
   font-family: "Forum", cursive;
-  font-size: 25px;
+  font-size: 35px;
   line-height: 98.5%;
-  text-align: center;
+  // text-align: left;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #0c0b10;
+  color: whitesmoke;
   margin-bottom: 60px;
-  // padding-left: 200px;
-  margin-top: 155px;
+  margin-left: 100px;
+  margin-top: 55
+  px;
   transform: scale3d(1, 1, 1) rotateY(500deg);
   opacity: 0;
 }
 
 .top__text._active {
+  // text-align: left;
   transform: scale3d(1, 1, 1) rotateY(0deg);
   transition: all 0.8s ease 0s;
   opacity: 1;
 }
 
 h1 {
-  padding-right: 240px;
-  padding-bottom: 40px;
+  // padding-right: 400px;
+  padding-bottom: 20px;
   font-family: "Forum", cursive;
   font-weight: normal;
   font-size: 198px;
@@ -42,7 +44,7 @@ h1 {
   text-transform: uppercase;
   color: #fcfcfc;
   margin: 0 auto;
-  text-align: center;
+  text-align: left;
   width: 940px;
   transform: translate(0px, 115%);
   opacity: 0;
@@ -75,16 +77,17 @@ h2 {
   font-size: 141.614px;
   line-height: 100%;
   text-align: center;
+  margin-left: 50px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fcfcfc;
   width: 100%;
-  position: absolute;
-  bottom: 230px;
-   padding-top: 150px;
+  // position: absolute;
+  bottom: 50px;
+  //  padding-top: 150px;
   transform: translate(0px, 115%);
   opacity: 0;
-  z-index: 20;
+  z-index: 5;
 }
 
 h2._active {

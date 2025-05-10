@@ -5,13 +5,13 @@
   position: relative;
   padding: 100px 0;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(77, 182, 172, 0.85), rgba(0, 150, 136, 0.9));
+  // background: linear-gradient(135deg, rgba(77, 182, 172, 0.85), rgba(0, 150, 136, 0.9));
   
   &::before {
     content: '';
     position: absolute;
     inset: 0; // shorthand for top, right, bottom, left
-    background: url('https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
+    // background: url('https://images.pexels.com/photos/1632790/pexels-photo-1632790.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1') no-repeat center center/cover;
     opacity: 0.15;
     filter: blur(3px);
     z-index: 0;
