@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { HeaderComponent } from '../../components/header/header.component';
+import { HeaderComponent } from '../../common/header/header.component';
 import { AnimationDirective } from '../../directives/animation.directive';
 
 import { TestimonialsComponent } from "../../components/testimonials/testimonials.component";
@@ -7,7 +7,7 @@ import { DestinationsComponent } from "../../components/destinations/destination
 
 import { ServicesComponent } from '../../components/services/services.component';
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from "../../common/footer/footer.component";
 
 import { NewsletterComponent } from "../../components/newsletter/newsletter.component";
 

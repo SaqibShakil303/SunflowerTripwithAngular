@@ -13,6 +13,7 @@ import { MapComponent } from './components/map/map.component';
 import { TravelGuideComponent } from './pages/travel-guide/travel-guide.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CareersComponent } from './pages/careers/careers.component';
+import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {path:'careers', component: CareersComponent},
   {path:'aboutUs', component: AboutUsComponent},
   {path:'travelGuide', component: TravelGuideComponent},
+  {path:'privacyPolicy', component: PrivacyPolicyComponent},
     // { path: '', redirectTo: 'home', pathMatch: 'full' },
     // { path: '**', redirectTo: '' },
     {path: '',

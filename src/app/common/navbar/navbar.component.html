@@ -1,0 +1,36 @@
+<div class="navbar">
+  <img 
+    class="header-logo" 
+    src="assets/hero/logo56.png" 
+    alt="Luxury Travel Logo" 
+    routerLink="/"
+  >
+  
+  <!-- Hamburger Menu for Mobile -->
+  <div 
+    class="hamburger-menu" 
+    (click)="toggleMobileMenu()"
+    [class.active]="isMobileMenuOpen"
+  >
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </div>
+
+  <!-- Contact Info / Navigation Links -->
+  <div 
+    class="contact-info" 
+    [ngClass]="{
+      'scrolled': isScrolled, 
+      'active': isMobileMenuOpen
+    }"
+    (click)="$event.stopPropagation()"
+  >
+    <a href="tel:+916-7864-3466">+916-7864-3466</a>
+    <a routerLink="/contact" (click)="navigateTo('/contact')">FAQ/Help?</a>
+    <a routerLink="/careers" (click)="navigateTo('/careers')">Careers</a>
+    <a routerLink="/aboutUs" (click)="navigateTo('/aboutUs')">About us</a>
+    <a routerLink="/travelGuide" (click)="navigateTo('/travelGuide')">Travel Guides</a>
+    <a routerLink="/login" class="login" (click)="navigateTo('/login')">LOGIN / SIGNUP</a>
+  </div>
+</div>

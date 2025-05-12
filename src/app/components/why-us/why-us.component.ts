@@ -1,7 +1,8 @@
-import { Component, AfterViewInit, PLATFORM_ID, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ViewChild, ElementRef, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import AOS from 'aos';
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
 @Component({
   selector: 'app-why-us',
@@ -11,6 +12,8 @@ import AOS from 'aos';
   styleUrls: ['./why-us.component.scss']
 })
 export class WhyUsComponent implements AfterViewInit {
+  @ViewChild('swiperContainer') swiperContainer!: ElementRef;
+
   whyUsItems = [
     {
       icon: 'fas fa-globe',
@@ -34,13 +37,42 @@ export class WhyUsComponent implements AfterViewInit {
     }
   ];
 
+  private swiper!: Swiper;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      AOS.init({
-        duration: 800,
-        once: true
+      AOS.init({ duration: 800, once: true });
+      setTimeout(() => this.initSwiper(), 0);
+    }
+  }
+
+  private initSwiper(): void {
+    if (this.swiperContainer?.nativeElement) {
+      this.swiper = new Swiper(this.swiperContainer.nativeElement, {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        centeredSlides: true,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+          640: { slidesPerView: 1 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 }
+        }
       });
     }
   }

@@ -2,7 +2,7 @@
 $font-main: 'Poppins', cursive;
 $font-accent: 'Forum', cursive;
 $color-primary: #000;
-$color-accent: wheat;
+$color-accent: rgb(252, 249, 245);
 $color-hover-bg: #f1f1f1;
 $border-radius: 8px;
 $transition: 0.3s ease;
@@ -20,22 +20,20 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 }
 
 .header-box {
+    padding-top: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 24px 44px;
+  align-items: right;
+  position: relative;
 }
 
-.header-logo {
-  width: 80px;
-  height: 75px;
-  // filter: brightness(0);
-}
+
 
 .header-right {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items:end;
+  padding: 24px 44px;
 }
 
 .header__menu {
@@ -83,6 +81,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
   position: relative;
 
   &:hover .dropdown-content-nav {
+    // position: absolute;
     display: block;
     opacity: 1;
     transform: translateY(0);
@@ -94,6 +93,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
   @include glassmorphism;
   display: block;
   opacity: 0;
+  z-index: 999; 
   pointer-events: none;
   transition: all $transition;
   transform: translateY(10px);
@@ -148,19 +148,155 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 }
 
 // Optional responsiveness
-@media (max-width: 768px) {
-  .header-box {
+// Slide-in menu
+.header__menu {
+  transition: transform 0.3s ease;
+  &.mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 75%;
+    max-width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    transform: translateX(-100%);
+    z-index: 1000;
     flex-direction: column;
-    align-items: flex-start;
-  }
+    padding: 2rem;
 
-  .menu__list {
-    flex-direction: column;
-    align-items: flex-start;
+    &.nav-active {
+      transform: translateX(0);
+    }
+
+    .menu__list {
+      flex-direction: column;
+      gap: 20px;
+
+      a {
+        color: #000 !important;
+      }
+    }
+
+    .header__button {
+      margin-top: 2rem;
+    }
+  }
+}
+
+// Mobile button
+.burger-menu {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  cursor: pointer;
+
+  div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block;
   }
 
   .header__menu {
-    flex-direction: column;
-    align-items: flex-start;
+    display: none;
+  }
+
+  .header__menu.mobile-nav {
+    display: flex;
+  }
+}
+// Burger Menu
+.burger-icon {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  z-index: 1001;
+
+  span {
+    width: 28px;
+    height: 3px;
+    background: #fff;
+    display: block;
+  }
+}
+
+// Mobile Sidebar
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 280px;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+
+  &.open {
+    left: 0;
+  }
+
+  .close-btn {
+    font-size: 30px;
+    color: #fff;
+    text-align: right;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  .mobile-menu {
+    list-style: none;
+    padding: 0;
+
+    .mobile-group-label {
+      color: #fff;
+      font-family: $font-main;
+      font-size: 18px;
+      padding: 10px 0;
+      cursor: pointer;
+    }
+
+    .mobile-submenu {
+      list-style: none;
+      padding-left: 15px;
+      padding-bottom: 10px;
+
+      a {
+        color: #ddd;
+        text-decoration: none;
+        display: block;
+        padding: 6px 0;
+        font-size: 15px;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .header-right {
+    display: none;
+  }
+
+  .burger-icon {
+    display: flex;
   }
 }

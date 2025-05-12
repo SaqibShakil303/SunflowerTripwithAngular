@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { FooterComponent } from './components/footer/footer.component';
+import { FooterComponent } from './common/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
-import { HeaderComponent } from './components/header/header.component';
+import { HeaderComponent } from './common/header/header.component';
 import { AboutComponent } from './components/about/about.component';
 import { ChatWidgetComponent } from './components/chat-widget/chat-widget.component';
 import { BookingInquiryComponent } from "./pages/booking-inquiry/booking-inquiry.component";
@@ -14,7 +14,7 @@ import { TourPackageComponent } from "./pages/tour-package/tour-package.componen
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BookingInquiryComponent, DestinationMainComponent, TourPackageComponent],
+  imports: [RouterOutlet],
   // [RouterOutlet,HeroComponent,NavbarComponent,ServicesComponent,ReviewsComponent,ContactComponent,AboutComponent,GalleryComponent,FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

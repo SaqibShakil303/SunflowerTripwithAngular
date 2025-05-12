@@ -2,8 +2,8 @@ import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import AOS from 'aos';
-import { FooterComponent } from '../footer/footer.component';
-import { HeaderComponent } from "../header/header.component";
+import { FooterComponent } from '../../common/footer/footer.component';
+import { HeaderComponent } from "../../common/header/header.component";
 
 @Component({
   selector: 'app-itinerary',

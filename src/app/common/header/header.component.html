@@ -1,0 +1,49 @@
+<div class="header-box">
+  <app-navbar></app-navbar>
+
+  <!-- Mobile Menu Toggle -->
+  <div class="burger-icon" (click)="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Desktop Nav -->
+  <div class="header-right" *ngIf="!isMobileMenuOpen">
+    <nav class="header__menu">
+      <ul class="menu__list">
+        <li class="dropdown-nav" *ngFor="let group of navGroups">
+          <a href="javascript:void(0)" (click)="toggleDropdown($event)">{{ group.label }}</a>
+          <ul class="dropdown-content-nav">
+            <li *ngFor="let item of group.items">
+              <a [routerLink]="item.route">{{ item.name }}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <div class="header__button">
+        <button class="custom-btn" (click)="customizeHoliday()" routerLink="/itinerary">Customize My Holiday</button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" [class.open]="isMobileMenuOpen">
+    <div class="close-btn" (click)="toggleMobileMenu()">×</div>
+    <ul class="mobile-menu">
+      <li *ngFor="let group of navGroups" class="dropdown-mobile">
+        <div (click)="toggleDropdown($event)" class="mobile-group-label">
+          {{ group.label }}
+        </div>
+        <ul class="mobile-submenu">
+          <li *ngFor="let item of group.items">
+            <a [routerLink]="item.route" (click)="toggleMobileMenu()"> {{ item.name }} </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <button class="custom-btn" (click)="customizeHoliday(); toggleMobileMenu()">Customize My Holiday</button>
+      </li>
+    </ul>
+  </div>
+</div>

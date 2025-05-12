@@ -1,8 +1,7 @@
 // @import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Playfair+Display:wght@600;700&family=Forum&display=swap');
-*,
-*::after,
-*::before {
+
+*, *::after, *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -10,28 +9,21 @@
 }
 
 :root {
-  --primary-color: #ff7e5f;
+  --primary-color: #00bcd4;
   --secondary-color: #feb47b;
   --dark-color: #333;
   --light-color: #f4f4f4;
   --accent-color: #6c63ff;
   --text-color: #4a4a4a;
   --white: #4db6ac;
-  --pink:#009688;
-  --light-pink:#b2dfdb;
-  --dark-pink:#004d40;
-
+  --pink: #009688;
+  --light-pink: #b2dfdb;
+  --dark-pink: #004d40;
   --peacock-blue: #1b2f40;
   --glass-bg: rgba(30, 30, 30, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.15);;
+  --glass-border: rgba(255, 255, 255, 0.15);
   --button-gradient: linear-gradient(135deg, #1b2f40, #00bcd4);
-  
-   --background-gradient: linear-gradient(270deg, #00bcd4,#22574e);
-
-
-
-  --primary-color: #00bcd4; // peacock blue
-  // --button-gradient: linear-gradient(135deg, #007c91, #00bcd4);
+  --background-gradient: linear-gradient(270deg, #00bcd4,#22574e);
   --button-hover: #00acc1;
   --gold: #ffd700;
 }
@@ -59,23 +51,25 @@ body {
   color: var(--text-color);
   overflow-x: hidden;
 }
+
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 1rem;
   color: var(--dark-color);
 }
+
 h1 {
-  font-size: 3.5rem;
+  font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 700;
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
   font-weight: 600;
 }
 
 h3 {
-  font-size: 1.8rem;
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
 }
 
 p {
@@ -92,6 +86,7 @@ a {
     color: var(--gold);
   }
 }
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -140,7 +135,7 @@ a {
 }
 
 .section {
-  padding: 80px 0;
+  padding: clamp(60px, 8vw, 100px) 0;
 }
 
 .section-title {
@@ -158,21 +153,28 @@ a {
   }
 }
 
-@media (max-width: 991px) {
-  h1 {
-    font-size: 3rem;
-  }
-}
-
 @media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
+  .btn {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .section-title {
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 2rem;
+  p {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    padding: 8px 20px;
+    font-size: 0.9rem;
   }
 }
-/* Add Forum font import - either as import or @font-face */
