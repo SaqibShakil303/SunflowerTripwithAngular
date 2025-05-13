@@ -8,7 +8,7 @@ import { TopPicksComponent } from './components/top-picks/top-picks.component';
 import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 import { ItineraryComponent } from './components/itinerary/itinerary.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
-import { ContactComponent } from './components/contact/contact.component';
+import { ContactComponent } from './pages/contact/contact.component';
 import { MapComponent } from './components/map/map.component';
 import { TravelGuideComponent } from './pages/travel-guide/travel-guide.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';

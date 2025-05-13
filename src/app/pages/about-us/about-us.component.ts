@@ -53,9 +53,9 @@ export class AboutUsComponent implements OnInit, AfterViewInit {
       image: 'assets/images/team/team-2.jpg'
     },
     {
-      name: 'Shashwati Das',
+      name: 'Shaswati Das',
       position: 'Destination Expert',
-      bio: 'Having traveled to over 40 countries, Shashwati ensures our itineraries capture the true essence of each destination.',
+      bio: 'Having traveled to over 40 countries, Shaswati ensures our itineraries capture the true essence of each destination.',
       image: 'assets/images/team/team-3.jpg'
     },
     {
