@@ -62,7 +62,7 @@ export class AboutUsComponent implements OnInit, AfterViewInit {
       name: 'Smaran Paul',
       position: 'Customer Relations',
       bio: `Smaran is dedicated to providing exceptional service and ensuring every client's needs are met with care.`,
-      image: 'assets/images/team/team-4.jpg'
+      image: 'assets/images/team/SHARAN_DP.jpg'
     }
   ];
 

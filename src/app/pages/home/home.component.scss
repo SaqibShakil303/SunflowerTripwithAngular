@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&display=swap');
+
 /* KEEPING ORIGINAL DESKTOP DESIGN AS-IS */
 .header {
   background-repeat: no-repeat;
@@ -6,21 +8,39 @@
   height: 100%;
   position: relative;
 }
-
+.hero-content{
+  display: flex;
+}
+.main-title{
+  margin-top: 70px;
+align-items: left;
+margin-right:30px;
+}
 .top__text {
-  width: 138px;
-  margin: 0 auto;
-  font-family: "Forum", cursive;
-  font-size: 30px;
-  line-height: 98.5%;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
   color: whitesmoke;
+  font-family: "Forum", cursive;
+  text-transform: uppercase;
+  line-height: 1.2;
   margin-bottom: 60px;
-  // margin-left: 100px;
-  margin-top: 75px;
+  margin-left: 100px;
+  margin-top: 20px;
   transform: scale3d(1, 1, 1) rotateY(500deg);
   opacity: 0;
+
+   .step1 {
+    margin-left: 0;       // sits flush left
+    font-size: 30px;
+  }
+  .step2 {
+    margin-left: 2rem;    // indented
+    font-size: 30px;
+  }
+  .step3 {
+    margin-left: 4rem;    // more indent
+    font-size: 30px;
+  }
 }
 
 .top__text._active {
@@ -30,10 +50,10 @@
 }
 
 h1 {
-  padding-bottom: 20px;
-  font-family: "Forum", cursive;
-  font-weight: normal;
-  font-size: 170PX;
+  // padding-bottom: 20px;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight:50;
+  font-size: 120PX;
   line-height: 170px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -52,12 +72,12 @@ h1._active {
 }
 
 h2 {
-  font-family: "Forum", cursive;
+  font-family: "Cinzel Decorative", cursive;
   font-weight: normal;
-  font-size: 141.614px;
+  font-size: 120px;
   line-height: 100%;
   text-align: center;
-  margin-left: 50px;
+  // margin-left: 50px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fcfcfc;

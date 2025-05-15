@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { ContactModel } from '../../models/contact.model';
 import { catchError, from, Observable, tap, throwError } from 'rxjs';
 import axios, { AxiosInstance } from 'axios'
+import { Itinerary } from '../../models/itinerary.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,34 @@ export class ContactService {
   headers: { 'Content-Type': 'application/json' }
 });
   }
+  submitItineraryDetail(f: Itinerary): Observable<any> {
 
+     const payload = {
+    name:   f.name,
+    email:  f.email,
+    phone:  f.phone,
+    destination: f.destination,
+    travelers: f.travelers,
+    children: f.children,
+    childAges: f.childAges,
+    duration: f.duration,
+    date: f.date,
+    budget: f.budget,
+    hotelCategory: f.hotelCategory,
+    travelType: f.travelType,
+    occupation: f.occupation,
+    preferences: f.preferences
+
+  
+  };
+      console.log('🪂 Sending payload to API:', payload);
+
+   return from(
+    this.api 
+      .post('/Itinerary/AddItinerary', payload)
+      .then(r => r.data)
+  );
+  }
   submitContactDetail(f: ContactModel): Observable<any> {
 
      const payload = {

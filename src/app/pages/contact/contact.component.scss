@@ -20,6 +20,7 @@
     z-index: 2;
 
     .section-title {
+      margin-top: 4rem;
       text-align: center;
       margin-bottom: 2rem;
 
@@ -137,12 +138,14 @@
         color: #fff;
         font-size: 1rem;
         transition: outline 0.3s;
-
+       
         &:focus {
           outline: 2px solid #ffd700;
         }
       }
-
+ input::placeholder,textarea::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
       .error {
         display: block;
         margin-top: 0.5rem;

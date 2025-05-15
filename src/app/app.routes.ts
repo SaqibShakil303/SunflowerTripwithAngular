@@ -6,7 +6,7 @@ import { DestinationsComponent } from './components/destinations/destinations.co
 import { WhyUsComponent } from './components/why-us/why-us.component';
 import { TopPicksComponent } from './components/top-picks/top-picks.component';
 import { TestimonialsComponent } from './components/testimonials/testimonials.component';
-import { ItineraryComponent } from './components/itinerary/itinerary.component';
+import { ItineraryComponent } from './pages/itinerary/itinerary.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { MapComponent } from './components/map/map.component';
@@ -24,6 +24,7 @@ export const routes: Routes = [
   {path:'privacyPolicy', component: PrivacyPolicyComponent},
     // { path: '', redirectTo: 'home', pathMatch: 'full' },
     // { path: '**', redirectTo: '' },
+     { path: 'home', component: HomeComponent },
     {path: '',
     component: HomeComponent,
     children: [

@@ -59,7 +59,7 @@
   }
  // Background sections
  .about-values {
-  background-image: url('/assets/hero/midground.png');
+  background-image: url('/assets/hero/midground.webp');
   background-size: cover;
   background-position: center;
   padding: 4rem 2rem;
@@ -102,6 +102,7 @@
       margin: 0;
       position: relative;
       display: inline-block;
+      // color:grey;
 
       &:after {
         content: '';
@@ -292,7 +293,7 @@
         }
 
         .position {
-          color:  var(--primary-color);
+          color:  yellow;
           font-weight: 500;
           margin-bottom: 1rem;
         }
