@@ -12,8 +12,8 @@
     position: absolute;
     inset: 0;
     background: url('https://images.pexels.com/photos/3278215/pexels-photo-3278215.jpeg') center/cover no-repeat;
-    opacity: 0.25;
-    filter: blur(8px);
+    // opacity: 0.25;
+  
     z-index: 0;
   }
 
@@ -28,10 +28,10 @@
   }
 
   .form-wrapper {
-    // background: var(--glass-bg);
-    // backdrop-filter: blur(16px);
+    background: var(--pink);
+    backdrop-filter: blur(16px);
     // border: 1px solid var(--glass-border);
-      @include glass-card;
+      // @include glass-card;
     border-radius: 20px;
     padding: 40px;
     max-width: 800px;

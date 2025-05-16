@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environments.dev';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ContactModel } from '../../models/contact.model';
 import { catchError, from, Observable, tap, throwError } from 'rxjs';
 import axios, { AxiosInstance } from 'axios'
@@ -17,34 +17,34 @@ export class ContactService {
   headers: { 'Content-Type': 'application/json' }
 });
   }
-  submitItineraryDetail(f: Itinerary): Observable<any> {
+  // submitItineraryDetail(f: Itinerary): Observable<any> {
 
-     const payload = {
-    name:   f.name,
-    email:  f.email,
-    phone:  f.phone,
-    destination: f.destination,
-    travelers: f.travelers,
-    children: f.children,
-    childAges: f.childAges,
-    duration: f.duration,
-    date: f.date,
-    budget: f.budget,
-    hotelCategory: f.hotelCategory,
-    travelType: f.travelType,
-    occupation: f.occupation,
-    preferences: f.preferences
+  //    const payload = {
+  //   name:   f.name,
+  //   email:  f.email,
+  //   phone:  f.phone,
+  //   destination: f.destination,
+  //   travelers: f.travelers,
+  //   children: f.children,
+  //   childAges: f.childAges,
+  //   duration: f.duration,
+  //   date: f.date,
+  //   budget: f.budget,
+  //   hotelCategory: f.hotelCategory,
+  //   travelType: f.travelType,
+  //   occupation: f.occupation,
+  //   preferences: f.preferences
 
   
-  };
-      console.log('🪂 Sending payload to API:', payload);
-
-   return from(
-    this.api 
-      .post('/Itinerary/AddItinerary', payload)
-      .then(r => r.data)
-  );
-  }
+  // };
+  //     console.log('🪂 Sending payload to API:', payload);
+  // return this.http.post(`${environment.apiDomain}/Itinerary/AddItinerary`, f);
+  // //  return from(
+  // //   this.api 
+  // //     .post('/Itinerary/AddItinerary', payload)
+  // //     .then(r => r.data)
+  // // );
+  // }
   submitContactDetail(f: ContactModel): Observable<any> {
 
      const payload = {

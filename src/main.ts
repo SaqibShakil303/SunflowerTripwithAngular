@@ -12,4 +12,4 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
       // importProvidersFrom(HttpClientModule),
   ],
-}).catch((err) => console.error(err));
+},).catch((err) => console.error(err));

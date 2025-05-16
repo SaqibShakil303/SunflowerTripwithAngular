@@ -6,15 +6,23 @@
       <p>Share your vision, and we’ll craft a personalized itinerary just for you</p>
     </div>
     <div class="form-wrapper" [@fadeInUp]>
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+<div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
       <form [formGroup]="itineraryForm" (ngSubmit)="onSubmit()">
         <div class="form-grid">
           <div class="form-group">
             <label for="name">Your Name</label>
             <input id="name" type="text" formControlName="name" placeholder="enter your name" />
+            <span class="error" *ngIf="itineraryForm.get('name')?.invalid && (itineraryForm.get('name')?.touched || isSubmitted)">
+    {{ itineraryForm.get('name')?.hasError('required') ? 'Name is required' : '' }}
+  </span>
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
             <input id="email" type="email" formControlName="email" placeholder="enter your name@example.com" />
+          <span class="error" *ngIf="itineraryForm.get('email')?.invalid && (itineraryForm.get('email')?.touched || isSubmitted)">
+    {{ itineraryForm.get('email')?.hasError('required') ? 'Email is required' : 'Invalid email' }}
+  </span>
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
@@ -93,10 +101,11 @@
         </div>
 
         <div class="submit-btn">
-          <button type="submit" [disabled]="itineraryForm.invalid">Submit Your Plan</button>
+          <button type="submit" [disabled]="itineraryForm.invalid || isLoading">{{ isLoading ? 'Submitting...' : 'Submit Your Plan' }}</button>
         </div>
       </form>
     </div>
   </div>
 </section>
+<app-chat-widget></app-chat-widget>
 <app-footer></app-footer>

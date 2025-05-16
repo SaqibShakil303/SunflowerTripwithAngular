@@ -4,11 +4,12 @@ import { AboutComponent } from "../../components/about/about.component";
 import { FooterComponent } from "../../common/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-travel-guide',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent,CommonModule,FormsModule],
+  imports: [NavbarComponent, FooterComponent, CommonModule, FormsModule, ChatWidgetComponent],
   templateUrl: './travel-guide.component.html',
   styleUrl: './travel-guide.component.scss'
 })

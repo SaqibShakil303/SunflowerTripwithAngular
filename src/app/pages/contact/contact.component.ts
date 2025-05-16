@@ -15,15 +15,17 @@ import { FooterComponent } from "../../common/footer/footer.component";
 import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ContactService } from '../../services/contact/contact.service';
 import { ContactModel } from '../../models/contact.model';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-   providers: [
-    // provideHttpClient(),   // ← makes HttpClient injectable in this subtree
-  ],
-  imports: [CommonModule, ReactiveFormsModule, FooterComponent, NavbarComponent],
+  //  providers: [
+  //       HttpClientModule,   
+  //   // provideHttpClient(),   // ← makes HttpClient injectable in this subtree
+  // ],
+  imports: [CommonModule, ReactiveFormsModule, FooterComponent, NavbarComponent, ChatWidgetComponent, HeaderComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   animations: [

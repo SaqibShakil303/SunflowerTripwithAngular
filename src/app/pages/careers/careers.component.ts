@@ -6,11 +6,12 @@ import { Job } from '../../models/job.model';
 import { CommonModule } from '@angular/common';
 import { JobListComponent } from "../../dynamics/job-list/job-list.component";
 import { JobDetailsComponent } from "../../dynamics/job-details/job-details.component";
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-careers',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, CommonModule, JobListComponent, JobDetailsComponent],
+  imports: [NavbarComponent, FooterComponent, CommonModule, JobListComponent, JobDetailsComponent, ChatWidgetComponent],
   templateUrl: './careers.component.html',
   styleUrl: './careers.component.scss'
 })

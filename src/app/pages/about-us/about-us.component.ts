@@ -9,6 +9,7 @@ import { FooterComponent } from "../../common/footer/footer.component";
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import AOS from 'aos';
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-about-us',
@@ -19,8 +20,9 @@ import AOS from 'aos';
     TestimonialsComponent,
     WhyUsComponent,
     NavbarComponent,
-    FooterComponent
-  ],
+    FooterComponent,
+    ChatWidgetComponent
+],
   templateUrl: './about-us.component.html',
   styleUrl: './about-us.component.scss',
   animations: [

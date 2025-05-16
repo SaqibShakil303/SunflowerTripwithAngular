@@ -1,51 +1,57 @@
-import { Component, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from '../../common/footer/footer.component';
-import { HeaderComponent } from "../../common/header/header.component";
-import { animate, query, stagger, style, transition, trigger } from '@angular/animations';
-import { ContactService } from '../../services/contact/contact.service';
+import { HeaderComponent } from '../../common/header/header.component';
+import { ChatWidgetComponent } from '../../components/chat-widget/chat-widget.component';
+import { ItineraryService } from '../../services/itinerary/itinerary.service';
 import { Itinerary } from '../../models/itinerary.model';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil, timeout } from 'rxjs/operators';
 
 @Component({
   selector: 'app-itinerary',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FooterComponent, HeaderComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FooterComponent,
+    HeaderComponent,
+    ChatWidgetComponent
+  ],
+  providers: [ItineraryService], // Provide service locally
   templateUrl: './itinerary.component.html',
   styleUrls: ['./itinerary.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-      trigger('fadeInUp', [
-        transition(':enter', [
-          style({ opacity: 0, transform: 'translateY(30px)' }),
-          animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-        ])
-      ]),
-      trigger('fadeInStagger', [
-        transition(':enter', [
-          query(':enter', [
-            style({ opacity: 0, transform: 'translateY(30px)' }),
-            stagger(150, [
-              animate('600ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
-            ])
-          ], { optional: true })
-        ])
+    trigger('fadeInUp', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('300ms ease-out', style({ opacity: 1 }))
       ])
-    ]
+    ])
+  ]
 })
-export class ItineraryComponent implements AfterViewInit {
+export class ItineraryComponent implements OnDestroy {
   itineraryForm: FormGroup;
-   isSubmitted = false;
+  isSubmitted = false;
   isLoading = false;
   successMessage = '';
   errorMessage = '';
+  private destroy$ = new Subject<void>();
 
-    get childAges(): FormArray {
+  get childAges(): FormArray {
     return this.itineraryForm.get('childAges') as FormArray;
   }
-  constructor(private fb: FormBuilder,private contactService: ContactService )
-  {
-       this.itineraryForm = this.fb.group({
+
+  constructor(
+    private fb: FormBuilder,
+    private itineraryService: ItineraryService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.itineraryForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
@@ -62,7 +68,11 @@ export class ItineraryComponent implements AfterViewInit {
       preferences: ['']
     });
 
-    this.itineraryForm.get('children')!.valueChanges.subscribe(count => {
+    this.itineraryForm.get('children')!.valueChanges.pipe(
+      debounceTime(300),
+      takeUntil(this.destroy$)
+    ).subscribe(count => {
+      console.log('Children count changed:', count);
       const ages = this.childAges;
       while (ages.length !== count) {
         if (ages.length < count) {
@@ -71,78 +81,86 @@ export class ItineraryComponent implements AfterViewInit {
           ages.removeAt(ages.length - 1);
         }
       }
+      this.cdr.markForCheck();
     });
-  }
-
-  ngAfterViewInit() {
-  
   }
 
   onSubmit() {
-        this.isSubmitted = true;
+    this.isSubmitted = true;
     this.errorMessage = '';
     this.successMessage = '';
-    if (this.itineraryForm.valid) {
-     this.isLoading = true;
-       const formData = new Itinerary();
-       formData.name = this.itineraryForm.value.name;
-       formData.email = this.itineraryForm.value.email.trim().toLowerCase();
-        formData.phone = this.itineraryForm.value.phone.trim();
-        formData.destination = this.itineraryForm.value.destination.trim();
-        formData.travelers = this.itineraryForm.value.travelers;
-        formData.children = this.itineraryForm.value.children;
-        formData.childAges = this.itineraryForm.value.childAges.map((age: number) => age);
-        formData.duration = this.itineraryForm.value.duration;
-        formData.date = this.itineraryForm.value.date;
-        formData.budget = this.itineraryForm.value.budget;
-        formData.hotelCategory = this.itineraryForm.value.hotelCategory;
-        formData.travelType = this.itineraryForm.value.travelType;
-        formData.occupation = this.itineraryForm.value.occupation;
-        formData.preferences = this.itineraryForm.value.preferences.trim();
-      
-          if (this.validateFormData(formData)) {
-        this.submitForm(formData);
-      } else {
-        this.errorMessage = 'Please fill in all required fields correctly.';
-        this.isLoading = false;
-      }
-    } else {
+
+    if (!this.itineraryForm.valid) {
       this.errorMessage = 'Please correct the errors in the form.';
       this.markFormGroupTouched(this.itineraryForm);
+      this.cdr.markForCheck();
+      return;
     }
-  }
 
-  private validateFormData(formData: Itinerary): boolean {
-    return !!(
-      formData.name &&
-      formData.email &&
-      formData.phone &&
-      formData.budget &&
-      formData.travelType.length&&
-      formData.date
-    );
-  }
+    this.isLoading = true;
+    const formData = this
 
-  private submitForm(formData: Itinerary): void {
-    this.contactService.submitItineraryDetail(formData).subscribe({
+.buildItineraryPayload();
+
+    if (!this.validateFormData(formData)) {
+      this.errorMessage = 'Please fill in all required fields correctly.';
+      this.isLoading = false;
+      this.cdr.markForCheck();
+      return;
+    }
+
+    this.itineraryService.submitItineraryDetail(formData).pipe(
+      timeout(10000),
+      takeUntil(this.destroy$)
+    ).subscribe({
       next: (response) => {
-        this.successMessage = 'Your message has been sent successfully!';
-        this.itineraryForm.reset();
+        console.log('Submission response:', response);
+        this.successMessage = 'Your plan has been submitted successfully!';
+        this.resetForm();
         this.isSubmitted = false;
-        console.log('Form submission successful:', response);
+        this.cdr.markForCheck();
       },
-      error: (error) => {
-        this.errorMessage = 'Failed to send your message. Please try again later.';
-        console.error('Error in form submission:', error);
+      error: (err) => {
+        console.error('Submission error:', err);
+        this.errorMessage = err.name === 'TimeoutError'
+          ? 'Request timed out. Please try again.'
+          : 'Failed to submit your plan. Please try again.';
+        this.cdr.markForCheck();
       },
       complete: () => {
         this.isLoading = false;
+        this.cdr.markForCheck();
       }
     });
   }
 
-  // Utility method to mark all fields as touched
-  private markFormGroupTouched(formGroup: FormGroup): void {
+  private buildItineraryPayload(): Itinerary {
+    const v = this.itineraryForm.value;
+    const payload = {
+      name: v.name,
+      email: v.email.trim().toLowerCase(),
+      phone: v.phone.trim(),
+      destination: v.destination.trim(),
+      travelers: v.travelers,
+      children: v.children,
+      childAges: v.childAges,
+      duration: v.duration,
+      date: v.date,
+      budget: v.budget,
+      hotelCategory: v.hotelCategory,
+      travelType: v.travelType,
+      occupation: v.occupation,
+      preferences: v.preferences.trim()
+    } as Itinerary;
+    console.log('Payload:', payload);
+    return payload;
+  }
+
+  private validateFormData(f: Itinerary): boolean {
+    return !!(f.name && f.email && f.phone && f.budget && f.travelType && f.date);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
     Object.values(formGroup.controls).forEach(control => {
       control.markAsTouched();
       if (control instanceof FormGroup) {
@@ -151,14 +169,21 @@ export class ItineraryComponent implements AfterViewInit {
     });
   }
 
-  // Reset form
-  resetForm(): void {
-    this.itineraryForm.reset();
-    this.isSubmitted = false;
-    this.errorMessage = '';
-    this.successMessage = '';
+  private resetForm() {
+    this.itineraryForm.reset({
+      travelers: 1,
+      children: 0,
+      duration: 1,
+      childAges: []
+    });
+    while (this.childAges.length) {
+      this.childAges.removeAt(0);
+    }
+    this.cdr.markForCheck();
   }
 
-      // console.log('Itinerary Form Submitted:', this.itineraryForm.value);
-      // Implement submission logic (e.g., API call)
-    }
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+}

@@ -29,7 +29,9 @@
                 "src/styles"
               ]
             },
-            "allowedCommonJsDependencies": ["aos"],
+            "allowedCommonJsDependencies": ["aos","form-data",
+              "proxy-from-env",
+              "follow-redirects"],
             "outputPath": "dist/sunflowertrip",
             "index": "src/index.html",
             "browser": "src/main.ts",
