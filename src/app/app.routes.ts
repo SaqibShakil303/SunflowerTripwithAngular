@@ -14,6 +14,7 @@ import { TravelGuideComponent } from './pages/travel-guide/travel-guide.componen
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CareersComponent } from './pages/careers/careers.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -40,5 +41,12 @@ export const routes: Routes = [
       { path: 'map', component: MapComponent },
       { path: '', redirectTo: '', pathMatch: 'full' }
     ]
+},
+{
+  path: 'login',component: LoginComponent,
+},
+{
+  path: 'admin',
+  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
 }
 ];
