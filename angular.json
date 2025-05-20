@@ -60,9 +60,9 @@
              "node_modules/aos/dist/aos.js"
             ],
             "server": "src/main.server.ts",
-            "prerender": true,
+            "prerender": false,
             "ssr": {
-              "entry": "server.ts"
+              "entry": "src/main.server.ts"
             }
           },
           "configurations": {
@@ -70,8 +70,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1MB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",

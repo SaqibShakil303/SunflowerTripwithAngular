@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Router, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './components/about/about.component';
 import { ServicesComponent } from './components/services/services.component';
@@ -15,6 +15,14 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { CareersComponent } from './pages/careers/careers.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
 import { LoginComponent } from './auth/login/login.component';
+
+import { DashboardComponent } from './admin-layout/dashboard/dashboard.component';
+import { RoleGuard } from './guards/role.guard';
+import { TourPackageComponent } from './pages/tour-package/tour-package.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
+import { AuthService } from './services/authService/auth.service';
+import { inject } from '@angular/core';
+import { AuthCallbackComponent } from './auth/auth-callback.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -42,11 +50,36 @@ export const routes: Routes = [
       { path: '', redirectTo: '', pathMatch: 'full' }
     ]
 },
+ { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignUpComponent },
+ {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [
+      () => inject(AuthService).isAuthenticated() || inject(Router).navigate(['/login']),
+      RoleGuard
+    ],
+    data: { roles: ['user', 'manager', 'admin'] }
+  },
 {
-  path: 'login',component: LoginComponent,
+  path: 'profile',
+  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+     canActivate: [RoleGuard],
+      data: { roles: ['admin'] }
 },
-{
-  path: 'admin',
-  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule)
-}
+
+{ path: 'auth/:provider/callback', component: AuthCallbackComponent },
+ {
+    path: 'manager',
+    component: TourPackageComponent,
+    // canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['manager', 'admin'] }
+  },
+  {
+    path: 'admin',
+    component: DashboardComponent,
+    // canActivate: [AuthGuard]
+         canActivate: [RoleGuard],
+      data: { roles: ['admin'] }
+  },
 ];

@@ -1,1 +1,5 @@
-<p>dashboard works!</p>
+  <div class="container">
+      <h2>Welcome, {{ user?.email }}</h2>
+      <p>Role: {{ user?.role }}</p>
+      <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+    </div>
