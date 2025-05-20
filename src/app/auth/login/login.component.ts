@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/authService/auth.service';
-
-import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';    
+import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../environments/environments.dev';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+
+ 
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule,MatIconModule,FormsModule,RouterLink],
    templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+ styleUrls: ['../auth-callback.component.scss'],
   // template: `
   //   <div class="container">
   //     <h2>Login</h2>
@@ -42,8 +44,9 @@ import { environment } from '../../../environments/environments.dev';
 export class LoginComponent {
   email = '';
   password = '';
-
-  constructor(private authService: AuthService, private router: Router) {}
+ hidePassword: boolean = true;
+ 
+  constructor(private authService: AuthService, private router: Router  ,@Inject(PLATFORM_ID) private platformId: Object) {}
 
   onSubmit() {
     this.authService.login(this.email, this.password).subscribe({
@@ -52,11 +55,24 @@ export class LoginComponent {
     });
   }
 
-  googleLogin() {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${environment.googleClientId}&redirect_uri=${window.location.origin}/auth/google/callback&response_type=code&scope=email profile`;
+googleLogin() {
+    const redirectUri = `${window.location.origin}/auth/google/callback`;
+    let state: string | undefined;
+    if (isPlatformBrowser(this.platformId)) {
+      state = Math.random().toString(36).substring(2);
+      sessionStorage.setItem('google_oauth_state', state);
+      console.log('Google redirect_uri:', redirectUri, 'State:', state);
+    } else {
+      console.log('Google redirect_uri:', redirectUri, 'No state (SSR)');
+    }
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${environment.googleClientId}&redirect_uri=${redirectUri}&response_type=code&scope=email profile${state ? `&state=${state}` : ''}`;
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = authUrl;
+    }
   }
 
+
   truecallerLogin() {
-    // window.location.href = environment.truecallerAuthUrl;
+    window.location.href = environment.truecallerAuthUrl;
   }
 }

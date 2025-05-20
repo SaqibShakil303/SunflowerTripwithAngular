@@ -178,3 +178,7 @@ a {
     font-size: 0.9rem;
   }
 }
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.8em 0;
+}
