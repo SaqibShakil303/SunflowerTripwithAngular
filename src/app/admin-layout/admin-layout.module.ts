@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ItineraryComponent } from '../pages/itinerary/itinerary.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+      ItineraryComponent
   ]
 })
 export class AdminLayoutModule { }

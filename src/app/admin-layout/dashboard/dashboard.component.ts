@@ -1,15 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/authService/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule,RouterModule],
   template:` <div class="container">
       <h2>Welcome, {{ user?.email }}</h2>
       <p>Role: {{ user?.role }}</p>
+        <li *ngIf="authService.hasRole(['admin', 'manager'])">
+        <a routerLink="/profile">Admin's </a>
+      </li>
       <button mat-raised-button color="warn" (click)="logout()">Logout</button>
     </div>`,
 styles: [`
@@ -21,7 +24,7 @@ styles: [`
 export class DashboardComponent implements OnInit {
   user: any;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();

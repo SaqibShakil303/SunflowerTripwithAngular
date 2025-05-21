@@ -23,6 +23,8 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { AuthService } from './services/authService/auth.service';
 import { inject } from '@angular/core';
 import { AuthCallbackComponent } from './auth/auth-callback.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { ItneraryAdminComponent } from './admin-layout/itnerary/itnerary-admin/itnerary-admin.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -63,9 +65,16 @@ export const routes: Routes = [
   },
 {
   path: 'profile',
-  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
-     canActivate: [RoleGuard],
-      data: { roles: ['admin'] }
+  // loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+  component: AdminLayoutComponent, 
+  canActivate: [RoleGuard],
+      data: { roles: ['admin','manager'] }
+},
+{
+  path:'itinerary-admin',
+  component:ItneraryAdminComponent,
+   canActivate: [RoleGuard],
+      data: { roles: ['admin','manager'] }
 },
 
 { path: 'auth/:provider/callback', component: AuthCallbackComponent },
@@ -82,4 +91,5 @@ export const routes: Routes = [
          canActivate: [RoleGuard],
       data: { roles: ['admin'] }
   },
+  
 ];

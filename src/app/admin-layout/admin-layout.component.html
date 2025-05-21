@@ -1,0 +1,12 @@
+<header>
+  <nav>
+    <div class="logo">Sunflower Trip</div>
+    <ul>
+      <li><a routerLink="/dashboard">Dashboard</a></li>
+      <li *ngIf="authService.hasRole(['admin', 'manager'])">
+        <a routerLink="/itinerary-admin">Itineraries</a>
+      </li>
+      <li><a (click)="authService.logout()">Logout</a></li>
+    </ul>
+  </nav>
+</header>

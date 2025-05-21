@@ -49,4 +49,7 @@ private APIurl =environment.apiDomain
       throw new Error('HTTP requests are not supported on the server');
     }
   }
+    getItineraries(): Observable<Itinerary[]> {
+    return this.http.get<Itinerary[]>(`${this.APIurl}/Itinerary/GetItineraries`);
+  }
 }
