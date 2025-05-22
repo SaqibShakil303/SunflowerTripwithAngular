@@ -5,7 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
-\src\environments
+/src/environments
 src\environments\environments.dev.ts
 src\environments\environments.prod.ts
 src\environments\environments.ts
