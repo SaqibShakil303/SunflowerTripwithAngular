@@ -1,0 +1,46 @@
+.tour-detail {
+  padding: 2rem 0;
+
+  h1, h2, h3 {
+    color: #fff;
+  }
+
+  .main-image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin: 1rem 0;
+  }
+
+  .info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+
+    p {
+      margin: 0;
+      color: #eee;
+    }
+  }
+
+  .description, .itinerary {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+
+    p {
+      color: #ddd;
+    }
+  }
+
+  .loading {
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+  }
+}

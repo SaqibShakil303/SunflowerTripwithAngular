@@ -28,9 +28,9 @@ export class HeaderComponent {
   navGroups: NavGroup[] = [];
 
   holidayPackages: NavItem[] = [
-    { name: 'Beach Getaways', route: '/beach-getaways' },
-    { name: 'City Breaks', route: '/city-breaks' },
-    { name: 'Adventure Tours', route: '/adventure-tours' }
+    // { name: 'Beach Getaways', route: '/beach-getaways' },
+    // { name: 'City Breaks', route: '/city-breaks' },
+    // { name: 'Adventure Tours', route: '/adventure-tours' }
   ];
 
   groupPackages: NavItem[] = [

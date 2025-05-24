@@ -1,0 +1,25 @@
+<section class="tour-detail glass-section" *ngIf="tour">
+  <div class="container">
+    <h1>{{ tour.title }}</h1>
+    <h3>{{ tour.location }}</h3>
+
+    <img [src]="tour.image_url" alt="{{ tour.title }}" class="main-image" />
+
+    <div class="info">
+      <p><strong>Duration:</strong> {{ tour.duration_days }} days</p>
+      <p><strong>Price:</strong> ₹{{ tour.price }}</p>
+    </div>
+
+    <div class="description">
+      <h2>About this Tour</h2>
+      <p>{{ tour.description }}</p>
+    </div>
+
+    <div class="itinerary" *ngIf="tour.itinerary">
+      <h2>Itinerary</h2>
+      <p>{{ tour.itinerary }}</p>
+    </div>
+  </div>
+</section>
+
+<div *ngIf="loading" class="loading">Loading tour details...</div>

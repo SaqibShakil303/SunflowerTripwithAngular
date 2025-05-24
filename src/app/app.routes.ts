@@ -91,5 +91,8 @@ export const routes: Routes = [
          canActivate: [RoleGuard],
       data: { roles: ['admin'] }
   },
-  
+  {
+  path: 'tours/:slug',
+  loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
+}
 ];
