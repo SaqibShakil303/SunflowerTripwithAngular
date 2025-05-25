@@ -1,1 +1,148 @@
-<p>destination-main works!</p>
+<app-navbar></app-navbar>
+<ng-container *ngIf="destination; else loading">
+  <!-- 1. Hero Section -->
+  <section class="hero" [style.backgroundImage]="'url(' + destination.image_url + ')'">
+    <div class="overlay">
+      <h1>Discover the Beauty of <span>{{ destination.title }}</span></h1>
+      <div class="meta-cards">
+        <div><strong>Best Time</strong><p>{{ destination.best_time_to_visit }}</p></div>
+        <div><strong>Weather</strong><p>{{ destination.weather }}</p></div>
+        <div><strong>Currency</strong><p>{{ destination.currency }}</p></div>
+        <div><strong>Language</strong><p>{{ destination.language }}</p></div>
+        <div><strong>Time Zone</strong><p>{{ destination.time_zone }}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Featured Location -->
+  <section class="featured-location" *ngIf="destination.locations.length">
+    <h2>Why {{ destination.locations[0].name }} Shines</h2>
+    <p>{{ destination.locations[0].description }}</p>
+    <img [src]="destination.locations[0].image_url" alt="{{ destination.locations[0].name }}">
+    <a *ngIf="destination.id"
+       [routerLink]="['/tours']"
+       [queryParams]="{ destination: destination.id }"
+       class="btn-explore">
+      Explore {{ destination.locations[0].name }}
+    </a>
+  </section>
+
+  <!-- 3. Top Packages -->
+  <section class="section top-packages">
+    <h2>Top Packages</h2>
+     <div class="swiper packages-swiper" #packagesSwiper>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let t of destination.tours">
+          <img [src]="t.image_url" alt="{{ t.title }}">
+          <h3>{{ t.title }}</h3>
+          <p>{{ t.duration_days }} Days / {{ t.duration_days - 1 }} Nights</p>
+          <p>₹ {{ t.price }}</p>
+          <a [routerLink]="['/tour', t.slug]" class="btn-explore">View Details</a>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <!-- 4. Attractions -->
+  <section class="section attractions">
+    <h2>Top Attractions</h2>
+   <div class="swiper attractions-swiper" #attractionsSwiper>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let a of destination.attractions">
+          <img [src]="a.image_url" alt="{{ a.title }}">
+          <h4>{{ a.title }}</h4>
+          <p>★ {{ a.rating }}</p>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <!-- 5. Culture / Ethnicities -->
+  <section class="section culture">
+    <h2>Experience Local Culture</h2>
+    <div class="swiper culture-swiper" #cultureSwiper>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let e of destination.ethnicities">
+          <img [src]="e.image_url" alt="{{ e.title }}">
+          <h4>{{ e.title }}</h4>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <!-- 6. Cuisines -->
+  <section class="section cuisines">
+    <h2>Local Cuisines</h2>
+    <div class="swiper cuisine-swiper" #cuisineSwiper>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let c of destination.cuisines">
+          <img [src]="c.image_url" alt="{{ c.title }}">
+          <h4>{{ c.title }}</h4>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <!-- 7. Activities -->
+  <section class="section activities">
+    <h2>Exciting Activities</h2>
+    <div class="swiper" #activitiesSwiper>
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let a of destination.activities">
+          <img [src]="a.image_url" alt="{{ a.title }}">
+          <h4>{{ a.title }}</h4>
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
+
+  <!-- 8. Itinerary Timeline -->
+  <section class="section itinerary">
+    <h2>Suggested Itinerary</h2>
+    <div class="timeline">
+      <div class="timeline-item" *ngFor="let b of destination.itinerary_blocks; let i = index">
+        <div class="day">Day {{ i + 1 }}</div>
+        <div class="details">
+          <h4>{{ b.title }}</h4>
+          <p>{{ b.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 360° Panorama -->
+  <section class="section panorama">
+    <h2>Explore in 360°</h2>
+    <div *ngFor="let loc of destination.locations">
+      <h3>{{ loc.name }} 360° view</h3>
+      <iframe
+        [src]="loc.iframe_360 | safeUrl"
+        width="100%"
+        height="400"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+</ng-container>
+
+<ng-template #loading>
+  <p>Loading destination…</p>
+</ng-template>
+
+<app-footer></app-footer>
