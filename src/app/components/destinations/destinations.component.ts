@@ -30,18 +30,19 @@ export class DestinationsComponent implements AfterViewInit {
 
   destinations = [
     {
-          id: 2,
+          id: 3,
       name: "Bali, Indonesia",
       description: "Experience the perfect blend of spiritual tranquility and tropical paradise on the Island of the Gods.",
       image: "https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       slug: "bali-indonesia"
     },
     {
-          id: 3,
-      name: "Kyoto, Japan",
-      description: "Discover ancient temples, traditional tea houses, and the mesmerizing beauty of cherry blossoms in bloom.",
+          id: 2,
+      name: "India, Rajasthan",
+      description: "Explore the vibrant culture, majestic forts, and colorful markets of India's royal state.",
+      // description: "Discover ancient temples, traditional tea houses, and the mesmerizing beauty of cherry blossoms in bloom.",
       image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a3lvdG98ZW58MHx8MHx8fDA%3D",
-      slug: "kyoto-japan"
+      slug: "India-Rajasthan"
     },
     {
           id: 4,
@@ -65,7 +66,7 @@ export class DestinationsComponent implements AfterViewInit {
       slug: "amalfi-coast-italy"
     },
     {
-
+id:8,
       name: "Queenstown, New Zealand",
       description: "Find your adventure in this stunning lakeside town surrounded by majestic mountains and lush landscapes.",
       image: "https://images.unsplash.com/photo-1718398892734-6948c85416c8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8UXVlZW5zdG93biUyQyUyME5ldyUyMFplYWxhbmR8ZW58MHx8MHx8fDA%3D",

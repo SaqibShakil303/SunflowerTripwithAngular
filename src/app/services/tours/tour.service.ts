@@ -26,13 +26,20 @@ export class TourService {
   private apiUrl = environment.apiDomain;
 
 getTourBySlug(slug: string): Observable<Tour> {
-  return this.http.get<Tour>(`${this.apiUrl}/tours/${slug}`);
+  return this.http.get<Tour>(`${this.apiUrl}/Tours/${slug}`);
 }
   searchTours(query: string): Observable<Tour[]> {
-    return this.http.get<Tour[]>(`${this.apiUrl}/tours/search/q?q=${query}`);
+    return this.http.get<Tour[]>(`${this.apiUrl}/Tours/search/q?q=${query}`);
   }
 
   getAllTours(): Observable<Tour[]> {
-    return this.http.get<Tour[]>(`${this.apiUrl}/tours`);
+    return this.http.get<Tour[]>(`${this.apiUrl}/Tours`);
+  }
+   getByDestination(destId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(`${this.apiUrl}Tours/${destId}/destination`);
+  }
+
+  getByLocation(locId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(`${this.apiUrl}Tours/locations/${locId}/tours`);
   }
 }

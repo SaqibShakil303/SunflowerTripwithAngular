@@ -104,4 +104,13 @@ export const routes: Routes = [
     path: 'destination/:id',
     loadComponent: () => import('./pages/destination-main/destination-main.component').then(m => m.DestinationMainComponent)
   },
+
+  {
+    path: 'tours',
+    component: TourPackageComponent
+  },
+  {
+    path: 'tour/:slug',
+    component: TourPackageComponent
+  }
 ];
