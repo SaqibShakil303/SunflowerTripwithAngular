@@ -2,10 +2,13 @@ import { Component, HostListener, ElementRef } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { HttpClient } from '@angular/common/http';
+import { DestinationNav, DestinationService } from '../../services/destination/destination.service';
 
 interface NavItem {
   name: string;
   route: string;
+  queryParams?: { [key: string]: any };
 }
 
 interface NavGroup {
@@ -24,56 +27,60 @@ export class HeaderComponent {
   isNavActive = false;
   isMobileMenuOpen = false;
 
-  // Nav groups to simplify dropdown handling
   navGroups: NavGroup[] = [];
-
-  holidayPackages: NavItem[] = [
-    // { name: 'Beach Getaways', route: '/beach-getaways' },
-    // { name: 'City Breaks', route: '/city-breaks' },
-    // { name: 'Adventure Tours', route: '/adventure-tours' }
+ destinationItems: NavItem[] = [];
+  locationItems: NavItem[]    = [];
+holidayPackages: NavItem[] = [
+    { name: 'Holiday Packages', route: '/tours', queryParams: { category: 'holiday' } }
   ];
-
   groupPackages: NavItem[] = [
-    { name: 'Family Trips', route: '/family-trips' },
-    { name: 'Corporate Retreats', route: '/corporate-retreats' },
-    { name: 'Friends Getaways', route: '/friends-getaways' }
+    { name: 'Group Packages',   route: '/tours', queryParams: { category: 'group' } }
   ];
 
-  destinations: NavItem[] = [
-    { name: 'Europe', route: '/europe' },
-    { name: 'Asia', route: '/asia' },
-    { name: 'Africa', route: '/africa' }
-  ];
-
-  dealsOffers: NavItem[] = [
-    { name: 'Last Minute Deals', route: '/last-minute-deals' },
-    { name: 'Early Bird Offers', route: '/early-bird-offers' },
-    { name: 'Seasonal Discounts', route: '/seasonal-discounts' }
-  ];
-
-  constructor(private elementRef: ElementRef) {
-    // Populate the grouped navigation structure
-    this.navGroups = [
-      { label: 'Holiday Packages', items: this.holidayPackages },
-      { label: 'Group Packages', items: this.groupPackages },
-      { label: 'Destinations', items: this.destinations },
-      { label: 'Deals & offers', items: this.dealsOffers }
-    ];
+  // dealsOffers: NavItem[] = [
+  //   { name: 'Last Minute Deals', route: '/last-minute-deals' },
+  //   { name: 'Early Bird Offers', route: '/early-bird-offers' },
+  //   { name: 'Seasonal Discounts', route: '/seasonal-discounts' }
+  // ];
+  // will fill these from the API
+ 
+  constructor(private elementRef: ElementRef, private destSvc: DestinationService) {
+  }
+ngOnInit(): void {
+    this.destSvc.getNamesAndLocations().subscribe({
+      next: (data: DestinationNav[]) => {
+        this.destinationItems = data.map(d => ({
+          name: d.title,
+          route: '/tours',
+          queryParams: { destination: d.id }
+        }));
+        this.locationItems = data.flatMap(d =>
+          d.locations.map(loc => ({
+            name: loc.name,
+            route: '/tours',
+            queryParams: { location: loc.id }
+          }))
+        );
+        this.navGroups = [
+          { label: 'Destinations',     items: this.destinationItems },
+          { label: 'Cities',        items: this.locationItems    },
+          { label: 'Holiday Packages', items: this.holidayPackages },
+          { label: 'Group Packages',   items: this.groupPackages   },
+        ];
+      },
+      error: err => console.error('Failed loading nav data', err)
+    });
   }
 
-  // Toggle mobile menu visibility
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
-
-  // Close mobile menu if clicked outside
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.isMobileMenuOpen = false;
     }
   }
-
   // Triggered by customize button
   customizeHoliday() {
     console.log('Customize holiday button clicked');

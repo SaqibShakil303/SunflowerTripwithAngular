@@ -1,12 +1,24 @@
-<section class="packages">
-    <h2>Popular Tour Packages</h2>
-    <div class="package-grid">
-      <div class="package-card" *ngFor="let package of packages">
-        <img [src]="package.imageUrl" [alt]="package.title" />
-        <h3>{{ package.title }}</h3>
-        <p>{{ package.shortDescription }}</p>
-        <button (click)="goToDetails(package.slug)">View Details</button>
+<div class="tours-page">
+  <ng-container *ngIf="loading">
+    <p>Loading tours…</p>
+  </ng-container>
+
+  <ng-container *ngIf="!loading && error">
+    <p class="error">{{ error }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="!loading && !error">
+    <div *ngIf="tours.length; else noTours">
+      <div class="tour-card" *ngFor="let t of tours">
+        <img [src]="t.image_url" alt="{{ t.title }}">
+        <h3>{{ t.title }}</h3>
+        <p>{{ t.duration_days }} days • ₹{{ t.price }}</p>
+        <a [routerLink]="['/tour', t.slug]" class="btn-explore">Book now</a>
       </div>
     </div>
-  </section>
-  
+    <ng-template #noTours>
+      <p>No tours found.</p>
+    </ng-template>
+  </ng-container>
+</div>
+<app-footer></app-footer>

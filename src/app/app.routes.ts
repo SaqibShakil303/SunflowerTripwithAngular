@@ -26,6 +26,7 @@ import { AuthCallbackComponent } from './auth/auth-callback.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { ItneraryAdminComponent } from './admin-layout/itnerary/itnerary-admin/itnerary-admin.component';
 import { DestinationMainComponent } from './pages/destination-main/destination-main.component';
+import { TourDetailComponent } from './pages/tour-detail/tour-detail.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -111,6 +112,6 @@ export const routes: Routes = [
   },
   {
     path: 'tour/:slug',
-    component: TourPackageComponent
+    component: TourDetailComponent
   }
 ];

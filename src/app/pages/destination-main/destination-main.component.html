@@ -14,6 +14,7 @@
 
 <!-- Hero Section -->
 <section class="hero" id="hero" [style.backgroundImage]="'url(' + destination.image_url + ')'">
+  
   <div class="hero-overlay">
     <div class="hero-content">
       <h1 class="hero-title">
@@ -44,13 +45,23 @@
         </div>
       </div>
     </div>
+   
   </div>
-</section>
+   <button
+  class="explore-btn"
+  [routerLink]="['/tours']"
+  [queryParams]="{ destination: destination.id }">
+  Explore All Tours
+</button>
 
+</section>
+ 
   <!-- 2. Featured Location -->
 <!-- Featured Locations Section -->
 <section class="featured-locations" *ngIf="destination.locations && destination.locations.length">
+  
   <div class="locations-container">
+  
     <div class="locations-wrapper" 
          #locationsWrapper
          [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'"
@@ -66,7 +77,7 @@
             <button class="explore-btn"
                     (click)="exploreLocation(location)"
                     [routerLink]="['/tours']"
-                    [queryParams]="{ destination: destination.id, location: location.id }">
+                    [queryParams]="{ location: location.id }">
               Explore Tours
             </button>
           </div>
@@ -81,6 +92,7 @@
         </div>
       </div>
     </div>
+
     
     <!-- Swipe Indicator -->
   <!-- Swipe Indicator -->
@@ -94,6 +106,9 @@
       <path d="M9 18l6-6-6-6"/>
     </svg>
   </div>
+     
+   
+
 </div>
 
     
@@ -128,8 +143,7 @@
   </section>
 
   <!-- 4. Attractions -->
-
-<div class="best-attractions" [style.backgroundImage]="'url(' + destination!.attractions[0]!.image_url + ')'">
+<section class="best-attractions" [style.backgroundImage]="'url(' + destination!.attractions[0]!.image_url + ')'">
   <div class="overlay">
     <h1 class="attraction-section-title">BEST ATTRACTIONS</h1>
     <div class="content-wrapper">
@@ -166,10 +180,11 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 
   <!-- 5. Culture / Ethnicities -->
-  <section class="section culture">
+  <section class="section culture"  [style.backgroundImage]="'url(' + destination!.ethnicities[1]!.image_url + ')'">
+    <div class="culture-overlay">
     <h2>Experience Local Culture</h2>
     <div class="swiper culture-swiper" #cultureSwiper>
       <div class="swiper-wrapper">
@@ -182,10 +197,11 @@
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
+      </div>
   </section>
 
   <!-- 6. Cuisines -->
-  <section class="section cuisines">
+  <section class="section cuisines"  [style.backgroundImage]="'url(' + destination!.cuisines[1]!.image_url + ')'">
     <h2>Local Cuisines</h2>
     <div class="swiper cuisine-swiper" #cuisineSwiper>
       <div class="swiper-wrapper">
@@ -201,7 +217,7 @@
   </section>
 
   <!-- 7. Activities -->
-  <section class="section activities">
+  <section class="section activities"  [style.backgroundImage]="'url(' + destination!.activities[1]!.image_url + ')'">
     <h2>Exciting Activities</h2>
     <div class="swiper" #activitiesSwiper>
       <div class="swiper-wrapper">

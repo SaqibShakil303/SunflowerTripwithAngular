@@ -3,7 +3,11 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environments.dev';
 import { Destination } from '../../models/destination.model';
-
+export interface DestinationNav {
+  id: number;
+  title: string;
+  locations: { id: number; name: string }[];
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -17,5 +21,7 @@ private APIurl =environment.apiDomain
  getDestinationDetails(id: number): Observable<Destination> {
   return this.http.get<Destination>(`${this.APIurl}/Destination/${id}/details`);
 }
-
+ getNamesAndLocations(): Observable<DestinationNav[]> {
+    return this.http.get<DestinationNav[]>(`${this.APIurl}/Destination/names`);
+  }
 }

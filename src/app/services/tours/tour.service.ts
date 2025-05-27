@@ -36,10 +36,13 @@ getTourBySlug(slug: string): Observable<Tour> {
     return this.http.get<Tour[]>(`${this.apiUrl}/Tours`);
   }
    getByDestination(destId: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(`${this.apiUrl}Tours/${destId}/destination`);
+    return this.http.get<Tour[]>(`${this.apiUrl}/Tours/${destId}/destination`);
   }
 
   getByLocation(locId: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(`${this.apiUrl}Tours/locations/${locId}/tours`);
+    return this.http.get<Tour[]>(`${this.apiUrl}/Tours/${locId}/location`);
+  }
+  getByCategory(category: string): Observable<Tour[]> {
+    return this.http.get<Tour[]>(`${this.apiUrl}/Tours/category/${category}`);
   }
 }
