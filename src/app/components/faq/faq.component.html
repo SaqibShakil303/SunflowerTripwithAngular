@@ -1,10 +1,16 @@
-<div class="faq-container" @listStagger>
-  <div class="faq-item" *ngFor="let item of faqs">
-    <div class="faq-question"
-         (click)="toggleFaq($event)">
+<div class="glass-card faq-section" @listStagger>
+  <h2 @headerAnim>Frequently Asked Questions</h2>
+
+  <div class="faq-item" 
+       *ngFor="let item of faqs" 
+       [class.active]="item.isOpen"
+       (click)="toggleFaq(item)">
+       
+    <div class="faq-question">
       {{ item.question }}
     </div>
-    <div class="faq-answer">
+
+    <div class="faq-answer" *ngIf="item.isOpen">
       {{ item.answer }}
     </div>
   </div>

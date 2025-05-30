@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Tour } from '../../models/tour.model';
 import { TourService } from '../../services/tours/tour.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../common/footer/footer.component";
 import { HeaderComponent } from "../../common/header/header.component";
 import { NavbarComponent } from "../../common/navbar/navbar.component";
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, HeaderComponent, NavbarComponent],
+  imports: [CommonModule, FormsModule, RouterModule, FooterComponent,  NavbarComponent, ChatWidgetComponent],
   templateUrl: './tour-detail.component.html',
   styleUrl: './tour-detail.component.scss'
 })
 export class TourDetailComponent implements OnInit {
+  isMobileView = false;
+ showBookingCard = false;
   tour: Tour | null = null;
   loading = true;
   activeTab = 'overview';
@@ -23,7 +26,7 @@ export class TourDetailComponent implements OnInit {
   selectedDate = '';
   selectedGuests = 1;
 
-  constructor(private route: ActivatedRoute, private tourService: TourService) {}
+  constructor(private route: ActivatedRoute, private tourService: TourService,@Inject(PLATFORM_ID) private platformId: Object) {}
 
   // ngOnInit(): void {
   //   const slug = this.route.snapshot.paramMap.get('slug');
@@ -42,6 +45,9 @@ export class TourDetailComponent implements OnInit {
   // }
 
 ngOnInit(): void {
+   if (isPlatformBrowser(this.platformId)) {
+      this.isMobileView = window.innerWidth <= 768;
+    }
   const slug = this.route.snapshot.paramMap.get('slug');
 
   // If there’s no slug in the URL, stop the spinner immediately
@@ -66,7 +72,9 @@ ngOnInit(): void {
 
   
 }
-
+  toggleBookingCard() {
+    this.showBookingCard = !this.showBookingCard;
+  }
 private transformTourData(data: any): Tour {
   // parse JSON fields into arrays
   data.inclusions      = this.safeParse(data.inclusions);

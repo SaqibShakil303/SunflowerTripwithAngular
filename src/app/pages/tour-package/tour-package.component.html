@@ -1,24 +1,34 @@
-<div class="tours-page">
-  <ng-container *ngIf="loading">
-    <p>Loading tours…</p>
-  </ng-container>
+<app-navbar></app-navbar>
+<div class="tour-page">
+<section class="tour-hero" [ngStyle]="{'background-image': 'url(/assets/hero/island.jpg)'}">
+  <div class="overlay"></div>
+  <div class="hero-content container">
+    <h1 class="title">Explore the Places<br>One Adventure at a Time</h1>
+    <p class="subtitle">Hand-picked tours across continents for every kind of traveler.</p>
+  </div>
+</section>
+  <div *ngIf="loading" class="loading">Loading tours...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <ng-container *ngIf="!loading && error">
-    <p class="error">{{ error }}</p>
-  </ng-container>
-
-  <ng-container *ngIf="!loading && !error">
-    <div *ngIf="tours.length; else noTours">
-      <div class="tour-card" *ngFor="let t of tours">
-        <img [src]="t.image_url" alt="{{ t.title }}">
-        <h3>{{ t.title }}</h3>
-        <p>{{ t.duration_days }} days • ₹{{ t.price }}</p>
-        <a [routerLink]="['/tour', t.slug]" class="btn-explore">Book now</a>
+  <div *ngIf="!loading && !error && tours.length > 0" class="tours-grid">
+    <div *ngFor="let tour of tours" class="tour-card">
+      <img [src]="tour.image_url" alt="{{ tour.title }}" class="tour-image" />
+      <div class="tour-info">
+        <h3 class="tour-title">{{ tour.title }}</h3>
+        <p class="tour-description">{{ tour.description | slice:0:100 }}...</p>
+        <div class="tour-meta">
+          <span>{{ tour.duration_days }} Days</span>
+          <span>₹{{ tour.price }}</span>
+        </div>
+        <button class="btn-detail" (click)="goToTourDetail(tour.slug)">View Tour</button>
       </div>
     </div>
-    <ng-template #noTours>
-      <p>No tours found.</p>
-    </ng-template>
-  </ng-container>
+  </div>
+
+  <div *ngIf="!loading && !error && tours.length === 0" class="no-tours">No tours found.</div>
+
+  <app-testimonials></app-testimonials>
+  <app-faq></app-faq>
+  <app-chat-widget></app-chat-widget>
+  <app-footer></app-footer>
 </div>
-<app-footer></app-footer>

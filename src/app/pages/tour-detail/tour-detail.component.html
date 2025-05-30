@@ -1,6 +1,7 @@
 <app-navbar></app-navbar>
 <section class="tour-detail" *ngIf="tour">
   <div class="hero-section">
+    
     <img [src]="tour.image_url" alt="{{ tour.title }}" class="hero-image" />
     <div class="hero-overlay">
       <div class="container">
@@ -25,8 +26,15 @@
             <span>{{ tour.max_group_size }}</span>
           </div>
         </div>
-        
-        <div class="booking-card">
+<button 
+  class="mobile-booking-toggle"
+  *ngIf="isMobileView"
+  (click)="toggleBookingCard()">
+  {{ showBookingCard ? 'Hide Booking Options' : 'Show Booking Options' }}
+</button>
+       <div 
+  class="booking-card" 
+  *ngIf="!isMobileView || showBookingCard">
           <div class="price-section">
             <span class="price-label">Price</span>
             <span class="price">₹{{ formatPrice(tour.price) }}</span>
@@ -209,5 +217,5 @@
   <div class="spinner"></div>
   <p>Loading tour details...</p>
 </div>
-
+<app-chat-widget></app-chat-widget>
 <app-footer></app-footer>

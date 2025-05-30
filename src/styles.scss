@@ -11,12 +11,13 @@
 :root {
   --primary-color: #00bcd4;
   --secondary-color: #feb47b;
-  --dark-color: white;
+  --dark-color: rgb(255, 255, 255);
   --light-light-color: #ffffff;
   --light-color: #f4f4f4;
   --accent-color: #ffcc00;
   --accent-color-light:#6c63ff;;
   --text-color: #ffffff;
+  --black-color:black;
   --white: #4db6ac;
   --pink: #00968798;
   --light-pink: #b2dfdb;
@@ -63,7 +64,8 @@ body {
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
   margin-bottom: 1rem;
-  color: var(--dark-color);
+  color: var(--black-color);
+  // color:var(--light-color);
 }
 
 h1 {

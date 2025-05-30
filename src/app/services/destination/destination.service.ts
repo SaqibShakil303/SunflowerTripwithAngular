@@ -18,10 +18,16 @@ export class DestinationService {
     ) private platformId: Object
   ) { }
 private APIurl =environment.apiDomain
+
+
+ getDestinationById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.APIurl}/${id}`);
+  }
  getDestinationDetails(id: number): Observable<Destination> {
   return this.http.get<Destination>(`${this.APIurl}/Destination/${id}/details`);
 }
  getNamesAndLocations(): Observable<DestinationNav[]> {
     return this.http.get<DestinationNav[]>(`${this.APIurl}/Destination/names`);
   }
+  
 }

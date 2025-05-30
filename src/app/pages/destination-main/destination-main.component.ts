@@ -19,11 +19,12 @@ import { FooterComponent } from "../../common/footer/footer.component";
 import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { VideoDialogComponent } from '../../common/video-dialog/video-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 
 @Component({
   selector: 'app-destination-main',
   standalone: true,
-  imports: [CommonModule, RouterModule, SafeUrlPipe, FooterComponent, NavbarComponent],
+  imports: [CommonModule, RouterModule, SafeUrlPipe, FooterComponent, NavbarComponent, ChatWidgetComponent],
   templateUrl: './destination-main.component.html',
   styleUrls: ['./destination-main.component.scss']
 })
