@@ -284,7 +284,16 @@ export class TourService {
       maximumFractionDigits: 0
     }).format(numPrice);
   }
-
+  
+ getFilters(): Observable<{
+    cities: string[];
+    categories: string[];
+    // durations?: { label:string, min:number, max:number }[]
+  }> {
+    return this.http.get<{ cities: string[]; categories: string[] }>(
+      `${this.apiUrl}/Tours/filters`
+    );
+  }
   // Helper method to get availability status
   getAvailabilityStatus(availableFrom: string, availableTo: string): {
     status: 'available' | 'ending_soon' | 'not_available';
