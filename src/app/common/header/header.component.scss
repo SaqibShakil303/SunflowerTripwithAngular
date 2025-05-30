@@ -1,5 +1,4 @@
-// Variables
-$font-main: 'Poppins', cursive;
+$font-main: 'Poppins', sans-serif;
 $font-accent: 'Forum', cursive;
 $color-primary: #000;
 $color-accent: rgb(252, 249, 245);
@@ -10,7 +9,6 @@ $glass-bg: rgba(255, 255, 255, 0.507);
 $glass-blur: blur(50px);
 $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgba(212, 169, 226, 0.815));
 
-// Mixins
 @mixin glassmorphism {
   background: $glass-bg;
   backdrop-filter: $glass-blur;
@@ -20,36 +18,33 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 }
 
 .header-box {
-    padding-top: 20px;
+  padding-top: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: right;
+  align-items: center;
   position: relative;
 }
-
-
-
+app-navbar{
+  padding-bottom: 12rem;
+}
 .header-right {
   display: flex;
-  flex-direction: column;
-  align-items:end;
+  align-items: center;
   padding: 24px 44px;
 }
 
 .header__menu {
-  padding-top: 3em;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
 .menu__list {
   display: flex;
   gap: 20px;
-  padding-top: 18px;
+  align-items: center;
 
   a {
-    font-family: $font-main !important;
+    font-family: $font-main;
     font-size: 16px;
     line-height: 18px;
     letter-spacing: 0.04em;
@@ -60,6 +55,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
     display: flex;
     align-items: center;
     gap: 6px;
+    text-decoration: none;
 
     &::after {
       content: '';
@@ -72,7 +68,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
     }
 
     &:hover::after {
-      transform: rotate(225deg); // Smooth flip arrow on hover
+      transform: rotate(225deg);
     }
   }
 }
@@ -81,7 +77,6 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
   position: relative;
 
   &:hover .dropdown-content-nav {
-    // position: absolute;
     display: block;
     opacity: 1;
     transform: translateY(0);
@@ -91,9 +86,9 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 
 .dropdown-content-nav {
   @include glassmorphism;
-  display: block;
+  display: none;
   opacity: 0;
-  z-index: 999; 
+  z-index: 999;
   pointer-events: none;
   transition: all $transition;
   transform: translateY(10px);
@@ -110,6 +105,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
     display: block;
     font-size: 14px;
     text-transform: none;
+    text-decoration: none;
     transition: background-color $transition;
 
     &:hover {
@@ -128,8 +124,6 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 }
 
 .custom-btn {
-  margin-top: 10px;
-  margin-left: 20px;
   background-color: transparent;
   color: $color-accent;
   border: 2px solid #fff;
@@ -145,84 +139,19 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
     background: $gradient-hover;
     color: $color-accent;
   }
-}
 
-// Optional responsiveness
-// Slide-in menu
-.header__menu {
-  transition: transform 0.3s ease;
-  &.mobile-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 75%;
-    max-width: 300px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(15px);
-    transform: translateX(-100%);
-    z-index: 1000;
-    flex-direction: column;
-    padding: 2rem;
-
-    &.nav-active {
-      transform: translateX(0);
-    }
-
-    .menu__list {
-      flex-direction: column;
-      gap: 20px;
-
-      a {
-        color: #000 !important;
-      }
-    }
-
-    .header__button {
-      margin-top: 2rem;
-    }
+  &.nav-btn {
+    margin: 0 10px;
   }
 }
 
-// Mobile button
-.burger-menu {
-  display: none;
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 1100;
-  cursor: pointer;
-
-  div {
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin: 5px 0;
-    transition: all 0.3s ease;
-  }
-}
-
-@media (max-width: 768px) {
-  .burger-menu {
-    display: block;
-  }
-
-  .header__menu {
-    display: none;
-  }
-
-  .header__menu.mobile-nav {
-    display: flex;
-  }
-}
-// Burger Menu
 .burger-icon {
   display: none;
   cursor: pointer;
   flex-direction: column;
   gap: 6px;
   position: absolute;
-  top: 25px;
+  top: 55px;
   left: 20px;
   z-index: 1001;
 
@@ -231,10 +160,22 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
     height: 3px;
     background: #fff;
     display: block;
+    transition: all 0.3s ease;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
   }
 }
 
-// Mobile Sidebar
 .mobile-sidebar {
   position: fixed;
   top: 0;
@@ -245,6 +186,7 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
   padding: 20px;
   transition: left 0.3s ease;
   z-index: 1000;
+  overflow-y: auto;
 
   &.open {
     left: 0;
@@ -268,12 +210,32 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
       font-size: 18px;
       padding: 10px 0;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      &::after {
+        content: '';
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+        transition: transform $transition;
+      }
+    }
+
+    .dropdown-mobile.active .mobile-group-label::after {
+      transform: rotate(225deg);
     }
 
     .mobile-submenu {
       list-style: none;
       padding-left: 15px;
       padding-bottom: 10px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
 
       a {
         color: #ddd;
@@ -287,10 +249,13 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
         }
       }
     }
+
+    .dropdown-mobile.active .mobile-submenu {
+      max-height: 500px;
+    }
   }
 }
 
-/* RESPONSIVE */
 @media (max-width: 992px) {
   .header-right {
     display: none;
@@ -298,5 +263,183 @@ $gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgb
 
   .burger-icon {
     display: flex;
+  }
+
+  .header__menu {
+    display: none;
+  }
+}
+.destinations-dropdown {
+  .destination-item {
+    position: relative;
+    
+    .destination-link {
+      font-weight: bold;
+    }
+    
+    .location-submenu {
+      padding-left: 20px;
+      
+      .location-link {
+        font-size: 0.9em;
+        color: #666;
+      }
+    }
+  }
+}
+
+.mobile-destination-item {
+  .mobile-destination-header {
+    font-weight: bold;
+    padding: 8px 0;
+  }
+  
+  .mobile-location-list {
+    padding-left: 20px;
+    
+    .mobile-location-link {
+      font-size: 0.9em;
+      color: #666;
+    }
+  }
+}
+
+// Add these styles to your header.component.scss
+
+.destinations-dropdown {
+  .destination-item {
+    position: relative;
+    
+    &.has-locations {
+      // Add visual indicator for destinations with locations
+      .destination-link {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        .arrow-indicator {
+          transition: transform 0.3s ease;
+          font-size: 0.8em;
+        }
+      }
+      
+      // Hide locations by default
+      .location-submenu {
+        display: none;
+        // position: absolute;
+        left: 50%;
+        top: 0;
+        // background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        min-width: 200px;
+      
+        z-index: 1000;
+        
+        li {
+          color: #333;
+          border-bottom: 1px solid #eee;
+          
+          &:last-child {
+            border-bottom: none;
+          }
+          
+          .location-link {
+            display: block;
+            padding: 8px 15px;
+            font-size: 0.9em;
+                color: #333;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            
+            &:hover {
+              background-color: #f5f5f5;
+              color: #0e0b0b;
+            }
+          }
+        }
+      }
+      
+      // Show locations on hover
+      &:hover {
+        .location-submenu {
+          display: block;
+        }
+        
+        .arrow-indicator {
+          transform: rotate(90deg);
+        }
+      }
+    }
+    
+    .destination-link {
+      font-weight: bold;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
+      color: #333;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+}
+
+// Mobile styles
+.mobile-destination-item {
+  .mobile-destination-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    cursor: pointer;
+    
+    .mobile-destination-link {
+      font-weight: bold;
+      flex: 1;
+    }
+    
+    .mobile-arrow {
+      transition: transform 0.3s ease;
+      font-size: 0.8em;
+      color: #666;
+    }
+  }
+  
+  // Hide locations by default in mobile
+  .mobile-location-list {
+    display: none;
+    padding-left: 20px;
+    margin-top: 8px;
+    
+    li {
+      margin-bottom: 8px;
+      
+      .mobile-location-link {
+        font-size: 0.9em;
+        color: #666;
+        text-decoration: none;
+        padding: 4px 0;
+        display: block;
+        
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+  
+  // Show locations when expanded
+  &.locations-open {
+    .mobile-location-list {
+      display: block;
+    }
+    
+    .mobile-arrow {
+      transform: rotate(180deg);
+    }
   }
 }

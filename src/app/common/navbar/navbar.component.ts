@@ -11,12 +11,14 @@ import { RouterLink, RouterModule } from '@angular/router';
 export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
-
+ isMobileNavVisible = true; // Controls mobile nav visibility
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
   }
-
+hideMobileNav() {
+    this.isMobileNavVisible = false;
+  }
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
@@ -24,7 +26,10 @@ export class NavbarComponent {
   closeMobileMenu() {
     this.isMobileMenuOpen = false;
   }
-
+// Show mobile nav
+  showMobileNav() {
+    this.isMobileNavVisible = true;
+  }
   // Close mobile nav when a route is clicked
   navigateTo(route: string) {
     this.closeMobileMenu();

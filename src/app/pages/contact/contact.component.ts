@@ -25,7 +25,7 @@ import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.co
   //       HttpClientModule,   
   //   // provideHttpClient(),   // ← makes HttpClient injectable in this subtree
   // ],
-  imports: [CommonModule, ReactiveFormsModule, FooterComponent, NavbarComponent, ChatWidgetComponent, HeaderComponent],
+  imports: [CommonModule, ReactiveFormsModule, FooterComponent, NavbarComponent, ChatWidgetComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   animations: [

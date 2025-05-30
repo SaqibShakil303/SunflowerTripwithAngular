@@ -5,27 +5,25 @@
     alt="Luxury Travel Logo" 
     routerLink="/"
   >
-  
-  <!-- Hamburger Menu for Mobile -->
-  <div 
-    class="hamburger-menu" 
-    (click)="toggleMobileMenu()"
-    [class.active]="isMobileMenuOpen"
-  >
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </div>
 
   <!-- Contact Info / Navigation Links -->
   <div 
     class="contact-info" 
     [ngClass]="{
-      'scrolled': isScrolled, 
-      'active': isMobileMenuOpen
+      'scrolled': isScrolled,
+      'mobile-hidden': !isMobileNavVisible
     }"
-    (click)="$event.stopPropagation()"
   >
+    <!-- Mobile Close Button -->
+    <button 
+      class="mobile-close-btn" 
+      (click)="hideMobileNav()"
+      aria-label="Close navigation"
+    >
+      <span class="close-icon">&times;</span>
+    </button>
+
+    <!-- Navigation Links -->
     <a href="tel:+917076421377">+9170-7642-1377</a>
     <a routerLink="/contact" (click)="navigateTo('/contact')">FAQ | Help?</a>
     <a routerLink="/careers" (click)="navigateTo('/careers')">Careers</a>
@@ -33,4 +31,14 @@
     <a routerLink="/travelGuide" (click)="navigateTo('/travelGuide')">Travel Guides</a>
     <a routerLink="/login" class="login" (click)="navigateTo('/login')">LOGIN / SIGNUP</a>
   </div>
+
+  <!-- Mobile Show Button (appears when nav is hidden) -->
+  <button 
+    class="mobile-show-btn"
+    [ngClass]="{'visible': !isMobileNavVisible}"
+    (click)="showMobileNav()"
+    aria-label="Show navigation"
+  >
+    <span class="show-icon">☰</span>
+  </button>
 </div>

@@ -1,19 +1,34 @@
+// header.component.ts
 import { Component, HostListener, ElementRef } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { HttpClient } from '@angular/common/http';
 import { DestinationNav, DestinationService } from '../../services/destination/destination.service';
 
 interface NavItem {
   name: string;
   route: string;
-  queryParams?: { [key: string]: any };
+  queryParams?: { 
+    destination?: number;
+    location?: number;
+    category?: string;
+  };
 }
 
 interface NavGroup {
   label: string;
   items: NavItem[];
+  locations: NavItem[];
+}
+
+interface DestinationGroup {
+  label: string;
+  destinations: {
+    name: string;
+    route: string;
+    queryParams: { destination: number };
+    locations: NavItem[];
+  }[];
 }
 
 @Component({
@@ -26,47 +41,55 @@ interface NavGroup {
 export class HeaderComponent {
   isNavActive = false;
   isMobileMenuOpen = false;
-
   navGroups: NavGroup[] = [];
- destinationItems: NavItem[] = [];
-  locationItems: NavItem[]    = [];
-holidayPackages: NavItem[] = [
-    { name: 'Holiday Packages', route: '/tours', queryParams: { category: 'holiday' } }
-  ];
-  groupPackages: NavItem[] = [
-    { name: 'Group Packages',   route: '/tours', queryParams: { category: 'group' } }
-  ];
+  destinationGroup: DestinationGroup = {
+    label: 'Destinations',
+    destinations: []
+  };
 
-  // dealsOffers: NavItem[] = [
-  //   { name: 'Last Minute Deals', route: '/last-minute-deals' },
-  //   { name: 'Early Bird Offers', route: '/early-bird-offers' },
-  //   { name: 'Seasonal Discounts', route: '/seasonal-discounts' }
-  // ];
-  // will fill these from the API
- 
-  constructor(private elementRef: ElementRef, private destSvc: DestinationService) {
-  }
-ngOnInit(): void {
+  constructor(private elementRef: ElementRef, private destSvc: DestinationService) {}
+
+  ngOnInit(): void {
     this.destSvc.getNamesAndLocations().subscribe({
       next: (data: DestinationNav[]) => {
-        this.destinationItems = data.map(d => ({
-          name: d.title,
-          route: '/tours',
-          queryParams: { destination: d.id }
-        }));
-        this.locationItems = data.flatMap(d =>
-          d.locations.map(loc => ({
-            name: loc.name,
+        // Create destinations group with all destinations and their locations
+        this.destinationGroup = {
+          label: 'Destinations',
+          destinations: data.map(d => ({
+            name: d.title,
             route: '/tours',
-            queryParams: { location: loc.id }
+            queryParams: { destination: d.id },
+            locations: d.locations.map(loc => ({
+              name: loc.name,
+              route: '/tours',
+              queryParams: { location: loc.id }
+            }))
           }))
-        );
-        this.navGroups = [
-          { label: 'Destinations',     items: this.destinationItems },
-          { label: 'Cities',        items: this.locationItems    },
-          { label: 'Holiday Packages', items: this.holidayPackages },
-          { label: 'Group Packages',   items: this.groupPackages   },
+        };
+
+        // Keep only package groups in navGroups
+        const packageGroups: NavGroup[] = [
+          {
+            label: 'Holiday Packages',
+            items: [{ 
+              name: 'Holiday Packages', 
+              route: '/tours', 
+              queryParams: { category: 'holiday' } 
+            }],
+            locations: []
+          },
+          {
+            label: 'Group Packages',
+            items: [{ 
+              name: 'Group Packages', 
+              route: '/tours', 
+              queryParams: { category: 'group' } 
+            }],
+            locations: []
+          }
         ];
+
+        this.navGroups = packageGroups;
       },
       error: err => console.error('Failed loading nav data', err)
     });
@@ -75,21 +98,31 @@ ngOnInit(): void {
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
+    if (this.isMobileMenuOpen && !this.elementRef.nativeElement.contains(event.target)) {
       this.isMobileMenuOpen = false;
     }
   }
-  // Triggered by customize button
+
   customizeHoliday() {
     console.log('Customize holiday button clicked');
-    // Future implementation logic
   }
 
-  // Toggle dropdown visibility on mobile
   toggleDropdown(event: Event) {
-    const parent = (event.currentTarget as HTMLElement).closest('.dropdown-mobile');
-    parent?.classList.toggle('active');
+    const target = event.currentTarget as HTMLElement;
+    const parent = target.closest('.dropdown-mobile');
+    if (parent) {
+      parent.classList.toggle('active');
+    }
+  }
+
+  toggleDestinationLocations(event: Event) {
+    const target = event.currentTarget as HTMLElement;
+    const parent = target.closest('.mobile-destination-item');
+    if (parent) {
+      parent.classList.toggle('locations-open');
+    }
   }
 }

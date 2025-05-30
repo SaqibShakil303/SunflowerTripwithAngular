@@ -24,7 +24,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule, AnimationDirective, TestimonialsComponent, DestinationsComponent, ServicesComponent, ChatWidgetComponent, FooterComponent, NewsletterComponent, MapComponent, WhyUsComponent],
+  imports: [HeaderComponent, CommonModule, FormsModule, AnimationDirective, TestimonialsComponent, DestinationsComponent, ServicesComponent, ChatWidgetComponent, FooterComponent, MapComponent, WhyUsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
