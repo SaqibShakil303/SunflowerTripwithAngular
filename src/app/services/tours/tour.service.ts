@@ -32,10 +32,14 @@ export class TourService {
         map(raw => this.transformTourData(raw))
       );
   }
-  searchTours(query: string): Observable<Tour[]> {
-    return this.http.get<Tour[]>(`${this.apiUrl}/Tours/search/q?q=${query}`);
-  }
 
+getFilteredTours(params: any): Observable<Tour[]> {
+  return this.http.get<Tour[]>(`${this.apiUrl}/Tours/filters`, { params });
+}
+
+getCategories(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.apiUrl}/Tours/categories`);
+}
   getAllTours(): Observable<Tour[]> {
     return this.http.get<Tour[]>(`${this.apiUrl}/Tours`);
   }

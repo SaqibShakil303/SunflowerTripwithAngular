@@ -65,7 +65,7 @@ onIframeError() {
       return;
     }
 
-    this.tourService.searchTours(query).subscribe({
+    this.tourService.getFilteredTours(query).subscribe({
       next: (tours) => {
         this.searchResults = tours;
         this.searching = false;
