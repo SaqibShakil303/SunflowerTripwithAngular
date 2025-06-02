@@ -22,3 +22,4 @@ import { TourPackageComponent } from "./pages/tour-package/tour-package.componen
 export class AppComponent {
   title = 'sunflowertrip';
 }
+

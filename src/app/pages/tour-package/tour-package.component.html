@@ -1,158 +1,22 @@
 <app-navbar></app-navbar>
 <div class="tour-page">
-<section class="tour-hero" [ngStyle]="{'background-image': 'url(/assets/hero/island.jpg)'}">
-  <div class="overlay"></div>
-  <div class="hero-content container">
-    <h1 class="title">Explore the Places<br>One Adventure at a Time</h1>
-    <p class="subtitle">Hand-picked tours across continents for every kind of traveler.</p>
-  </div>
-</section>
+  <section class="tour-hero" [ngStyle]="{'background-image': 'url(/assets/hero/island.jpg)'}">
+    <div class="overlay"></div>
+    <div class="hero-content container">
+      <h1 class="title">Explore the Places<br>One Adventure at a Time</h1>
+      <p class="subtitle">Hand-picked tours across continents for every kind of traveler.</p>
+    </div>
+  </section>
 
-<form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="tour-filter-container">
-  <div class="filter-row">
-    <div class="filter-group">
-      <label>From City</label>
-      <input  placeholder="e.g. Kolkata" />
-    </div>
-    <div class="filter-group">
-      <label>Destination</label>
-      <select formControlName="destination_id">
-        <option value="">All</option>
-        <option *ngFor="let d of destinations" [value]="d.id">{{ d.title }}</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Departure Date</label>
-      <input formControlName="available_to" type="date" />
-    </div>
-  </div>
-
-  <div class="filter-row">
-    <div class="filter-group">
-      <label>Rooms</label>
-      <input  type="number" min="1" />
-    </div>
-    <div class="filter-group">
-      <label>Adults</label>
-      <input  type="number" min="1" />
-    </div>
-    <div class="filter-group">
-      <label>Children</label>
-      <input  type="number" min="0" />
-    </div>
-  </div>
-
-  <div class="filter-row">
-    <div class="filter-group">
-      <label>Min Price</label>
-      <input formControlName="min_price" type="number" placeholder="Min ₹" />
-    </div>
-    <div class="filter-group">
-      <label>Max Price</label>
-      <input formControlName="max_price" type="number" placeholder="Max ₹" />
-    </div>
-    <div class="filter-group">
-      <label>Category</label>
-      <select formControlName="category">
-        <option value="">All</option>
-        <option *ngFor="let cat of categories">{{ cat }}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="filter-actions">
-    <button type="submit" class="btn btn-primary">Search</button>
-  </div>
-</form>
-
-<!-- <form [formGroup]="filterForm" (ngSubmit)="applyFilters()" class="tour-filter-container">
-  <div class="filter-row">
-    <div class="filter-group">
-      <label>From City</label>
-      <input placeholder="Kolkata" />
-    </div>
-    <div class="filter-group">
-      <label>To City/Country/Category</label>
-      <select formControlName="destination_id">
-        <option *ngFor="let d of destinations" [value]="d.id">{{ d.title }}</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Departure Date</label>
-      <input formControlName="available_from" type="date" />
-    </div>
-  </div>
-
-  <div class="filter-row">
-    <div class="filter-group">
-      <label>Rooms</label>
-      <select formControlName="rooms">
-        <option *ngFor="let r of [1,2,3,4]">{{ r }}</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Adults</label>
-      <select formControlName="adults">
-        <option *ngFor="let a of [1,2,3,4,5,6]">{{ a }}</option>
-      </select>
-    </div>
-    <div class="filter-group">
-      <label>Children</label>
-      <select formControlName="children">
-        <option *ngFor="let c of [0,1,2,3]">{{ c }}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="filter-row">
- <div class="filter-group budget-slider">
-  <label>Budget per person</label>
-  <div class="range-display">₹{{ selectedMinBudget }} – ₹{{ selectedMaxBudget }}</div>
-  <input type="range" min="{{ minBudget }}" max="{{ maxBudget }}" [(ngModel)]="selectedMinBudget" name="minBudget">
-  <input type="range" min="{{ minBudget }}" max="{{ maxBudget }}" [(ngModel)]="selectedMaxBudget" name="maxBudget">
-</div>
-  <div class="filter-group night-slider">
-  <label>Trip Duration (Nights)</label>
-  <div class="range-display">{{ selectedNights }} Nights</div>
-  <input type="range" min="{{ minNights }}" max="{{ maxNights }}" [(ngModel)]="selectedNights" name="tripNights">
-</div>
-
-    <div class="filter-group">
-      <label>Hotel Category</label>
-      <div class="hotel-stars">
-        <label *ngFor="let star of [2, 3, 4, 5]">
-          <input type="checkbox" [value]="star" (change)="toggleStarCategory(star)" /> {{ star }}★
-        </label>
-      </div>
-    </div>
-
-
-
-    <div class="filter-group">
-  <label>Rooms & Guests</label>
-  <select [(ngModel)]="roomCount" name="rooms">
-    <option *ngFor="let r of [1,2,3,4]" [value]="r">{{ r }} Room</option>
-  </select>
-  <select [(ngModel)]="adults" name="adults">
-    <option *ngFor="let a of [1,2,3,4,5]" [value]="a">{{ a }} Adult</option>
-  </select>
-  <select [(ngModel)]="children" name="children">
-    <option *ngFor="let c of [0,1,2,3]" [value]="c">{{ c }} Child</option>
-  </select>
-</div>
-  </div>
-
-  <div class="filter-actions">
-    <button type="submit" class="btn btn-primary">Search</button>
-  </div>
-</form> -->
-<div *ngIf="!loading && !error && tours.length === 0" class="no-tours">
-  No tours found matching your filters.
-</div>
-
+  <section class="tour-filter-section">
+    <!-- <div class="tour-filter-container"> -->
+      <app-tour-filter (searchTriggered)="handleSearch($event)"></app-tour-filter>
+    <!-- </div> -->
+  </section>
 
   <div *ngIf="loading" class="loading">Loading tours...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!loading && !error && tours.length === 0" class="no-tours">No tours found matching your filters.</div>
 
   <div *ngIf="!loading && !error && tours.length > 0" class="tours-grid">
     <div *ngFor="let tour of tours" class="tour-card">
@@ -168,8 +32,6 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="!loading && !error && tours.length === 0" class="no-tours">No tours found.</div>
 
   <app-testimonials></app-testimonials>
   <app-faq></app-faq>

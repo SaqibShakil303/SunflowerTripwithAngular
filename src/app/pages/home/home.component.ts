@@ -20,11 +20,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PanoViewerComponent } from "../../components/pano-viewer/pano-viewer.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TourFilterComponent } from '../../common/tour-filter/tour-filter.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, FormsModule, AnimationDirective, TestimonialsComponent, DestinationsComponent, ServicesComponent, ChatWidgetComponent, FooterComponent, MapComponent, WhyUsComponent],
+  imports: [HeaderComponent, CommonModule, FormsModule, AnimationDirective, TestimonialsComponent, DestinationsComponent, ServicesComponent, ChatWidgetComponent, FooterComponent, MapComponent, WhyUsComponent,TourFilterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
