@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { PanoViewerComponent } from "../../components/pano-viewer/pano-viewer.component";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TourFilterComponent } from '../../common/tour-filter/tour-filter.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -35,10 +36,13 @@ export class HomeComponent implements AfterViewInit {
   searching = false;
 iframeLoaded = false;
 kuulaUrl!: SafeResourceUrl;
-
+  loading = false;
+  error: string | null = null;
    private searchSubject = new Subject<string>();
 
-     constructor(private tourService: TourService,private sanitizer: DomSanitizer) {
+     constructor(private tourService: TourService,private sanitizer: DomSanitizer,
+      private router: Router
+     ) {
       this.kuulaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
     'https://kuula.co/share/5D6pm?logo=1&info=1&fs=1&vr=0&sd=1&autorotate=0.39&thumbs=1&margin=1&inst=0'
   );
@@ -80,4 +84,33 @@ onIframeError() {
   ngAfterViewInit() {
     // Any additional initialization if needed
   }
+handleSearch(filters: any) {
+  // Convert filter values into URL-friendly queryParams
+  const queryParams: any = {};
+
+  if (filters.fromCity) queryParams.fromCity = filters.fromCity;
+  if (filters.destination) queryParams.destination = filters.destination;
+  if (filters.location) queryParams.location = filters.location;
+  if (filters.category) queryParams.category = filters.category;
+  if (filters.departureDate) queryParams.departure = new Date(filters.departureDate).toISOString();
+  if (filters.totalAdults) queryParams.adults = filters.totalAdults;
+  if (filters.totalChildren) queryParams.children = filters.totalChildren;
+  if (filters.rooms) queryParams.rooms = filters.rooms;
+  if (filters.duration) {
+    queryParams.min_duration = filters.duration[0];
+    queryParams.max_duration = filters.duration[1];
+  }
+  if (filters.budget) {
+    queryParams.min_price = filters.budget[0];
+    queryParams.max_price = filters.budget[1];
+  }
+  if (filters.hotelCategories?.length) {
+    queryParams.hotels = filters.hotelCategories.join(',');
+  }
+  if (filters.flights) queryParams.flights = filters.flights;
+
+  // Navigate to /tours with queryParams
+  this.router.navigate(['/tours'], { queryParams });
+}
+
 }

@@ -8,6 +8,7 @@ import { FooterComponent } from "../../common/footer/footer.component";
 import { HeaderComponent } from "../../common/header/header.component";
 import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tour-detail',
@@ -26,7 +27,8 @@ export class TourDetailComponent implements OnInit {
   selectedDate = '';
   selectedGuests = 1;
 
-  constructor(private route: ActivatedRoute, private tourService: TourService,@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private route: ActivatedRoute, private tourService: TourService,@Inject(PLATFORM_ID) private platformId: Object,
+private meta: Meta, private title: Title) {}
 
   // ngOnInit(): void {
   //   const slug = this.route.snapshot.paramMap.get('slug');
@@ -63,6 +65,16 @@ ngOnInit(): void {
       // default date to available_from
       this.selectedDate = this.formatDate(tour.available_from);
       this.loading = false;
+
+        // Set dynamic SEO meta tags
+  this.title.setTitle(tour.meta_title || tour.title);
+  this.meta.updateTag({ name: 'description', content: tour.meta_description || tour.description });
+
+  // Optional Open Graph (for social sharing)
+  this.meta.updateTag({ name: 'og:title', content: tour.meta_title || tour.title });
+  this.meta.updateTag({ name: 'og:description', content: tour.meta_description || tour.description });
+  this.meta.updateTag({ name: 'og:image', content: tour.image_url });
+  this.meta.updateTag({ name: 'og:url', content: `https://sunflowertrip.in/tours/${tour.slug}` });
     },
     error: () => {
       this.tour = null;

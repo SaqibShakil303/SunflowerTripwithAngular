@@ -41,16 +41,23 @@ export class TourPackageComponent {
   ) {}
 
   ngOnInit(): void {
-    this.filterForm = this.fb.group({
-     destination_id: [''],
-  category: [''],
-  min_price: [''],
-  max_price: [''],
-  min_duration: [''],
-  max_duration: [''],
-  available_from: [''],
-  available_to: ['']
-    });
+  this.filterForm = this.fb.group({
+    destination_id: [''],
+    category: [''],
+    min_price: [''],
+    max_price: [''],
+    min_duration: [''],
+    max_duration: [''],
+    available_from: [''],
+    available_to: [''],
+    accommodation_rating: [''],
+    flight_included: [''],
+    adults: [null],
+    children: [null],
+    rooms: [null],
+    // location: [''],
+    fromCity: ['']
+  });
 
     this.route.queryParams.subscribe(params => {
       this.loading = true;
@@ -90,7 +97,7 @@ export class TourPackageComponent {
     // Fetch destination and category data for filter dropdowns
     this.destSvc.getNamesAndLocations().subscribe({
       next: (data) => {
-        console.log("destinations: ",data);
+        // console.log("destinations: ",data);
         this.destinations = data;
       },
       error: err => console.error('Failed loading destinations', err)
@@ -98,7 +105,7 @@ export class TourPackageComponent {
 
     this.toursSvc.getCategories().subscribe({
       next: (data: string[]) => {
-              console.log("categories: ",data);
+              // console.log("categories: ",data);
         this.categories = data;
       },
       error: err => console.error('Failed loading categories', err)
@@ -128,9 +135,11 @@ export class TourPackageComponent {
 
   // Optionally update your internal state
   this.loading = true;
+    // this.filterForm = filters;
   this.toursSvc.getFilteredTours(filters).subscribe({
     next: (data) => {
       this.tours = data;
+    
       this.loading = false;
     },
     error: (err) => {

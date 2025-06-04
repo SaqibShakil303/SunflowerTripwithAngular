@@ -39,6 +39,11 @@
       </div>
     </div>
     
+  <section class="tour-filter-section">
+    <!-- <div class="tour-filter-container"> -->
+      <app-tour-filter (searchTriggered)="handleSearch($event)"></app-tour-filter>
+    <!-- </div> -->
+  </section>
     <app-destinations></app-destinations>
    
   </header>

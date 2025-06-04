@@ -287,21 +287,23 @@ export class TourFilterComponent implements OnInit {
   }
 
   searchTours() {
-    const payload = {
-      fromCity: this.fromCity,
-      destination: this.selectedDestination?.title,
-      location: this.selectedLocation,
-      category: this.selectedCategory,
-      departureDate: this.selectedDate,
-      adults: this.totalAdults,
-      children: this.totalChildren,
-      rooms: this.rooms.length,
-      duration: this.durationRange,
-      budget: this.budgetRange,
-      flights: this.flightOption,
-      hotelCategories: this.selectedHotels()
-    };
-
+  const payload = {
+    destination_id: this.selectedDestination?.id || '',
+    // category: this.selectedCategory || '',
+    min_price: this.budgetRange[0],
+    max_price: this.budgetRange[1],
+    min_duration: this.durationRange[0],
+    max_duration: this.durationRange[1],
+    available_from: this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : '',
+    available_to: this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : '',
+    accommodation_rating: this.selectedHotels().map(label => parseInt(label)),
+    flight_included: this.flightOption === 'with',
+    adults: this.totalAdults,
+    children: this.totalChildren,
+    rooms: this.rooms.length,
+    location: this.selectedLocation,
+    fromCity: this.fromCity
+  };
     console.log('Search Initiated with:', payload);
     this.searchTriggered.emit(payload);
   }
