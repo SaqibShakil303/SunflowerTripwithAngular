@@ -1,9 +1,4 @@
-
-
-// tour-filter.component.scss
 @import 'mixins';
-// tour-filter.component.scss
-// @import '../../../styles/mixins';
 
 .full-tour-filter {
   @include glass-card(0.15, 20px, 0.3);
@@ -17,7 +12,6 @@
     0 25px 45px rgba(0, 0, 0, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.4);
 
-  // Add subtle animation
   animation: fadeIn 0.6s ease-out;
 
   @keyframes fadeIn {
@@ -33,7 +27,7 @@
 
   .filter-container {
     position: relative;
-     overflow: visible;
+    overflow: visible;
   }
 
   .filter-row {
@@ -44,16 +38,16 @@
   }
 
   .filter-col {
-  position: relative;
-  @include glass-card(0.2, 15px, 0.25);
-  padding: 1.75rem;
-  border-radius: 20px;
-  /* no z-index here → let it stay “auto” */
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  overflow: visible;
+    position: relative;
+    @include glass-card(0.2, 15px, 0.25);
+    padding: 1.75rem;
+    border-radius: 20px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+      0 10px 25px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    overflow: visible;
+
     &:hover {
       transform: translateY(-4px);
       @include glass-card(0.25, 18px, 0.35);
@@ -62,7 +56,6 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.4);
     }
 
-    // Subtle glow effect on hover
     &::before {
       content: '';
       position: absolute;
@@ -96,11 +89,11 @@
     margin-bottom: 1.2rem;
     color: #2d3748;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-  z-index: 2; 
+    z-index: 2;
+
     .icon-location::before { content: "📍"; }
     .icon-destination::before { content: "🌍"; }
     .icon-calendar::before { content: "📅"; }
-    .icon-guests::before { content: "👥"; }
     .icon-filter::before { content: "⚙️"; }
     .icon-search::before { content: "🔍"; }
 
@@ -115,7 +108,6 @@
     }
   }
 
-  // Enhanced Input Styles with Glassmorphism
   .filter-input, .filter-select {
     width: 100%;
     padding: 1rem 1.25rem;
@@ -125,7 +117,8 @@
     transition: all 0.3s ease;
     color: #2d3748;
     font-weight: 500;
- z-index: 2;
+    z-index: 2;
+
     &:focus {
       outline: none;
       @include glass-card(0.3, 12px, 0.4);
@@ -146,7 +139,7 @@
     font-size: 0.85rem;
     margin-top: 0.6rem;
     display: block;
-      z-index: 2;
+    z-index: 2;
     font-weight: 500;
   }
 
@@ -154,7 +147,6 @@
     margin-top: 0.75rem;
   }
 
-  // Glassmorphic Date Selector
   .date-selector {
     @include glass-card(0.25, 8px, 0.3);
     border-radius: 16px;
@@ -165,6 +157,7 @@
     align-items: center;
     transition: all 0.3s ease;
     z-index: 2;
+
     &:hover {
       @include glass-card(0.3, 12px, 0.4);
       transform: translateY(-1px);
@@ -205,11 +198,10 @@
     }
   }
 
-  // Enhanced Calendar Dropdown
   .calendar-dropdown {
     position: absolute;
     top: calc(100% + 0.75rem);
-    left: 0;
+    left: 2;
     right: 0;
     z-index: 1000;
     @include glass-card(0.95, 25px, 0.4);
@@ -234,6 +226,7 @@
 
     .calendar-header {
       margin-bottom: 1.5rem;
+
       h3 {
         font-size: 1.25rem;
         font-weight: 700;
@@ -326,246 +319,6 @@
     }
   }
 
-  // Enhanced Guest Selector
-  .guest-selector {
-    @include glass-card(0.25, 8px, 0.3);
-    border-radius: 16px;
-    padding: 1rem 1.25rem;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.3s ease;
-
-    &:hover {
-      @include glass-card(0.3, 12px, 0.4);
-      transform: translateY(-1px);
-    }
-
-    .guest-summary {
-      font-weight: 600;
-      color: #2d3748;
-      text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-    }
-
-    .dropdown-arrow {
-      transition: transform 0.3s ease;
-      color: #718096;
-      font-weight: 700;
-
-      &.open {
-        transform: rotate(180deg);
-        color: var(--primary-color);
-      }
-    }
-  }
-
-  // Enhanced Room Dropdown
-  .room-dropdown {
-    position: absolute;
-    top: calc(100% + 0.75rem);
-    left: 0;
-    right: 0;
-    z-index: 2000;
-    @include glass-card(0.95, 25px, 0.4);
-    border-radius: 20px;
-    padding: 2rem;
-    box-shadow: 
-      0 35px 60px rgba(0, 0, 0, 0.3),
-      inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    min-width: 380px;
-    animation: dropdownFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-    .room-header {
-      margin-bottom: 2rem;
-      h3 {
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #2d3748;
-        margin: 0;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-      }
-    }
-
-    .room-block {
-      @include glass-card(0.15, 10px, 0.2);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-
-      .room-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.25rem;
-        font-weight: 700;
-        color: #4a5568;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-
-        .remove-room-btn {
-          @include glass-card(0.2, 6px, 0.3);
-          color: #e53e3e;
-          font-size: 0.85rem;
-          cursor: pointer;
-          padding: 0.4rem 0.8rem;
-          border-radius: 10px;
-          transition: all 0.2s ease;
-          font-weight: 600;
-
-          &:hover {
-            @include glass-card(0.3, 8px, 0.4);
-            color: #c53030;
-            transform: translateY(-1px);
-          }
-        }
-      }
-
-      .guest-controls {
-        display: flex;
-        gap: 2.5rem;
-        margin-bottom: 1.25rem;
-      }
-
-      .guest-type {
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-
-        label {
-          font-size: 0.95rem;
-          color: #718096;
-          font-weight: 600;
-          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .counter {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-
-          .counter-btn {
-            width: 2.25rem;
-            height: 2.25rem;
-            border-radius: 50%;
-            @include glass-card(0.2, 6px, 0.3);
-            color: var(--primary-color);
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-
-            &:hover:not(:disabled) {
-              background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-              color: white;
-              transform: scale(1.1);
-              box-shadow: 0 6px 15px rgba(0, 188, 212, 0.3);
-            }
-
-            &:disabled {
-              opacity: 0.4;
-              cursor: not-allowed;
-            }
-          }
-
-          .counter-value {
-            font-weight: 700;
-            color: #2d3748;
-            min-width: 1.5rem;
-            text-align: center;
-            font-size: 1.1rem;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-          }
-        }
-      }
-
-      .children-ages {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        .age-selector {
-          display: flex;
-          flex-direction: column;
-          gap: 0.6rem;
-
-          label {
-            font-size: 0.9rem;
-            color: #718096;
-            font-weight: 600;
-            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-          }
-
-          .age-select {
-            @include glass-card(0.2, 6px, 0.3);
-            padding: 0.6rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #2d3748;
-          }
-        }
-      }
-    }
-
-    .room-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 1.5rem;
-      @include glass-card(0.1, 8px, 0.2);
-      margin: 1.5rem -2rem -2rem -2rem;
-      padding: 1.5rem 2rem;
-      border-radius: 0 0 20px 20px;
-
-      .add-room-btn {
-        @include glass-card(0.2, 8px, 0.3);
-        color: var(--primary-color);
-        padding: 0.75rem 1.25rem;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-
-        &:hover:not(:disabled) {
-          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-          color: white;
-          transform: translateY(-2px);
-          box-shadow: 0 8px 20px rgba(0, 188, 212, 0.3);
-        }
-
-        &:disabled {
-          opacity: 0.4;
-          cursor: not-allowed;
-        }
-      }
-
-      .apply-btn {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        padding: 0.75rem 1.5rem;
-        border-radius: 12px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 6px 15px rgba(0, 188, 212, 0.3);
-
-        &:hover {
-          background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-          transform: translateY(-2px);
-          box-shadow: 0 10px 25px rgba(0, 188, 212, 0.4);
-        }
-      }
-    }
-  }
-
-  // Enhanced Filter Selector
   .filter-selector {
     @include glass-card(0.25, 8px, 0.3);
     border-radius: 16px;
@@ -606,7 +359,6 @@
     }
   }
 
-  // Enhanced Applied Chips
   .applied-chips {
     display: flex;
     flex-wrap: wrap;
@@ -649,11 +401,10 @@
     }
   }
 
-  // Enhanced Filter Flyout
   .filter-flyout {
     position: absolute;
     top: calc(100% + 0.75rem);
-    left: 3;
+    left: 2;
     right: 0;
     z-index: 1000;
     @include glass-card(0.95, 25px, 0.4);
@@ -667,6 +418,7 @@
 
     .filter-header {
       margin-bottom: 2rem;
+
       h3 {
         font-size: 1.25rem;
         font-weight: 700;
@@ -683,7 +435,7 @@
     }
 
     .filter-group {
-      .range-label, .option-label {
+      .range-label {
         display: block;
         font-size: 0.95rem;
         font-weight: 700;
@@ -729,95 +481,6 @@
             cursor: pointer;
             border: none;
             box-shadow: 0 4px 12px rgba(0, 188, 212, 0.4);
-          }
-        }
-      }
-
-      .button-group {
-        display: flex;
-        gap: 1rem;
-
-        .option-btn {
-          flex: 1;
-          padding: 1rem 1.25rem;
-          @include glass-card(0.2, 8px, 0.3);
-          color: #718096;
-          border-radius: 12px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-
-          &:hover {
-            @include glass-card(0.25, 10px, 0.35);
-            color: var(--primary-color);
-            transform: translateY(-1px);
-          }
-
-          &.active {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 6px 15px rgba(0, 188, 212, 0.3);
-          }
-        }
-      }
-
-      .checkbox-group {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-
-        .checkbox-item {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          cursor: pointer;
-          font-size: 0.95rem;
-          color: #4a5568;
-          font-weight: 500;
-          text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
-          padding: 0.5rem;
-          border-radius: 8px;
-          transition: all 0.2s ease;
-
-          &:hover {
-            @include glass-card(0.15, 6px, 0.2);
-          }
-
-          input[type="checkbox"] {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-
-            &:checked + .checkmark {
-              background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-              box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
-
-              &:after {
-                display: block;
-              }
-            }
-          }
-
-          .checkmark {
-            height: 20px;
-            width: 20px;
-            @include glass-card(0.2, 4px, 0.3);
-            border-radius: 6px;
-            position: relative;
-            transition: all 0.3s ease;
-
-            &:after {
-              content: "";
-              position: absolute;
-              display: none;
-              left: 6px;
-              top: 3px;
-              width: 5px;
-              height: 9px;
-              border: solid white;
-              border-width: 0 2px 2px 0;
-              transform: rotate(45deg);
-            }
           }
         }
       }
@@ -871,8 +534,6 @@
     }
   }
 
-  // Enhanced Search Section
- // Search Section
   .search-section {
     text-align: center;
     margin-top: 2rem;
@@ -904,7 +565,6 @@
     }
   }
 
-  // Responsive Design
   @media (max-width: 1200px) {
     .filter-row {
       grid-template-columns: repeat(2, 1fr);
@@ -920,8 +580,6 @@
     }
 
     .filter-col {
-      // position: relative;
-      // z-index: 0;
       padding: 1rem;
     }
 
@@ -930,23 +588,16 @@
       gap: 1.5rem;
     }
 
-    .calendar-dropdown {
-      min-width: auto;
-      left: -1rem;
-      right: -1rem;
-
-    }
-  .calendar-dropdown,
-    .room-dropdown,
+    .calendar-dropdown,
     .filter-flyout {
-  position: fixed !important;   /* escape any parent stacking context */
-      top: 60px;                    /* sit below your header/nav */
+      position: fixed !important;
+      top: 60px;
       left: 0 !important;
       right: 0 !important;
       width: calc(100% - 2rem);
       margin: 0 auto;
       max-width: none;
-      z-index: 9999;      
+      z-index: 9999;
     }
 
     .search-btn {
@@ -959,17 +610,14 @@
     padding: 1rem;
 
     .filter-col {
-
       padding: 0.75rem;
     }
 
     .calendar-dropdown,
-    .room-dropdown,
     .filter-flyout {
-     width: calc(100% - 1rem);
+      width: calc(100% - 1rem);
       left: 0 !important;
       right: 0 !important;
     }
   }
 }
-  // Responsive adjustments

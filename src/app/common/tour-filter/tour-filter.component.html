@@ -1,4 +1,3 @@
-<!-- tour-filter.component.html -->
 <div class="full-tour-filter" (clickOutside)="closeAllDropdowns()">
   <div class="filter-container">
     <div class="filter-row">
@@ -43,147 +42,66 @@
           </select>
         </div>
       </div>
-
-      <!-- DEPARTURE DATE -->
- <div class="filter-col">
-  <label class="filter-label" (click)="toggleDate($event)">
-    <i class="icon-calendar"></i>
-    Departure Date
-  </label>
-
-  <div class="date-selector" (click)="toggleDate($event)">
-    <div class="date-display">
-      <span class="date-value" *ngIf="selectedDate; else placeholderDate">
-        {{ selectedDate.getDate() }} <span>{{ selectedDate | date: 'MMM, yyyy' }}</span>
-      </span>
-      <ng-template #placeholderDate>
-        <span class="placeholder-text">Select date</span>
-      </ng-template>
-      <span class="day-name" *ngIf="selectedDate">{{ getDayName() }}</span>
-    </div>
-    <i class="dropdown-arrow" [class.open]="dateOpen">▼</i>
-  </div>
-
-  <div class="calendar-dropdown" *ngIf="dateOpen" (click)="$event.stopPropagation()">
-    <div class="calendar-header">
-      <h3>Select Departure Date</h3>
-    </div>
-    <div class="calendar-container">
-      <div class="calendar" *ngFor="let month of [currentMonth, nextMonth]">
-        <div class="month-title">{{ getMonthYear(month) }}</div>
-        <div class="weekdays">
-          <div *ngFor="let day of ['Su','Mo','Tu','We','Th','Fr','Sa']" class="weekday">{{ day }}</div>
-        </div>
-        <div class="days">
-          <div 
-            *ngFor="let date of getCalendarDays(month)"
-            class="day-box"
-            [class.empty]="!date"
-            [class.disabled]="date && date < today"
-            [class.selected]="selectedDate?.toDateString() === date?.toDateString()"
-            [class.today]="date?.toDateString() === today.toDateString()"
-            (click)="date && selectDate(date)"
-          >
-            <span *ngIf="date">{{ date.getDate() }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-      <!-- ROOMS & GUESTS -->
+ <!-- Filter by Category -->
       <div class="filter-col">
         <label class="filter-label">
-          <i class="icon-guests"></i>
-          Rooms & Guests
+          <i class="icon-destination"></i>
+         Select Category
         </label>
-        <div class="guest-selector" (click)="toggleRoomGuest($event)">
-          <div class="guest-display">
-            <span class="guest-summary">{{ getRoomGuestSummary() }}</span>
-          </div>
-          <i class="dropdown-arrow" [class.open]="roomGuestOpen">▼</i>
+        <div class="select-group">
+          <select 
+            [(ngModel)]="selectedCategory" 
+  
+            class="filter-select"
+          >
+            <option [ngValue]="null">Choose Category</option>
+            <option *ngFor="let cat of categories" [ngValue]="cat">{{ cat }}</option>
+          </select>
         </div>
-        
-        <div class="room-dropdown" *ngIf="roomGuestOpen" (click)="$event.stopPropagation()">
-          <div class="room-header">
-            <h3>Rooms & Guests</h3>
+      </div>
+
+      <!-- DEPARTURE DATE -->
+      <div class="filter-col">
+        <label class="filter-label" (click)="toggleDate($event)">
+          <i class="icon-calendar"></i>
+          Departure Date
+        </label>
+        <div class="date-selector" (click)="toggleDate($event)">
+          <div class="date-display">
+            <span class="date-value" *ngIf="selectedDate; else placeholderDate">
+              {{ selectedDate.getDate() }} <span>{{ selectedDate | date: 'MMM, yyyy' }}</span>
+            </span>
+            <ng-template #placeholderDate>
+              <span class="placeholder-text">Select date</span>
+            </ng-template>
+            <span class="day-name" *ngIf="selectedDate">{{ getDayName() }}</span>
           </div>
-          
-          <div class="room-block" *ngFor="let room of rooms; let i = index">
-            <div class="room-title">
-              <span>Room {{ i + 1 }}</span>
-              <button 
-                *ngIf="rooms.length > 1" 
-                class="remove-room-btn" 
-                (click)="removeRoom(i)"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-            
-            <div class="guest-controls">
-              <div class="guest-type">
-                <label>Adults</label>
-                <div class="counter">
-                  <button 
-                    class="counter-btn" 
-                    (click)="changeGuests(i, 'adults', -1)"
-                    [disabled]="room.adults <= 1"
-                    type="button"
-                  >-</button>
-                  <span class="counter-value">{{ room.adults }}</span>
-                  <button 
-                    class="counter-btn" 
-                    (click)="changeGuests(i, 'adults', 1)"
-                    [disabled]="room.adults >= 4"
-                    type="button"
-                  >+</button>
-                </div>
+          <i class="dropdown-arrow" [class.open]="dateOpen">▼</i>
+        </div>
+        <div class="calendar-dropdown" *ngIf="dateOpen" (click)="$event.stopPropagation()">
+          <div class="calendar-header">
+            <h3>Select Departure Date</h3>
+          </div>
+          <div class="calendar-container">
+            <div class="calendar" *ngFor="let month of [currentMonth, nextMonth]">
+              <div class="month-title">{{ getMonthYear(month) }}</div>
+              <div class="weekdays">
+                <div *ngFor="let day of ['Su','Mo','Tu','We','Th','Fr','Sa']" class="weekday">{{ day }}</div>
               </div>
-              
-              <div class="guest-type">
-                <label>Children</label>
-                <div class="counter">
-                  <button 
-                    class="counter-btn" 
-                    (click)="changeGuests(i, 'children', -1)"
-                    [disabled]="room.children <= 0"
-                    type="button"
-                  >-</button>
-                  <span class="counter-value">{{ room.children }}</span>
-                  <button 
-                    class="counter-btn" 
-                    (click)="changeGuests(i, 'children', 1)"
-                    [disabled]="room.children >= 3"
-                    type="button"
-                  >+</button>
+              <div class="days">
+                <div 
+                  *ngFor="let date of getCalendarDays(month)"
+                  class="day-box"
+                  [class.empty]="!date"
+                  [class.disabled]="date && date < today"
+                  [class.selected]="selectedDate?.toDateString() === date?.toDateString()"
+                  [class.today]="date?.toDateString() === today.toDateString()"
+                  (click)="date && selectDate(date)"
+                >
+                  <span *ngIf="date">{{ date.getDate() }}</span>
                 </div>
               </div>
             </div>
-            
-            <div class="children-ages" *ngIf="room.children > 0">
-              <div class="age-selector" *ngFor="let age of room.childrenAges; let j = index">
-                <label>Child {{ j + 1 }} Age</label>
-                <select [(ngModel)]="room.childrenAges[j]" class="age-select">
-                  <option *ngFor="let a of ageRange" [value]="a">{{ a }} year{{ a > 1 ? 's' : '' }}</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          
-          <div class="room-actions">
-            <button 
-              class="add-room-btn" 
-              (click)="addRoom()" 
-              [disabled]="rooms.length >= 4"
-              type="button"
-            >
-              + Add Room
-            </button>
-            <button class="apply-btn" (click)="applyRoomGuest()" type="button">Apply</button>
           </div>
         </div>
       </div>
@@ -195,7 +113,6 @@
           Filters
           <span class="filter-count" *ngIf="filterChips.length > 0">({{ filterChips.length }})</span>
         </label>
-        
         <div class="filter-selector" (click)="toggleDropdown($event)">
           <div class="filter-display">
             <span class="filter-summary" *ngIf="hasActiveFilters(); else noFilters">
@@ -208,7 +125,6 @@
           </div>
           <i class="dropdown-arrow" [class.open]="dropdownOpen">▼</i>
         </div>
-        
         <!-- Applied Filter Chips -->
         <div class="applied-chips" *ngIf="filterChips.length > 0">
           <div *ngFor="let chip of filterChips" class="chip">
@@ -216,12 +132,10 @@
             <span class="close-btn" (click)="removeFilter(chip.type, chip.label)">×</span>
           </div>
         </div>
-        
         <div *ngIf="dropdownOpen" class="filter-flyout" (click)="$event.stopPropagation()">
           <div class="filter-header">
             <h3>Filter Options</h3>
           </div>
-          
           <div class="filter-section">
             <div class="filter-group">
               <label class="range-label">Duration ({{ durationRange[0] }} - {{ durationRange[1] }} nights)</label>
@@ -242,7 +156,6 @@
                 />
               </div>
             </div>
-
             <div class="filter-group">
               <label class="range-label">Budget per person (₹{{ budgetRange[0] | number }} - ₹{{ budgetRange[1] | number }})</label>
               <div class="range-inputs">
@@ -264,41 +177,7 @@
                 />
               </div>
             </div>
-
-            <div class="filter-group">
-              <label class="option-label">Flight Options</label>
-              <div class="button-group">
-                <button 
-                  class="option-btn"
-                  [class.active]="flightOption === 'with'" 
-                  (click)="setFlightOption('with')"
-                  type="button"
-                >
-                  With Flights
-                </button>
-                <button 
-                  class="option-btn"
-                  [class.active]="flightOption === 'without'" 
-                  (click)="setFlightOption('without')"
-                  type="button"
-                >
-                  Without Flights
-                </button>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <label class="option-label">Hotel Category</label>
-              <div class="checkbox-group">
-                <label class="checkbox-item" *ngFor="let h of hotelCategories">
-                  <input type="checkbox" [(ngModel)]="h.checked" />
-                  <span class="checkmark"></span>
-                  {{ h.label }}
-                </label>
-              </div>
-            </div>
           </div>
-
           <div class="filter-actions">
             <button class="clear-btn" (click)="clearAllFilters()" type="button">Clear All</button>
             <button class="apply-btn primary" (click)="applyFilters()" type="button">Apply Filters</button>

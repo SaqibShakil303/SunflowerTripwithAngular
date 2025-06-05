@@ -11,7 +11,7 @@ import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 import { DestinationService } from '../../services/destination/destination.service';
 import { TourFilterComponent } from '../../common/tour-filter/tour-filter.component';
-import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+
 
 @Component({
   selector: 'app-tour-package',
@@ -19,7 +19,7 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
   imports: [
     TourFilterComponent,
     CommonModule, RouterModule, FooterComponent, FAQComponent, TestimonialsComponent,
-    FormsModule, NavbarComponent, ChatWidgetComponent, ReactiveFormsModule,ClickOutsideDirective
+    FormsModule, NavbarComponent, ChatWidgetComponent, ReactiveFormsModule
   ],
   templateUrl: './tour-package.component.html',
   styleUrl: './tour-package.component.scss'
@@ -97,7 +97,7 @@ export class TourPackageComponent {
     // Fetch destination and category data for filter dropdowns
     this.destSvc.getNamesAndLocations().subscribe({
       next: (data) => {
-        // console.log("destinations: ",data);
+        console.log("destinations: ",data);
         this.destinations = data;
       },
       error: err => console.error('Failed loading destinations', err)
@@ -105,7 +105,7 @@ export class TourPackageComponent {
 
     this.toursSvc.getCategories().subscribe({
       next: (data: string[]) => {
-              // console.log("categories: ",data);
+              console.log("categories: ",data);
         this.categories = data;
       },
       error: err => console.error('Failed loading categories', err)
