@@ -1,4 +1,3 @@
-// header.component.ts
 import { Component, HostListener, ElementRef } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -41,6 +40,7 @@ interface DestinationGroup {
 export class HeaderComponent {
   isNavActive = false;
   isMobileMenuOpen = false;
+  isDropdownOpen = false;
   navGroups: NavGroup[] = [];
   destinationGroup: DestinationGroup = {
     label: 'Destinations',
@@ -52,7 +52,6 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.destSvc.getNamesAndLocations().subscribe({
       next: (data: DestinationNav[]) => {
-        // Create destinations group with all destinations and their locations
         this.destinationGroup = {
           label: 'Destinations',
           destinations: data.map(d => ({
@@ -67,7 +66,6 @@ export class HeaderComponent {
           }))
         };
 
-        // Keep only package groups in navGroups
         const packageGroups: NavGroup[] = [
           {
             label: 'Holiday Packages',
@@ -99,23 +97,30 @@ export class HeaderComponent {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
+  openDropdown() {
+    this.isDropdownOpen = true;
+  }
+
+  toggleDropdown(event: Event) {
+    const target = event.target as HTMLElement;
+    if (target.closest('.dropdown-label')) {
+      this.isDropdownOpen = !this.isDropdownOpen;
+      event.stopPropagation();
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
     if (this.isMobileMenuOpen && !this.elementRef.nativeElement.contains(event.target)) {
       this.isMobileMenuOpen = false;
     }
+    if (this.isDropdownOpen && !this.elementRef.nativeElement.querySelector('.dropdown-nav').contains(event.target)) {
+      this.isDropdownOpen = false;
+    }
   }
 
   customizeHoliday() {
     console.log('Customize holiday button clicked');
-  }
-
-  toggleDropdown(event: Event) {
-    const target = event.currentTarget as HTMLElement;
-    const parent = target.closest('.dropdown-mobile');
-    if (parent) {
-      parent.classList.toggle('active');
-    }
   }
 
   toggleDestinationLocations(event: Event) {

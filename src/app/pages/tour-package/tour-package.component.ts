@@ -1,103 +1,50 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Tour } from '../../models/tour.model';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { TourService } from '../../services/tours/tour.service';
 import { FooterComponent } from '../../common/footer/footer.component';
 import { FAQComponent } from "../../components/faq/faq.component";
 import { TestimonialsComponent } from "../../components/testimonials/testimonials.component";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 import { DestinationService } from '../../services/destination/destination.service';
 import { TourFilterComponent } from '../../common/tour-filter/tour-filter.component';
-
 
 @Component({
   selector: 'app-tour-package',
   standalone: true,
   imports: [
     TourFilterComponent,
-    CommonModule, RouterModule, FooterComponent, FAQComponent, TestimonialsComponent,
-    FormsModule, NavbarComponent, ChatWidgetComponent, ReactiveFormsModule
+    CommonModule,
+    RouterModule,
+    FooterComponent,
+    FAQComponent,
+    TestimonialsComponent,
+    NavbarComponent,
+    ChatWidgetComponent
   ],
   templateUrl: './tour-package.component.html',
   styleUrl: './tour-package.component.scss'
 })
-export class TourPackageComponent {
+export class TourPackageComponent implements OnInit {
   tours: Tour[] = [];
   destinations: any[] = [];
   categories: string[] = [];
   loading = false;
   error: string | null = null;
-  filterForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private toursSvc: TourService,
-    private fb: FormBuilder,
     private destSvc: DestinationService
   ) {}
 
   ngOnInit(): void {
-  this.filterForm = this.fb.group({
-    destination_id: [''],
-    category: [''],
-    min_price: [''],
-    max_price: [''],
-    min_duration: [''],
-    max_duration: [''],
-    available_from: [''],
-    available_to: [''],
-    accommodation_rating: [''],
-    flight_included: [''],
-    adults: [null],
-    children: [null],
-    rooms: [null],
-    // location: [''],
-    fromCity: ['']
-  });
-
-    this.route.queryParams.subscribe(params => {
-      this.loading = true;
-      this.error = null;
-      const destId = params['destination'];
-      const locId = params['location'];
-      const category = params['category'];
-      let obs$;
-
-      if (locId) {
-        obs$ = this.toursSvc.getByLocation(+locId);
-      } else if (destId) {
-        obs$ = this.toursSvc.getByDestination(+destId);
-      } else if (category) {
-        obs$ = this.toursSvc.getByCategory(category);
-      } else {
-        this.error = 'No filters applied to fetch tours.';
-        this.loading = false;
-        return;
-      }
-
-      obs$.subscribe({
-        next: tours => {
-          this.tours = tours;
-          // console.log(tours);
-
-          this.loading = false;
-        },
-        error: err => {
-          this.error = 'Failed to load tours.';
-          console.error(err);
-          this.loading = false;
-        }
-      });
-    });
-
     // Fetch destination and category data for filter dropdowns
     this.destSvc.getNamesAndLocations().subscribe({
       next: (data) => {
-        console.log("destinations: ",data);
         this.destinations = data;
       },
       error: err => console.error('Failed loading destinations', err)
@@ -105,23 +52,65 @@ export class TourPackageComponent {
 
     this.toursSvc.getCategories().subscribe({
       next: (data: string[]) => {
-              console.log("categories: ",data);
         this.categories = data;
       },
       error: err => console.error('Failed loading categories', err)
     });
+
+    // Handle query params for pre-applied filters
+    this.route.queryParams.subscribe(params => {
+      const filters = {
+        destination_id: params['destination'] || '',
+        location: params['location'] || '',
+        category: params['category'] || '',
+        fromCity: params['fromCity'] || '',
+        min_price: params['min_price'] ? +params['min_price'] : '',
+        max_price: params['max_price'] ? +params['max_price'] : '',
+        min_duration: params['min_duration'] ? +params['min_duration'] : '',
+        max_duration: params['max_duration'] ? +params['max_duration'] : '',
+        available_from: params['available_from'] || '',
+        available_to: params['available_to'] || ''
+      };
+      this.handleSearch(filters);
+    });
   }
 
-  applyFilters() {
-    const filters = this.filterForm.value;
+  handleSearch(filters: any) {
     this.loading = true;
+    this.error = null;
+console.log('Applying filters:', filters);
+    // Update URL query parameters to reflect current filters
+    const queryParams = {
+      destination: filters.destination_id || null,
+      location: filters.location || null,
+      category: filters.category || null,
+      fromCity: filters.fromCity || null,
+      min_price: filters.min_price || null,
+      max_price: filters.max_price || null,
+      min_duration: filters.min_duration || null,
+      max_duration: filters.max_duration || null,
+      available_from: filters.available_from || null,
+      available_to: filters.available_to || null
+    };
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams,
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
+
     this.toursSvc.getFilteredTours(filters).subscribe({
-      next: tours => {
-        this.tours = tours;
+      next: (data) => {
+        this.tours = data;
         this.loading = false;
+        if (this.tours.length === 0) {
+          this.error = 'No tours found matching your filters.';
+        }
       },
-      error: err => {
-        this.error = 'Failed to load filtered tours';
+      error: (err) => {
+        this.error = 'Failed to load tours.';
+        console.error(err);
         this.loading = false;
       }
     });
@@ -130,23 +119,4 @@ export class TourPackageComponent {
   goToTourDetail(slug: string): void {
     this.router.navigate(['/tour', slug]);
   }
-  handleSearch(filters: any) {
-  console.log('Filters received from child:', filters);
-
-  // Optionally update your internal state
-  this.loading = true;
-    // this.filterForm = filters;
-  this.toursSvc.getFilteredTours(filters).subscribe({
-    next: (data) => {
-      this.tours = data;
-    
-      this.loading = false;
-    },
-    error: (err) => {
-      this.error = 'Failed to load tours';
-      this.loading = false;
-    }
-  });
-}
-
 }

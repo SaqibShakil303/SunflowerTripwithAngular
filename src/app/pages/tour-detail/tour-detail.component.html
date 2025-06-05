@@ -156,15 +156,23 @@
     </div>
 
     <!-- Itinerary Section -->
-    <div class="tab-content" *ngIf="activeTab === 'itinerary'">
+ <div class="tab-content" *ngIf="activeTab === 'itinerary'">
       <div class="itinerary-section">
         <h2>ITINERARY</h2>
         <div class="timeline">
-          <div class="timeline-item" *ngFor="let day of getItineraryDays(); let i = index">
+          <div class="timeline-item" *ngFor="let day of getItineraryDays(); let i = index" [attr.aria-expanded]="openDayIndex === i" [attr.aria-controls]="'day-desc-' + i">
             <div class="day-number">Day {{ i + 1 }}</div>
-            <div class="day-content">
-              <h4>{{ day.title || 'Day ' + (i + 1) }}</h4>
-              <p>{{ day.description }}</p>
+            <div class="day-content" (click)="toggleDay(i)" role="button" tabindex="0" (keydown)="onKeydown($event, i)">
+              <div class="day-header">
+                <h4>{{ day.title || 'Day ' + (i + 1) }}</h4>
+                <span class="toggle-icon" [class.open]="openDayIndex === i"></span>
+              </div>
+              <div class="day-description" [class.open]="openDayIndex === i" [id]="'day-desc-' + i">
+                <p>{{ day.description }}</p>
+              </div>
+              <div class="day-teaser" *ngIf="openDayIndex !== i">
+                <span>Click to view details</span>
+              </div>
             </div>
           </div>
         </div>

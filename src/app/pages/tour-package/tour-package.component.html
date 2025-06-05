@@ -9,9 +9,7 @@
   </section>
 
   <section class="tour-filter-section">
-    <!-- <div class="tour-filter-container"> -->
-      <app-tour-filter (searchTriggered)="handleSearch($event)"></app-tour-filter>
-    <!-- </div> -->
+    <app-tour-filter (searchTriggered)="handleSearch($event)"></app-tour-filter>
   </section>
 
   <div *ngIf="loading" class="loading">Loading tours...</div>

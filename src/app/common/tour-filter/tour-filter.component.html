@@ -37,21 +37,21 @@
             [(ngModel)]="selectedLocation"
             class="filter-select location-select"
           >
-            <option [ngValue]="null">Select specific location</option>
-            <option *ngFor="let loc of selectedDestination.locations">{{ loc.name }}</option>
+            <option [value]="null">Select specific location</option>
+            <option *ngFor="let loc of selectedDestination?.locations"  [ngValue]="loc">{{ loc.name }}</option>
           </select>
         </div>
       </div>
- <!-- Filter by Category -->
+
+      <!-- Filter by Category -->
       <div class="filter-col">
         <label class="filter-label">
           <i class="icon-destination"></i>
-         Select Category
+          Select Category
         </label>
         <div class="select-group">
           <select 
             [(ngModel)]="selectedCategory" 
-  
             class="filter-select"
           >
             <option [ngValue]="null">Choose Category</option>
@@ -80,7 +80,9 @@
         </div>
         <div class="calendar-dropdown" *ngIf="dateOpen" (click)="$event.stopPropagation()">
           <div class="calendar-header">
+            <button class="nav-btn" (click)="prevMonth()" type="button">◄</button>
             <h3>Select Departure Date</h3>
+            <button class="nav-btn" (click)="nextMonths()" type="button">►</button>
           </div>
           <div class="calendar-container">
             <div class="calendar" *ngFor="let month of [currentMonth, nextMonth]">
@@ -146,6 +148,7 @@
                   min="2" 
                   max="15" 
                   class="range-slider"
+                  (change)="validateDurationRange()"
                 />
                 <input 
                   type="range" 
@@ -153,6 +156,7 @@
                   min="2" 
                   max="15" 
                   class="range-slider"
+                  (change)="validateDurationRange()"
                 />
               </div>
             </div>
@@ -166,6 +170,7 @@
                   max="500000" 
                   step="5000" 
                   class="range-slider"
+                  (change)="validateBudgetRange()"
                 />
                 <input 
                   type="range" 
@@ -174,6 +179,7 @@
                   max="500000" 
                   step="5000" 
                   class="range-slider"
+                  (change)="validateBudgetRange()"
                 />
               </div>
             </div>

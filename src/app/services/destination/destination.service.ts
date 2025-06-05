@@ -19,7 +19,9 @@ export class DestinationService {
   ) { }
 private APIurl =environment.apiDomain
 
-
+getDestinations(): Observable<Destination[]> {
+    return this.http.get<Destination[]>(`${this.APIurl}/Destination`);  
+  }
  getDestinationById(id: number): Observable<any> {
     return this.http.get<any>(`${this.APIurl}/${id}`);
   }

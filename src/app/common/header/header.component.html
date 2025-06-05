@@ -1,4 +1,3 @@
-<!-- header.component.html -->
 <div class="header-box">
   <app-navbar></app-navbar>
 
@@ -14,8 +13,8 @@
     <nav class="header__menu">
       <ul class="menu__list">
         <!-- Destinations Dropdown -->
-        <li class="dropdown-nav">
-          <a href="javascript:void(0)">{{ destinationGroup.label }}</a>
+        <li class="dropdown-nav" [class.active]="isDropdownOpen" (mouseenter)="openDropdown()" (click)="toggleDropdown($event)">
+          <a href="javascript:void(0)" class="dropdown-label">{{ destinationGroup.label }}</a>
           <ul class="dropdown-content-nav destinations-dropdown">
             <ng-container *ngFor="let destination of destinationGroup.destinations">
               <li class="destination-item" [class.has-locations]="destination.locations.length > 0">
