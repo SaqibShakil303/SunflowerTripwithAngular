@@ -192,3 +192,11 @@ a {
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
   padding: 0.8em 0;
 }
+
+
+df-messenger {
+  --df-messenger-button-titlebar-color: #00897b;
+  --df-messenger-button-titlebar-font-color: white;
+  --df-messenger-chat-background-color: white;
+  --df-messenger-font-color: black;
+}
