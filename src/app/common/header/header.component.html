@@ -15,23 +15,31 @@
         <!-- Destinations Dropdown -->
         <li class="dropdown-nav" [class.active]="isDropdownOpen" (mouseenter)="openDropdown()" (click)="toggleDropdown($event)">
           <a href="javascript:void(0)" class="dropdown-label">{{ destinationGroup.label }}</a>
-          <ul class="dropdown-content-nav destinations-dropdown">
-            <ng-container *ngFor="let destination of destinationGroup.destinations">
-              <li class="destination-item" [class.has-locations]="destination.locations.length > 0">
-                <a [routerLink]="destination.route" [queryParams]="destination.queryParams" class="destination-link">
+          <div class="dropdown-content-nav">
+            <div class="two-pane">
+              <ul class="continent-column">
+                <li *ngFor="let destination of destinationGroup.destinations" [class.active]="selectedContinent === destination" (click)="selectContinent(destination)">
                   {{ destination.name }}
-                  <span class="arrow-indicator" *ngIf="destination.locations.length > 0">→</span>
-                </a>
-                <ul class="location-submenu" *ngIf="destination.locations.length > 0">
-                  <li *ngFor="let location of destination.locations">
-                    <a [routerLink]="location.route" [queryParams]="location.queryParams" class="location-link">
-                      {{ location.name }}
-                    </a>
+                </li>
+              </ul>
+              <div class="country-column" *ngIf="selectedContinent">
+                <div class="continent-header">
+                  <a [routerLink]="selectedContinent.route" [queryParams]="selectedContinent.queryParams">
+                    {{ selectedContinent.name }}
+                  </a>
+                  <span class="arrow-indicator"></span>
+                </div>
+                <ul>
+                  <li *ngFor="let location of selectedContinent.locations">
+                    <a [routerLink]="location.route" [queryParams]="location.queryParams">{{ location.name }}</a>
                   </li>
                 </ul>
-              </li>
-            </ng-container>
-          </ul>
+              </div>
+              <div class="continent-image" *ngIf="selectedContinent?.image_url">
+                <img [src]="selectedContinent?.image_url" [alt]="selectedContinent?.name" />
+              </div>
+            </div>
+          </div>
         </li>
 
         <!-- Package Groups -->
@@ -54,8 +62,8 @@
     <div class="close-btn" (click)="toggleMobileMenu()">×</div>
     <ul class="mobile-menu">
       <!-- Mobile Destinations -->
-      <li class="dropdown-mobile">
-        <div (click)="toggleDropdown($event)" class="mobile-group-label">
+      <li class="dropdown-mobile" [class.active]="isDropdownOpen" (click)="toggleDropdown($event)">
+        <div class="mobile-group-label">
           {{ destinationGroup.label }}
         </div>
         <ul class="mobile-submenu">

@@ -64,15 +64,12 @@ openVideoDialog(videoUrl: string): void {
     }
   }
   ngOnInit(): void {
-    const idParam = this.route.snapshot.paramMap.get('id');
-    const id = idParam ? Number(idParam) : NaN;
-    if (isNaN(id) || id <= 0) {
-      // Navigate and bail out, without returning the Promise
-      this.router.navigateByUrl('/');
-      return;
-    }
-
-    this.destSvc.getDestinationDetails(id).subscribe({
+    const titleParam = this.route.snapshot.paramMap.get('title');
+  if (!titleParam) {
+    this.router.navigateByUrl('/');
+    return;
+  }
+    this.destSvc.getDestinationByTitle(titleParam).subscribe({
       next: dest => {
         this.destination = dest;
         // Once data is bound, initialize each Swiper

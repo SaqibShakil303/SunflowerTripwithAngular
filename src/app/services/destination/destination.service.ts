@@ -22,9 +22,17 @@ private APIurl =environment.apiDomain
 getDestinations(): Observable<Destination[]> {
     return this.http.get<Destination[]>(`${this.APIurl}/Destination`);  
   }
- getDestinationById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.APIurl}/${id}`);
+
+  getDestinationNames(): Observable<Destination[]> {
+    return this.http.get<Destination[]>(`${this.APIurl}/Destination/destinationNames`);
   }
+ getDestinationById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.APIurl}/${id}/details`);
+  }
+   getDestinationByTitle(title: string): Observable<any> {
+    return this.http.get<any>(`${this.APIurl}/Destination/${title}`);
+  }
+  
  getDestinationDetails(id: number): Observable<Destination> {
   return this.http.get<Destination>(`${this.APIurl}/Destination/${id}/details`);
 }

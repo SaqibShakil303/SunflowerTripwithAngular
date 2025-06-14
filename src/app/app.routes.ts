@@ -102,7 +102,7 @@ export const routes: Routes = [
 //   loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
 // }
 {
-    path: 'destination/:id',
+    path: 'destination/:title',
     loadComponent: () => import('./pages/destination-main/destination-main.component').then(m => m.DestinationMainComponent)
   },
 

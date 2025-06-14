@@ -7,7 +7,6 @@ $border-radius: 8px;
 $transition: 0.3s ease;
 $glass-bg: rgba(255, 255, 255, 0.507);
 $glass-blur: blur(50px);
-$gradient-hover: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgba(212, 169, 226, 0.815));
 
 @mixin glassmorphism {
   background: $glass-bg;
@@ -99,34 +98,10 @@ app-navbar {
   transition: all $transition;
   transform: translateY(10px);
   position: absolute;
-  min-width: 200px;
   top: 100%;
   left: 0;
   border-radius: $border-radius;
   overflow: hidden;
-
-  a {
-    color: $color-primary;
-    padding: 12px 16px;
-    display: block;
-    font-size: 14px;
-    text-transform: none;
-    text-decoration: none;
-    transition: background-color $transition;
-
-    &:hover {
-      background-color: $color-hover-bg;
-    }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom right, rgba(163, 200, 240, 0.3), rgba(212, 169, 226, 0.3));
-    z-index: -1;
-    opacity: 0.8;
-  }
 }
 
 .custom-btn {
@@ -142,7 +117,7 @@ app-navbar {
   transition: background-color $transition, color $transition;
 
   &:hover {
-    background: $gradient-hover;
+    background: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgba(212, 169, 226, 0.815));
     color: $color-accent;
   }
 
@@ -276,130 +251,114 @@ app-navbar {
   }
 }
 
-.destinations-dropdown {
-  .destination-item {
+.two-pane {
+  display: flex;
+  width: 800px;
+  min-height: 300px;
+  padding: 16px;
+  gap: 30px;
+
+  .continent-column {
+    width: 30%;
+    border-right: 1px solid #eee;
+
+    li {
+      padding: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #222;
+      text-transform: uppercase;
+      font-size: 14px;
+
+      &.active {
+        background-color: #f5f5f5;
+        color: #000;
+      }
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+
+  .country-column {
+    width: 40%;
     position: relative;
 
-    &.has-locations {
-      .destination-link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .continent-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 8px;
 
-        .arrow-indicator {
-          transition: transform 0.3s ease;
-          font-size: 0.8em;
+      a {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        text-decoration: none;
+        text-transform: uppercase;
+
+        &:hover {
+          color: #000;
         }
       }
 
-      .location-submenu {
-        display: none;
-        left: 100%;
-        top: 0;
-        background: $glass-bg;
-        backdrop-filter: $glass-blur;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: $border-radius;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        min-width: 200px;
-        z-index: 1000;
-
-        li {
-          color: #333;
-          border-bottom: 1px solid #eee;
-
-          &:last-child {
-            border-bottom: none;
-          }
-
-          .location-link {
-            display: block;
-            padding: 8px 15px;
-            font-size: 0.9em;
-            color: #333;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-
-            &:hover {
-              background-color: $color-hover-bg;
-            }
-          }
-        }
-      }
-
-      &:hover .location-submenu {
-        display: block;
-      }
-
-      &:hover .arrow-indicator {
-        transform: rotate(90deg);
+      .arrow-indicator {
+        border: solid #333;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(-45deg);
       }
     }
 
-    .destination-link {
-      font-weight: bold;
-      padding: 10px 15px;
+    li a {
       display: block;
-      text-decoration: none;
+      padding: 8px 12px;
+      font-size: 14px;
       color: #333;
-      transition: background-color 0.2s ease;
+      text-decoration: none;
 
       &:hover {
-        background-color: $color-hover-bg;
+        color: #000;
+        font-weight: 600;
       }
+    }
+  }
+
+  .continent-image {
+    width: 30%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: $border-radius;
     }
   }
 }
 
-.mobile-destination-item {
-  .mobile-destination-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    cursor: pointer;
+@media (max-width: 768px) {
+  .two-pane {
+    flex-direction: column;
+    width: 100%;
+    min-height: auto;
 
-    .mobile-destination-link {
-      font-weight: bold;
-      flex: 1;
+    .continent-column,
+    .country-column,
+    .continent-image {
+      width: 100%;
     }
 
-    .mobile-arrow {
-      transition: transform 0.3s ease;
-      font-size: 0.8em;
-      color: #666;
-    }
-  }
-
-  .mobile-location-list {
-    display: none;
-    padding-left: 20px;
-    margin-top: 8px;
-
-    li {
-      margin-bottom: 8px;
-
-      .mobile-location-link {
-        font-size: 0.9em;
-        color: #666;
-        text-decoration: none;
-        padding: 4px 0;
-        display: block;
-
-        &:hover {
-          color: #333;
-        }
-      }
-    }
-  }
-
-  &.locations-open {
-    .mobile-location-list {
-      display: block;
+    .continent-column {
+      border-right: none;
+      border-bottom: 1px solid #eee;
     }
 
-    .mobile-arrow {
-      transform: rotate(180deg);
+    .continent-image {
+      height: 200px;
     }
   }
 }

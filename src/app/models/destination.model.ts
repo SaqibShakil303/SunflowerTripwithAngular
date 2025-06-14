@@ -44,6 +44,7 @@ export interface Tour {
 }
 
 export interface Destination {
+  parent_id?: number;
   id: number;
   title: string;
   slug?: string;
