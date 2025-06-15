@@ -7,14 +7,23 @@ import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../common/footer/footer.component";
 import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
+import { BookingModalComponent } from "../../components/booking-modal/booking-modal.component";
 import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, FooterComponent, NavbarComponent, ChatWidgetComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    FooterComponent,
+    NavbarComponent,
+    ChatWidgetComponent,
+    BookingModalComponent
+  ],
   templateUrl: './tour-detail.component.html',
-  styleUrl: './tour-detail.component.scss'
+  styleUrls: ['./tour-detail.component.scss']
 })
 export class TourDetailComponent implements OnInit {
   isMobileView = false;
@@ -26,6 +35,8 @@ export class TourDetailComponent implements OnInit {
   selectedDate = '';
   selectedGuests = 1;
   openDayIndex: number | null = null;
+  isModalOpen = false;
+  modalFormType: 'enquiry' | 'booking' = 'enquiry';
 
   constructor(
     private route: ActivatedRoute,
@@ -151,11 +162,27 @@ export class TourDetailComponent implements OnInit {
   }
 
   openEnquiryForm(): void {
-    console.log('Opening enquiry form');
+    this.modalFormType = 'enquiry';
+    this.isModalOpen = true;
   }
 
   openBookingForm(): void {
-    console.log('Opening booking form');
+    this.modalFormType = 'booking';
+    this.isModalOpen = true;
+  }
+
+  closeModal(): void {
+    this.isModalOpen = false;
+  }
+
+  handleEnquirySubmit(data: any): void {
+    console.log('Enquiry submitted:', data);
+    // Implement API call to submit enquiry
+  }
+
+  handleBookingSubmit(data: any): void {
+    console.log('Booking submitted:', data);
+    // Implement API call to submit booking
   }
 
   proceedBooking(): void {

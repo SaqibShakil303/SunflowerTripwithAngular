@@ -131,4 +131,6 @@ export class Tour {
   // Timestamps
   created_at?: string;
   updated_at?: string;
+  isCustomizable?: boolean; // New: for customizable days
+
 }

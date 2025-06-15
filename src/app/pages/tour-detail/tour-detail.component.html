@@ -1,7 +1,6 @@
 <app-navbar></app-navbar>
 <section class="tour-detail" *ngIf="tour">
   <div class="hero-section">
-    
     <img [src]="tour.image_url" alt="{{ tour.title }}" class="hero-image" />
     <div class="hero-overlay">
       <div class="container">
@@ -26,32 +25,29 @@
             <span>{{ tour.max_group_size }}</span>
           </div>
         </div>
-<button 
-  class="mobile-booking-toggle"
-  *ngIf="isMobileView"
-  (click)="toggleBookingCard()">
-  {{ showBookingCard ? 'Hide Booking Options' : 'Show Booking Options' }}
-</button>
-       <div 
-  class="booking-card" 
-  *ngIf="!isMobileView || showBookingCard">
+        <button 
+          class="mobile-booking-toggle"
+          *ngIf="isMobileView"
+          (click)="toggleBookingCard()">
+          {{ showBookingCard ? 'Hide Booking Options' : 'Show Booking Options' }}
+        </button>
+        <div 
+          class="booking-card" 
+          *ngIf="!isMobileView || showBookingCard">
           <div class="price-section">
             <span class="price-label">Price</span>
             <span class="price">₹{{ formatPrice(tour.price) }}</span>
           </div>
-          
           <div class="booking-forms">
             <button class="btn btn-outline" (click)="openEnquiryForm()">Enquiry Form</button>
             <button class="btn btn-primary" (click)="openBookingForm()">Book Form</button>
           </div>
-          
           <div class="booking-details">
             <div class="form-group">
               <label>Date</label>
               <input type="date" class="form-control date-year" [(ngModel)]="selectedDate" 
                      [min]="getMinDate()" [max]="getMaxDate()">
             </div>
-            
             <div class="form-group">
               <label>Guests</label>
               <select class="form-control" [(ngModel)]="selectedGuests">
@@ -63,7 +59,6 @@
               </select>
             </div>
           </div>
-          
           <div class="room-selection" *ngIf="tour.room_types && tour.room_types.length > 0">
             <div class="room-option" *ngFor="let room of tour.room_types">
               <label>{{ room.name }}</label>
@@ -75,11 +70,9 @@
               </select>
             </div>
           </div>
-          
           <button class="btn btn-success btn-full" (click)="proceedBooking()">
             PROCEED BOOKING
           </button>
-          
           <div class="action-buttons">
             <button class="btn btn-link" (click)="saveToWishlist()">Save To Wish List</button>
             <button class="btn btn-link" (click)="viewReviews()">Reviews</button>
@@ -126,14 +119,12 @@
               <span>{{ inclusion }}</span>
             </div>
           </div>
-          
           <div *ngIf="inclusionTab === 'exclusions'" class="inclusion-list">
             <div class="inclusion-item" *ngFor="let exclusion of tour.exclusions">
               <i class="icon-close"></i>
               <span>{{ exclusion }}</span>
             </div>
           </div>
-          
           <div *ngIf="inclusionTab === 'complementaries'" class="inclusion-list">
             <div class="inclusion-item" *ngFor="let comp of tour.complementaries">
               <i class="icon-check"></i>
@@ -156,7 +147,7 @@
     </div>
 
     <!-- Itinerary Section -->
- <div class="tab-content" *ngIf="activeTab === 'itinerary'">
+    <div class="tab-content" *ngIf="activeTab === 'itinerary'">
       <div class="itinerary-section">
         <h2>ITINERARY</h2>
         <div class="timeline">
@@ -225,5 +216,15 @@
   <div class="spinner"></div>
   <p>Loading tour details...</p>
 </div>
+
+<app-booking-modal
+  [isOpen]="isModalOpen"
+  [formType]="modalFormType"
+  [tour]="tour"
+  (close)="closeModal()"
+  (onSubmitEnquiry)="handleEnquirySubmit($event)"
+  (onSubmitBooking)="handleBookingSubmit($event)"
+></app-booking-modal>
+
 <app-chat-widget></app-chat-widget>
 <app-footer></app-footer>
