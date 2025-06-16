@@ -30,13 +30,14 @@ export class BookingModalComponent {
     name: '',
     email: '',
     phone: '',
-    days: null as number | null,
+    days: this.tour?.duration_days,
     adults: 1,
     children: 0,
     childAges: [] as number[],
     hotelRating: '',
     mealPlan: '',
     flightOption: '',
+    flightNumber: '' as string | undefined, // New field
     travelDate: ''
   };
 
@@ -70,13 +71,14 @@ export class BookingModalComponent {
       name: '',
       email: '',
       phone: '',
-      days: null,
+      days: undefined,
       adults: 1,
       children: 0,
       childAges: [],
       hotelRating: '',
       mealPlan: '',
       flightOption: '',
+      flightNumber: '', // Reset to empty string
       travelDate: this.minDate
     };
   }

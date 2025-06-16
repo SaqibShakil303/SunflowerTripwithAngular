@@ -9,7 +9,8 @@ import { NavbarComponent } from "../../common/navbar/navbar.component";
 import { ChatWidgetComponent } from "../../components/chat-widget/chat-widget.component";
 import { BookingModalComponent } from "../../components/booking-modal/booking-modal.component";
 import { Meta, Title } from '@angular/platform-browser';
-
+import { BookingsService } from '../../services/bookings/bookings.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
@@ -20,7 +21,8 @@ import { Meta, Title } from '@angular/platform-browser';
     FooterComponent,
     NavbarComponent,
     ChatWidgetComponent,
-    BookingModalComponent
+    BookingModalComponent,
+    MatSnackBarModule
   ],
   templateUrl: './tour-detail.component.html',
   styleUrls: ['./tour-detail.component.scss']
@@ -42,8 +44,11 @@ export class TourDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private tourService: TourService,
     @Inject(PLATFORM_ID) private platformId: Object,
+    private bookingsService: BookingsService,
     private meta: Meta,
-    private title: Title
+    private title: Title,
+    private snackBar: MatSnackBar,
+    
   ) {}
 
   ngOnInit(): void {
@@ -175,14 +180,39 @@ export class TourDetailComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  handleEnquirySubmit(data: any): void {
-    console.log('Enquiry submitted:', data);
-    // Implement API call to submit enquiry
+handleEnquirySubmit(data: any): void {
+    this.bookingsService.submitEnquiry(data).subscribe({
+      next: (response) => {
+        console.log('Enquiry submitted successfully:', response);
+        if (isPlatformBrowser(this.platformId)) {
+         this.snackBar.open('Your enquiry has been submitted successfully!', 'Close', { duration: 3000 });
+        }
+      },
+      error: (error) => {
+        console.error('Enquiry submission failed:', error.message);
+        if (isPlatformBrowser(this.platformId)) {
+         this.snackBar.open(`Failed to submit enquiry: ${error.message}`, 'Close', { duration: 5000 });
+        }
+      }
+    });
   }
 
-  handleBookingSubmit(data: any): void {
-    console.log('Booking submitted:', data);
-    // Implement API call to submit booking
+
+handleBookingSubmit(data: any): void {
+    this.bookingsService.submitBooking(data).subscribe({
+      next: (response) => {
+        console.log('Booking submitted successfully:', response);
+        if (isPlatformBrowser(this.platformId)) {
+         this.snackBar.open(`Your booking has been submitted successfully!`,'Close', { duration: 3000 });
+        }
+      },
+      error: (error) => {
+        console.error('Booking submission failed:', error.message);
+        if (isPlatformBrowser(this.platformId)) {
+           this.snackBar.open(`Failed to submit booking: ${error.message}`, 'Close', { duration: 5000 });
+        }
+      }
+    });
   }
 
   proceedBooking(): void {

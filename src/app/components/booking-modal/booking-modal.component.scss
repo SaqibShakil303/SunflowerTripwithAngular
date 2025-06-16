@@ -1,3 +1,4 @@
+/* Existing styles remain unchanged */
 @import 'mixins';
 
 .modal-overlay {
@@ -63,6 +64,16 @@
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
   }
+      select.form-control {
+          background-color: rgba(255, 255, 255, 0.1);
+          color: white;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+
+          option {
+            background-color: #0a1828;
+            color: #ffffff;
+          }
+        }
 
   .form-control {
     width: 100%;

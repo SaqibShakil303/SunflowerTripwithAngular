@@ -1,7 +1,7 @@
 <ng-container *ngIf="isOpen">
   <div class="modal-overlay" (click)="closeModal()"></div>
   <div class="modal-content" [ngClass]="{'enquiry-form': formType === 'enquiry', 'booking-form': formType === 'booking'}">
-    <!-- Enquiry Form -->
+    <!-- Enquiry Form (unchanged) -->
     <div *ngIf="formType === 'enquiry'" class="form-container">
       <h2 class="form-title">Enquiry Form</h2>
       <form #enquiryForm="ngForm" (ngSubmit)="submitEnquiry(enquiryForm)">
@@ -199,9 +199,20 @@
             required
           >
             <option value="" disabled selected>Select flight option</option>
-            <option value="with-flight" *ngIf="tour?.category === 'holiday' || tour?.category === 'group'">With Flight</option>
-            <option value="without-flight" *ngIf="tour?.category === 'group'">Without Flight</option>
+            <option value="with-flight" *ngIf="tour?.category === 'group'">With Flight</option>
+            <option value="without-flight" *ngIf="tour?.category === 'holiday'">Without Flight</option>
           </select>
+        </div>
+        <div class="form-group" *ngIf="bookingData.flightOption === 'without-flight' && tour?.category === 'holiday'">
+          <label for="booking-flight-number">Flight Number (Optional)</label>
+          <input
+            id="booking-flight-number"
+            type="text"
+            class="form-control"
+            [(ngModel)]="bookingData.flightNumber"
+            name="flightNumber"
+            placeholder="Enter flight number for pick up"
+          />
         </div>
         <div class="form-group">
           <label for="booking-date">Travel Date</label>
@@ -217,7 +228,7 @@
         </div>
         <div class="form-actions">
           <button type="button" class="btn btn-outline" (click)="closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.valid">Submit Booking</button>
+          <button type="submit" class="btn btn-primary" >Submit booking</button>
         </div>
       </form>
     </div>
