@@ -6,7 +6,7 @@
         <label class="filter-label">
           <i class="icon-location"></i>
           From City
-        </label>
+        </label>  
         <div class="input-group">
           <input 
             [(ngModel)]="fromCity" 
@@ -32,14 +32,14 @@
             <option [ngValue]="null">Choose destination</option>
             <option *ngFor="let dest of destinations" [ngValue]="dest">{{ dest.title }}</option>
           </select>
-          <select 
+          <!-- <select 
             *ngIf="selectedDestination" 
             [(ngModel)]="selectedLocation"
             class="filter-select location-select"
           >
             <option [value]="null">Select specific location</option>
             <option *ngFor="let loc of selectedDestination?.locations"  [ngValue]="loc">{{ loc.name }}</option>
-          </select>
+          </select> -->
         </div>
       </div>
 

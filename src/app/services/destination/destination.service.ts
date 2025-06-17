@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environments.dev';
 import { Destination } from '../../models/destination.model';
 export interface DestinationNav {
+  parent_id: null;
   id: number;
   title: string;
   locations: { id: number; name: string }[];

@@ -103,12 +103,16 @@
       @include glass-card(0.1, 12px, 0.15);
       backdrop-filter: blur(15px);
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: clamp(1rem, 3vw, 1.5rem);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
       position: sticky;
       top: 2rem;
       overflow-y: auto;
       animation: fadeIn 1s ease-in both;
+      width: 100%;
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
 
       .price-section {
         text-align: center;
@@ -117,7 +121,7 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         .price-label {
-          font-size: 0.85rem;
+          font-size: clamp(0.75rem, 2.5vw, 0.85rem);
           opacity: 0.8;
           display: block;
           margin-bottom: 0.25rem;
@@ -126,7 +130,7 @@
         }
 
         .price {
-          font-size: 2.2rem;
+          font-size: clamp(1.8rem, 5vw, 2.2rem);
           font-weight: 700;
           color: var(--accent-color);
           display: block;
@@ -138,19 +142,20 @@
         display: flex;
         gap: 0.75rem;
         margin-bottom: 1.5rem;
+        flex-wrap: wrap;
 
         .btn {
           flex: 1;
-          padding: 0.75rem;
+          padding: clamp(0.6rem, 2vw, 0.75rem);
           border-radius: 0.75rem;
           font-weight: 600;
-          font-size: 0.9rem;
+          font-size: clamp(0.8rem, 2.5vw, 0.9rem);
           transition: all 0.3s ease;
           border: 2px solid transparent;
           cursor: pointer;
           text-align: center;
           text-decoration: none;
-          display: inline-block;
+          min-height: 40px;
 
           &.btn-outline {
             border-color: var(--accent-color);
@@ -206,7 +211,7 @@
           }
 
           label {
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             margin-bottom: 0.5rem;
             font-weight: 600;
             display: block;
@@ -215,13 +220,14 @@
 
           .form-control {
             width: 100%;
-            padding: 0.75rem;
-            font-size: 0.9rem;
+            padding: clamp(0.6rem, 2vw, 0.75rem);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             border-radius: 0.6rem;
             background: var(--blur-bg);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: black;
             transition: all 0.3s ease;
+            min-height: 40px;
 
             &:focus {
               outline: none;
@@ -269,7 +275,7 @@
 
         .room-option {
           label {
-            font-size: 0.85rem;
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 600;
@@ -278,8 +284,8 @@
 
           .form-control {
             width: 100%;
-            padding: 0.6rem;
-            font-size: 0.85rem;
+            padding: clamp(0.5rem, 2vw, 0.6rem);
+            font-size: clamp(0.75rem, 2.5vw, 0.85rem);
             border-radius: 0.5rem;
             background: var(--blur-bg);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -298,8 +304,8 @@
       .btn-success {
         display: block;
         width: 100%;
-        padding: 1rem;
-        font-size: 1rem;
+        padding: clamp(0.8rem, 2.5vw, 1rem);
+        font-size: clamp(0.9rem, 3vw, 1rem);
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.5px;
@@ -310,6 +316,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         margin-bottom: 1rem;
+        min-height: 44px;
 
         &:hover {
           transform: translateY(-2px);
@@ -329,9 +336,11 @@
         align-items: center;
         padding-top: 0.5rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        flex-wrap: wrap;
+        gap: 0.5rem;
 
         .btn-link {
-          font-size: 0.85rem;
+          font-size: clamp(0.75rem, 2.5vw, 0.85rem);
           text-decoration: underline;
           background: none;
           border: none;
@@ -339,6 +348,10 @@
           cursor: pointer;
           padding: 0.25rem 0;
           transition: all 0.2s ease;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
           &:hover {
             color: var(--text-light);
@@ -708,9 +721,14 @@
   to { opacity: 1; }
 }
 
+@keyframes slideInUp {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
 /* Responsive Media Queries */
 @media (min-width: 1200px) {
-  .hero-container {
+  .hero-section .container {
     gap: 3rem;
   }
 
@@ -737,8 +755,8 @@
   }
 }
 
-@media (max-width: 1199px) and (min-width: 1024px) {
-  .hero-container {
+@media (max-width: 1199px) and (min-width: 769px) {
+  .hero-section .container {
     grid-template-columns: 1fr 320px;
     gap: 1.5rem;
   }
@@ -748,29 +766,33 @@
     padding: 1.25rem;
     top: 1.5rem;
     max-height: calc(100vh - 3rem);
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
-@media (max-width: 1023px) and (min-width: 768px) {
+@media (max-width: 768px) {
   .hero-section {
     height: 80vh;
     min-height: 500px;
   }
 
-  .hero-container {
-    grid-template-columns: 1fr;
+  .hero-section .container {
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
+    padding: 1.25rem;
   }
 
   .booking-card {
     position: relative;
+    top: 0;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
     padding: 1.5rem;
-    margin-top: 0 !important;
-    transform: none;
-    opacity: 1;
+    margin-top: 0;
+    animation: slideInUp 0.3s ease-out;
   }
 
   .detail-tabs {
@@ -794,18 +816,6 @@
   .photo-gallery {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   }
-}
-
-@media (max-width: 767px) and (min-width: 481px) {
-  .hero-section {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 1.25rem;
-    border-radius: 0.875rem;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  }
 
   .room-selection {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -815,11 +825,6 @@
 
   .container {
     padding: 0.75rem;
-  }
-
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 1rem;
   }
 
   .tour-title {
@@ -836,18 +841,39 @@
     font-size: 0.8rem;
   }
 
-  .booking-card {
-    padding: 1.25rem;
-  }
-
   .booking-forms {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+      padding: clamp(0.65rem, 2vw, 0.75rem);
+      font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+      min-height: 44px;
+    }
   }
 
-  .btn {
-    padding: 0.75rem;
-    font-size: 0.85rem;
+  .btn-success {
+    width: 100%;
+    padding: clamp(0.75rem, 2.5vw, 0.9rem);
+    font-size: clamp(0.85rem, 3vw, 1rem);
+    min-height: 44px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    align-items: center;
+
+    .btn-link {
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+      min-height: 40px;
+    }
   }
 
   .detail-tabs {
@@ -918,6 +944,13 @@
     min-height: 400px;
   }
 
+  .hero-section .container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+
   .room-selection {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
@@ -937,10 +970,6 @@
 
   .container {
     padding: 0.5rem;
-  }
-
-  .hero-container {
-    gap: 0.75rem;
   }
 
   .hero-content {
@@ -974,27 +1003,60 @@
 
   .booking-card {
     position: relative;
+    top: 0;
     width: 100%;
-    margin: 0;
-    padding: 1rem;
+    max-width: 95%;
+    margin: 1rem auto;
+    padding: clamp(0.75rem, 2.5vw, 1rem);
     border-radius: 0.75rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-    left: 0;
-    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: slideInUp 0.3s ease-out;
   }
 
-  .price {
-    font-size: 1.8rem;
+  .price-section {
+    margin-bottom: 1.25rem;
+
+    .price {
+      font-size: clamp(1.5rem, 4.5vw, 1.8rem);
+    }
   }
 
   .booking-forms {
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
+
+    .btn {
+      width: 100%;
+      padding: clamp(0.6rem, 2vw, 0.65rem);
+      font-size: clamp(0.8rem, 2.5vw, 0.85rem);
+      min-height: 40px;
+    }
   }
 
-  .btn {
-    padding: 0.65rem;
-    font-size: 0.8rem;
+  .btn-success {
+    width: 100%;
+    padding: clamp(0.65rem, 2vw, 0.8rem);
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+    min-height: 40px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+
+    .btn-link {
+      width: 100%;
+      text-align: center;
+      padding: 0.4rem;
+      font-size: clamp(0.75rem, 2.5vw, 0.8rem);
+      min-height: 38px;
+    }
   }
 
   .form-control {
@@ -1119,6 +1181,13 @@
     min-height: 350px;
   }
 
+  .hero-section .container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
   .tour-title {
     font-size: 1.1rem;
   }
@@ -1126,6 +1195,42 @@
   .booking-card {
     padding: 0.75rem;
     border-radius: 0.5rem;
+    max-width: 98%;
+    margin: 0.5rem auto;
+  }
+
+  .price-section {
+    margin-bottom: 1rem;
+
+    .price {
+      font-size: 1.4rem;
+    }
+  }
+
+  .booking-forms {
+    gap: 0.4rem;
+
+    .btn {
+      padding: 0.5rem;
+      font-size: 0.75rem;
+      min-height: 36px;
+    }
+  }
+
+  .btn-success {
+    padding: 0.6rem;
+    font-size: 0.8rem;
+    min-height: 38px;
+  }
+
+  .action-buttons {
+    gap: 0.4rem;
+
+    .btn-link {
+      padding: 0.3rem;
+      font-size: 0.75rem;
+      min-height: 36px;
+    }
   }
 
   .content-section {
@@ -1217,37 +1322,4 @@
   .timeline .toggle-icon {
     transform: none !important;
   }
-}
-
-.mobile-booking-toggle {
-  display: none;
-  background: var(--button-gradient);
-  color: var(--text-color);
-  font-weight: bold;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 999px;
-  margin: 1rem auto;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--button-hover);
-  }
-
-  @media (max-width: 768px) {
-    display: block;
-  }
-}
-
-.booking-card {
-  @media (max-width: 768px) {
-    animation: slideInUp 0.3s ease-out;
-  }
-}
-
-@keyframes slideInUp {
-  0% { transform: translateY(30px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
 }

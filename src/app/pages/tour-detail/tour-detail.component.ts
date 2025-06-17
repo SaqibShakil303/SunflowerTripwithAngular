@@ -11,6 +11,7 @@ import { BookingModalComponent } from "../../components/booking-modal/booking-mo
 import { Meta, Title } from '@angular/platform-browser';
 import { BookingsService } from '../../services/bookings/bookings.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-tour-detail',
   standalone: true,
@@ -28,8 +29,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrls: ['./tour-detail.component.scss']
 })
 export class TourDetailComponent implements OnInit {
-  isMobileView = false;
-  showBookingCard = false;
   tour: Tour | null = null;
   loading = true;
   activeTab = 'overview';
@@ -48,13 +47,9 @@ export class TourDetailComponent implements OnInit {
     private meta: Meta,
     private title: Title,
     private snackBar: MatSnackBar,
-    
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isMobileView = window.innerWidth <= 768;
-    }
     const slug = this.route.snapshot.paramMap.get('slug');
 
     if (!slug) {
@@ -80,10 +75,6 @@ export class TourDetailComponent implements OnInit {
         this.loading = false;
       }
     });
-  }
-
-  toggleBookingCard() {
-    this.showBookingCard = !this.showBookingCard;
   }
 
   toggleDay(index: number) {
@@ -180,36 +171,35 @@ export class TourDetailComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-handleEnquirySubmit(data: any): void {
+  handleEnquirySubmit(data: any): void {
     this.bookingsService.submitEnquiry(data).subscribe({
       next: (response) => {
         console.log('Enquiry submitted successfully:', response);
         if (isPlatformBrowser(this.platformId)) {
-         this.snackBar.open('Your enquiry has been submitted successfully!', 'Close', { duration: 3000 });
+          this.snackBar.open('Your enquiry has been submitted successfully!', 'Close', { duration: 3000 });
         }
       },
       error: (error) => {
         console.error('Enquiry submission failed:', error.message);
         if (isPlatformBrowser(this.platformId)) {
-         this.snackBar.open(`Failed to submit enquiry: ${error.message}`, 'Close', { duration: 5000 });
+          this.snackBar.open(`Failed to submit enquiry: ${error.message}`, 'Close', { duration: 5000 });
         }
       }
     });
   }
 
-
-handleBookingSubmit(data: any): void {
+  handleBookingSubmit(data: any): void {
     this.bookingsService.submitBooking(data).subscribe({
       next: (response) => {
         console.log('Booking submitted successfully:', response);
         if (isPlatformBrowser(this.platformId)) {
-         this.snackBar.open(`Your booking has been submitted successfully!`,'Close', { duration: 3000 });
+          this.snackBar.open(`Your booking has been submitted successfully!`,'Close', { duration: 3000 });
         }
       },
       error: (error) => {
         console.error('Booking submission failed:', error.message);
         if (isPlatformBrowser(this.platformId)) {
-           this.snackBar.open(`Failed to submit booking: ${error.message}`, 'Close', { duration: 5000 });
+          this.snackBar.open(`Failed to submit booking: ${error.message}`, 'Close', { duration: 5000 });
         }
       }
     });

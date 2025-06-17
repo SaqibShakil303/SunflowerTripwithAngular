@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Tour } from '../../models/tour.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { StatePersistenceService } from '../../services/state-persistence/state-persistence.service';
 
 @Component({
   selector: 'app-booking-modal',
@@ -44,10 +45,16 @@ export class BookingModalComponent {
   ageOptions = Array.from({ length: 12 }, (_, i) => i + 1);
   minDate: string = '';
 
+constructor(private stateSvc: StatePersistenceService) {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isOpen']?.currentValue && this.tour) {
       this.setMinDate();
-      this.resetForms();
+         const savedBooking = this.stateSvc.booking;
+    const savedEnquiry = this.stateSvc.enquiry;
+
+    this.bookingData = { ...this.bookingData, ...savedBooking };
+    this.enquiryData = { ...this.enquiryData, ...savedEnquiry };
     }
   }
 
@@ -97,6 +104,7 @@ export class BookingModalComponent {
 
   submitEnquiry(form: NgForm) {
     if (form.valid) {
+      this.stateSvc.setEnquiry(this.enquiryData);
       this.onSubmitEnquiry.emit({ ...this.enquiryData, tourId: this.tour?.id });
       this.closeModal();
     }
@@ -104,6 +112,7 @@ export class BookingModalComponent {
 
   submitBooking(form: NgForm) {
     if (form.valid) {
+         this.stateSvc.setBooking(this.bookingData);
       this.onSubmitBooking.emit({ ...this.bookingData, tourId: this.tour?.id });
       this.closeModal();
     }

@@ -72,11 +72,12 @@ export class HeaderComponent {
           destinations: continents.map(continent => ({
             name: continent.title,
             route: `/destination/${continent.title}`,
-            image_url: continentImages[continent.title] || '',
+            image_url:continent.image_url || continentImages[continent.title] || '',
             locations: countries
               .filter(country => country.parent_id === continent.id)
               .map(country => ({
                 name: country.title,
+            
                 route: `/destination/${country.title}`,
               }))
           }))

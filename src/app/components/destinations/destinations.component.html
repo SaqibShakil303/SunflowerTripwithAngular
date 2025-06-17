@@ -14,7 +14,7 @@
             <div class="destination-content">
               <h3>{{ destination.title }}</h3>
               <p>{{ destination.description }}</p>
-              <a *ngIf="destination.id" [routerLink]="['/destination', destination.id]" class="btn-explore">
+              <a *ngIf="destination.id" [routerLink]="['/destination', destination.title]" class="btn-explore">
                 Explore {{ destination.title.split(',')[0] }}  
                 <i class="fas fa-arrow-right"></i>
               </a>

@@ -1,4 +1,3 @@
-/* Existing styles remain unchanged */
 @import 'mixins';
 
 .modal-overlay {
@@ -17,14 +16,17 @@
   transform: translate(-50%, -50%);
   max-width: 600px;
   width: 90%;
-  max-height: 80vh;
+  max-height: 85vh;
   overflow-y: auto;
   @include glass-card(0.1, 12px, 0.15);
   border-radius: 20px;
-  padding: 2rem;
+  padding: clamp(1.5rem, 4vw, 2rem);
   z-index: 1001;
   animation: slideInUp 0.3s ease-out;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -32,6 +34,7 @@
 
   &::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -41,13 +44,14 @@
 }
 
 .form-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .form-title {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 5vw, 2rem);
   color: #fff;
   text-align: center;
   margin-bottom: 1rem;
@@ -58,32 +62,35 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 
   label {
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 3vw, 1rem);
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
   }
-      select.form-control {
-          background-color: rgba(255, 255, 255, 0.1);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.3);
 
-          option {
-            background-color: #0a1828;
-            color: #ffffff;
-          }
-        }
+  select.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    option {
+      background-color: #0a1828;
+      color: #ffffff;
+    }
+  }
 
   .form-control {
     width: 100%;
-    padding: 0.75rem;
+    padding: clamp(0.6rem, 2vw, 0.75rem);
     border-radius: 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 3vw, 1rem);
     transition: all 0.3s ease;
+    min-height: 40px; /* Ensures touch-friendly height */
 
     &:focus {
       outline: none;
@@ -103,19 +110,22 @@
 
   textarea.form-control {
     resize: vertical;
-    min-height: 100px;
+    min-height: 80px;
+    max-height: 200px;
   }
 }
 
 .guest-selection {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 
   .guest-type {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    min-width: 120px;
   }
 }
 
@@ -127,6 +137,7 @@
   .form-control {
     flex: 1 1 100px;
     min-width: 100px;
+    max-width: 150px;
   }
 }
 
@@ -135,16 +146,20 @@
   justify-content: space-between;
   gap: 1rem;
   margin-top: 1rem;
+  width: 100%;
+  flex-wrap: wrap;
 
   .btn {
     flex: 1;
-    padding: 0.75rem;
+    padding: clamp(0.6rem, 2vw, 0.75rem);
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 3vw, 1rem);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+    min-height: 44px; /* Touch-friendly height */
+    min-width: 120px;
 
     &.btn-outline {
       border: 2px solid #4cd7d0;
@@ -182,27 +197,35 @@
 @media (max-width: 768px) {
   .modal-content {
     width: 95%;
-    padding: 1.5rem;
+    max-height: 90vh;
+    padding: clamp(1rem, 3vw, 1.5rem);
     border-radius: 15px;
   }
 
   .form-title {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
   }
 
   .form-group {
     .form-control {
-      padding: 0.65rem;
-      font-size: 0.9rem;
+      padding: clamp(0.55rem, 2vw, 0.65rem);
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      min-height: 38px;
     }
   }
 
   .guest-selection {
     flex-direction: column;
+    gap: 0.75rem;
   }
 
   .child-ages {
     flex-direction: column;
+    gap: 0.5rem;
+
+    .form-control {
+      max-width: 100%;
+    }
   }
 
   .form-actions {
@@ -210,32 +233,85 @@
     gap: 0.75rem;
 
     .btn {
-      padding: 0.65rem;
-      font-size: 0.9rem;
+      padding: clamp(0.55rem, 2vw, 0.65rem);
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      min-height: 40px;
     }
   }
 }
 
 @media (max-width: 480px) {
   .modal-content {
-    padding: 1rem;
+    width: 98%;
+    padding: clamp(0.75rem, 2.5vw, 1rem);
+    border-radius: 12px;
   }
 
   .form-title {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .form-group {
+    gap: 0.4rem;
+
+    label {
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    }
+
+    .form-control {
+      padding: clamp(0.5rem, 2vw, 0.6rem);
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+      min-height: 36px;
+    }
+
+    textarea.form-control {
+      min-height: 70px;
+    }
+  }
+
+  .guest-selection {
+    gap: 0.5rem;
+  }
+
+  .child-ages {
+    gap: 0.5rem;
+  }
+
+  .form-actions {
+    gap: 0.5rem;
+
+    .btn {
+      padding: clamp(0.5rem, 2vw, 0.6rem);
+      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+      min-height: 38px;
+      min-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .modal-content {
+    padding: 0.75rem;
+  }
+
+  .form-title {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
   }
 
   .form-group {
     .form-control {
-      padding: 0.6rem;
-      font-size: 0.85rem;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      min-height: 34px;
     }
   }
 
   .form-actions {
     .btn {
-      padding: 0.6rem;
-      font-size: 0.85rem;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      min-height: 36px;
     }
   }
 }

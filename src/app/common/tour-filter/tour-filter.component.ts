@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DestinationService } from '../../services/destination/destination.service';
 import { TourService } from '../../services/tours/tour.service';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
+import { StatePersistenceService } from '../../services/state-persistence/state-persistence.service';
 
 @Component({
   selector: 'app-tour-filter',
@@ -22,7 +23,7 @@ export class TourFilterComponent implements OnInit {
   destinations: any[] = [];
   categories: string[] = [];
   selectedDestination: any | null = null;
-  selectedLocation: any | null = null;
+  // selectedLocation: any | null = null;
   selectedCategory: string | null = null;
   displayedFilters: any = null;
 
@@ -49,14 +50,27 @@ export class TourFilterComponent implements OnInit {
     private toursSvc: TourService,
     private route: ActivatedRoute,
     private router: Router  // Add Router injection
+    ,
+    private stateSvc: StatePersistenceService
   ) {
     this.initializeCalendar();
   }
 
   ngOnInit() {
-    this.destSvc.getNamesAndLocations().subscribe({
+     const saved = this.stateSvc.filter;
+  if (saved) {
+    this.durationRange = saved.durationRange || this.durationRange;
+    this.budgetRange = saved.budgetRange || this.budgetRange;
+    this.selectedDate = saved.selectedDate ? new Date(saved.selectedDate) : this.selectedDate;
+    this.selectedCategory = saved.selectedCategory || this.selectedCategory;
+    this.selectedDestination = saved.selectedDestination || this.selectedDestination;
+    // this.selectedLocation = saved.selectedLocation || this.selectedLocation;
+  }
+   this.destSvc.getDestinationNames().subscribe({
       next: (data) => {
-        this.destinations = data;
+        this.destinations = data.filter(d => d.parent_id !== null);
+
+        console.log('DEBUG - Loaded destinations:', data);
         this.initializeFiltersFromQueryParams();
       },
       error: (err) => console.error('Failed loading destinations', err)
@@ -90,15 +104,15 @@ export class TourFilterComponent implements OnInit {
             console.log('DEBUG - Found location:', loc);
             if (loc) {
               this.selectedDestination = dest;
-              this.selectedLocation = loc;
-              console.log('DEBUG - Set selectedDestination:', this.selectedDestination);
-              console.log('DEBUG - Set selectedLocation:', this.selectedLocation);
+              // this.selectedLocation = loc;
+              // console.log('DEBUG - Set selectedDestination:', this.selectedDestination);
+              // console.log('DEBUG - Set selectedLocation:', this.selectedLocation);
               break;
             }
           }
         } else if (destinationId) {
           this.selectedDestination = this.destinations.find(d => d.id === destinationId) || null;
-          this.selectedLocation = null;
+          // this.selectedLocation = null;
           console.log('DEBUG - Set selectedDestination (destination only):', this.selectedDestination);
         }
 
@@ -210,7 +224,7 @@ export class TourFilterComponent implements OnInit {
     return (
       this.selectedCategory !== null ||
       this.selectedDestination !== null ||
-      this.selectedLocation !== null ||
+      // this.selectedLocation !== null ||
       this.selectedDate !== null ||
       this.fromCity !== 'Kolkata' ||
       this.durationRange[0] !== this.defaultDurationRange[0] ||
@@ -273,9 +287,10 @@ export class TourFilterComponent implements OnInit {
     const queryParams: any = {};
     
     // Add destination or location ID (same logic as header)
-    if (this.selectedLocation && typeof this.selectedLocation === 'object' && this.selectedLocation.id) {
-      queryParams.location = this.selectedLocation.id;
-    } else if (this.selectedDestination && this.selectedDestination.id) {
+    // if (this.selectedLocation && typeof this.selectedLocation === 'object' && this.selectedLocation.id) {
+    //   queryParams.location = this.selectedLocation.id;
+    // } 
+    if (this.selectedDestination && this.selectedDestination.id) {
       queryParams.destination = this.selectedDestination.id;
     }
     
@@ -312,9 +327,9 @@ export class TourFilterComponent implements OnInit {
     });
 
     // Also emit the payload for backward compatibility  
-    const locationId = (this.selectedLocation && typeof this.selectedLocation === 'object') 
-      ? this.selectedLocation.id 
-      : '';
+    // const locationId = (this.selectedLocation && typeof this.selectedLocation === 'object') 
+    //   ? this.selectedLocation.id 
+    //   : '';
       
     const payload = {
       destination_id: this.selectedDestination?.id || '',
@@ -325,17 +340,24 @@ export class TourFilterComponent implements OnInit {
       max_duration: this.durationRange[1],
       available_from: this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : '',
       available_to: this.selectedDate ? this.selectedDate.toISOString().split('T')[0] : '',
-      location: locationId
+      // location: locationId
     };
-    
+    this.stateSvc.setFilter({
+  durationRange: this.durationRange,
+  budgetRange: this.budgetRange,
+  selectedDate: this.selectedDate,
+  selectedCategory: this.selectedCategory,
+  selectedDestination: this.selectedDestination,
+  // selectedLocation: this.selectedLocation
+});
     this.searchTriggered.emit(payload);
   }
 
   onDestinationChange() {
-    console.log('DEBUG - onDestinationChange called');
-    console.log('DEBUG - selectedDestination after change:', this.selectedDestination);
-    this.selectedLocation = null;
-    console.log('DEBUG - selectedLocation reset to null');
+    // console.log('DEBUG - onDestinationChange called');
+    // console.log('DEBUG - selectedDestination after change:', this.selectedDestination);
+    // this.selectedLocation = null;
+    // console.log('DEBUG - selectedLocation reset to null');
     this.searchTours();
   }
 
@@ -374,7 +396,7 @@ export class TourFilterComponent implements OnInit {
     this.budgetRange = [...this.defaultBudgetRange];
     this.selectedCategory = null;
     this.selectedDestination = null;
-    this.selectedLocation = null;
+    // this.selectedLocation = null;
     this.selectedDate = null;
     this.fromCity = 'Kolkata';
     this.filterChips = [];
