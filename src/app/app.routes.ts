@@ -66,28 +66,28 @@ export const routes: Routes = [
     data: { roles: ['user', 'manager', 'admin'] }
   },
 {
-  path: 'profile',
-  // loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
-  component: AdminLayoutComponent, 
+  path: 'admin',
+  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+  // component: AdminLayoutComponent, 
   canActivate: [RoleGuard],
       data: { roles: ['admin','manager'] }
 },
-{
-  path:'itinerary-admin',
-  component:ItneraryAdminComponent,
-   canActivate: [RoleGuard],
-      data: { roles: ['admin','manager'] }
-},
+// {
+//   path:'itinerary-admin',
+//   component:ItneraryAdminComponent,
+//    canActivate: [RoleGuard],
+//       data: { roles: ['admin','manager'] }
+// },
 
 { path: 'auth/:provider/callback', component: AuthCallbackComponent },
- {
-    path: 'manager',
-    component: TourPackageComponent,
-    // canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['manager', 'admin'] }
-  },
+//  {
+//     path: 'manager',
+//     component: TourPackageComponent,
+//     // canActivate: [AuthGuard, RoleGuard],
+//     data: { roles: ['manager', 'admin'] }
+//   },
   {
-    path: 'admin',
+    path: 'profile',
     component: DashboardComponent,
     // canActivate: [AuthGuard]
          canActivate: [RoleGuard],

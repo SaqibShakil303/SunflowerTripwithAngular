@@ -12,4 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class AdminLayoutComponent {
 constructor(public authService: AuthService){}
+
+
 }

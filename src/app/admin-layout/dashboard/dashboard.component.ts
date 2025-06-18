@@ -11,7 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
       <h2>Welcome, {{ user?.email }}</h2>
       <p>Role: {{ user?.role }}</p>
         <li *ngIf="authService.hasRole(['admin', 'manager'])">
-        <a routerLink="/profile">Admin's </a>
+        <a routerLink="/admin">Admin's </a>
       </li>
       <button mat-raised-button color="warn" (click)="logout()">Logout</button>
     </div>`,

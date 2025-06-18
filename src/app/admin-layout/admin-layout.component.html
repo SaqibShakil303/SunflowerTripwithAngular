@@ -4,8 +4,11 @@
     <ul>
       <li><a routerLink="/dashboard">Dashboard</a></li>
       <li *ngIf="authService.hasRole(['admin', 'manager'])">
-        <a routerLink="/itinerary-admin">Itineraries</a>
+        <a routerLink="/admin/itinerary-admin">Itineraries</a>
       </li>
+            <li *ngIf="authService.hasRole(['admin', 'manager'])">
+              <a routerLink="/admin/destinations-admin">Destinations</a>
+            </li>
       <li><a (click)="authService.logout()">Logout</a></li>
     </ul>
   </nav>

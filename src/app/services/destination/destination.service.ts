@@ -40,5 +40,13 @@ getDestinations(): Observable<Destination[]> {
  getNamesAndLocations(): Observable<DestinationNav[]> {
     return this.http.get<DestinationNav[]>(`${this.APIurl}/Destination/names`);
   }
+
+  addDestination(destinationPayload: any): Observable<any> {
+  return this.http.post(`${this.APIurl}/Destination/AddDestinationWithDetails`, destinationPayload);
+}
+
+updateDestination(id: number, destinationPayload: any): Observable<any> {
+  return this.http.patch(`${this.APIurl}/Destination/destinations/${id}/details`, destinationPayload);
+}
   
 }

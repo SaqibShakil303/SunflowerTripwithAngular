@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ItineraryComponent } from '../pages/itinerary/itinerary.component';
 
+import { AdminLayoutRoutingModule } from './admin-layout-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [
-  
-  ],
+  declarations: [],
   imports: [
     CommonModule,
-      ItineraryComponent
+    AdminLayoutRoutingModule,
+    RouterModule,
+    CommonModule
   ]
 })
 export class AdminLayoutModule { }
