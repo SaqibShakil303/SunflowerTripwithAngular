@@ -1,4 +1,7 @@
-/* Enhanced Navbar Styles */
+$font-main: 'Poppins', sans-serif;
+$font-accent: 'Forum', cursive;
+$color-accent: rgb(252, 249, 245);
+$transition: 0.3s ease;
 
 .navbar {
   position: fixed;
@@ -21,7 +24,6 @@
   padding: 8px 25px 8px 100px;
   z-index: 1000;
   
-  /* Glassmorphism styles */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
@@ -47,7 +49,7 @@
   transition: all 0.4s ease;
 }
 
-.contact-info a {
+.contact-info a, .contact-info button {
   color: #ffffff;
   text-transform: uppercase;
   position: relative;
@@ -59,7 +61,7 @@
   overflow: hidden;
 }
 
-.contact-info a::before {
+.contact-info a::before, .contact-info button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -75,11 +77,11 @@
   transition: all 0.6s ease;
 }
 
-.contact-info a:hover::before {
+.contact-info a:hover::before, .contact-info button:hover::before {
   left: 100%;
 }
 
-.contact-info a:hover {
+.contact-info a:hover, .contact-info button:hover {
   transform: scale(1.05);
   color: #f0f0f0;
   background: rgba(255,255,255,0.1);
@@ -98,7 +100,7 @@
 }
 
 .header-logo {
-    margin: 24px 44px;
+  margin: 24px 44px;
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -113,13 +115,35 @@
   }
 }
 
+.custom-btn {
+  background-color: transparent;
+  color: $color-accent;
+  border: 2px solid #fff;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-family: $font-accent;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color $transition, color $transition;
+
+  &:hover {
+    background: linear-gradient(to bottom right, rgba(163, 200, 240, 0.89), rgba(212, 169, 226, 0.815));
+    color: $color-accent;
+  }
+
+  &.nav-btn {
+    margin: 0 10px;
+  }
+}
+
 /* Mobile Close/Show Buttons - Hidden on Desktop */
 .mobile-close-btn,
 .mobile-show-btn {
   display: none;
 }
 
-/* Mobile Design - Outstanding & Modern */
+/* Mobile Design */
 @media screen and (max-width: 1024px) {
   .contact-info {
     position: fixed;
@@ -135,7 +159,6 @@
     align-items: center;
     gap: 15px;
     
-    /* Modern Mobile Glassmorphism */
     background: rgba(0, 15, 35, 0.85);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
@@ -144,7 +167,6 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     clip-path: none;
     
-    /* Mobile slide animation */
     transform: translateY(0);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -158,14 +180,12 @@
     opacity: 1;
   }
 
-  /* Hide animation */
   .contact-info.mobile-hidden {
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
   }
 
-  /* Mobile Close Button */
   .mobile-close-btn {
     display: flex;
     position: absolute;
@@ -196,7 +216,6 @@
     line-height: 1;
   }
 
-  /* Mobile Show Button */
   .mobile-show-btn {
     display: none;
     position: fixed;
@@ -236,8 +255,7 @@
     transform: rotate(90deg);
   }
 
-  /* Navigation Links Mobile Styling */
-  .contact-info a {
+  .contact-info a, .contact-info button {
     font-size: 13px;
     padding: 8px 12px;
     margin: 3px;
@@ -250,7 +268,7 @@
     transition: all 0.3s ease;
   }
 
-  .contact-info a:hover {
+  .contact-info a:hover, .contact-info button:hover {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px) scale(1.05);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
@@ -281,15 +299,12 @@
 
 /* Tablet Specific Adjustments */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-
   .contact-info {
-
     padding: 20px;
     gap: 20px;
   }
 
-  .contact-info a {
-        padding-left: 20px;
+  .contact-info a, .contact-info button {
     font-size: 14px;
     padding: 10px 15px;
   }
@@ -300,10 +315,10 @@
   .contact-info {
     padding: 12px 15px;
     gap: 8px;
-      padding-left: 40px;
+    padding-left: 40px;
   }
 
-  .contact-info a {
+  .contact-info a, .contact-info button {
     font-size: 11px;
     padding: 6px 10px;
     margin: 2px;

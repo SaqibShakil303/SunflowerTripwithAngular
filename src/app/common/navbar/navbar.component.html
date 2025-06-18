@@ -20,15 +20,17 @@
       (click)="hideMobileNav()"
       aria-label="Close navigation"
     >
-      <span class="close-icon">&times;</span>
+      <span class="close-icon">×</span>
     </button>
 
     <!-- Navigation Links -->
     <a href="tel:+917076421377">+9170-7642-1377</a>
-    <a routerLink="/contact" (click)="navigateTo('/contact')">FAQ | Help?</a>
-    <a routerLink="/careers" (click)="navigateTo('/careers')">Careers</a>
-    <a routerLink="/aboutUs" (click)="navigateTo('/aboutUs')">About us</a>
-    <a routerLink="/travelGuide" (click)="navigateTo('/travelGuide')">Travel Guides</a>
+    <button class="custom-btn" [routerLink]="['/itinerary']" (click)="customizeHoliday(); navigateTo('/itinerary')">Customize My Holiday</button>
+    <ng-container *ngFor="let group of navGroups">
+      <button class="custom-btn nav-btn" [routerLink]="group.items[0].route" [queryParams]="group.items[0].queryParams" (click)="navigateTo(group.items[0].route)">
+        {{ group.label }}
+      </button>
+    </ng-container>
     <a routerLink="/login" class="login" (click)="navigateTo('/login')">LOGIN / SIGNUP</a>
   </div>
 

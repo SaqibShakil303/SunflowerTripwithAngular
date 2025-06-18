@@ -1,8 +1,8 @@
 import { Component, HostListener, ElementRef } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink, RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { DestinationNav, DestinationService } from '../../services/destination/destination.service';
+import { DestinationService } from '../../services/destination/destination.service';
 
 interface NavItem {
   name: string;
@@ -12,12 +12,6 @@ interface NavItem {
     location?: number;
     category?: string;
   };
-}
-
-interface NavGroup {
-  label: string;
-  items: NavItem[];
-  locations: NavItem[];
 }
 
 interface Destination {
@@ -41,16 +35,20 @@ interface DestinationGroup {
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  isMobileMenuOpen = false;
   isDropdownOpen = false;
+  isMobileMenuOpen = false;
+  expandedContinent: Destination | null = null;
   selectedContinent: Destination | null = null;
-  navGroups: NavGroup[] = [];
   destinationGroup: DestinationGroup = {
     label: 'Destinations',
     destinations: []
   };
 
-  constructor(private elementRef: ElementRef, private destSvc: DestinationService) {}
+  constructor(
+    private elementRef: ElementRef, 
+    private destSvc: DestinationService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.destSvc.getDestinationNames().subscribe({
@@ -72,12 +70,11 @@ export class HeaderComponent {
           destinations: continents.map(continent => ({
             name: continent.title,
             route: `/destination/${continent.title}`,
-            image_url:continent.image_url || continentImages[continent.title] || '',
+            image_url: continent.image_url || continentImages[continent.title] || '',
             locations: countries
               .filter(country => country.parent_id === continent.id)
               .map(country => ({
                 name: country.title,
-            
                 route: `/destination/${country.title}`,
               }))
           }))
@@ -86,38 +83,14 @@ export class HeaderComponent {
         if (this.destinationGroup.destinations.length > 0) {
           this.selectedContinent = this.destinationGroup.destinations[0];
         }
-
-        const packageGroups: NavGroup[] = [
-          {
-            label: 'Holiday Packages',
-            items: [{ 
-              name: 'Holiday Packages', 
-              route: '/tours', 
-              queryParams: { category: 'holiday' } 
-            }],
-            locations: []
-          },
-          {
-            label: 'Group Packages',
-            items: [{ 
-              name: 'Group Packages', 
-              route: '/tours', 
-              queryParams: { category: 'group' } 
-            }],
-            locations: []
-          }
-        ];
-
-        this.navGroups = packageGroups;
       },
       error: err => console.error('Failed to load destinations', err)
     });
-  }
+  } 
 
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
-
+toggleContinent(destination: Destination) {
+  this.expandedContinent = this.expandedContinent === destination ? null : destination;
+}
   openDropdown() {
     this.isDropdownOpen = true;
   }
@@ -130,29 +103,44 @@ export class HeaderComponent {
     }
   }
 
-  selectContinent(destination: Destination) {
-    this.selectedContinent = destination;
-  }
-
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
-    if (this.isMobileMenuOpen && !this.elementRef.nativeElement.contains(event.target)) {
-      this.isMobileMenuOpen = false;
-    }
-    if (this.isDropdownOpen && !this.elementRef.nativeElement.querySelector('.dropdown-nav').contains(event.target)) {
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    if (this.isMobileMenuOpen) {
       this.isDropdownOpen = false;
     }
   }
 
-  customizeHoliday() {
-    console.log('Customize holiday button clicked');
+  selectContinent(destination: Destination) {
+    this.selectedContinent = destination;
   }
 
-  toggleDestinationLocations(event: Event) {
-    const target = event.currentTarget as HTMLElement;
-    const parent = target.closest('.mobile-destination-item');
-    if (parent) {
-      parent.classList.toggle('locations-open');
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+    this.isDropdownOpen = false;
+    this.isMobileMenuOpen = false;
+     this.expandedContinent = null;
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    const dropdown = this.elementRef.nativeElement.querySelector('.dropdown-nav');
+    const mobileMenu = this.elementRef.nativeElement.querySelector('.mobile-menu');
+    
+    if (this.isDropdownOpen && dropdown && !dropdown.contains(target)) {
+      this.isDropdownOpen = false;
+    }
+    
+    if (this.isMobileMenuOpen && mobileMenu && !mobileMenu.contains(target) && !target.closest('.mobile-menu-toggle')) {
+      this.isMobileMenuOpen = false;
+    }
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    // Close mobile menu on resize to desktop
+    if (window.innerWidth > 768) {
+      this.isMobileMenuOpen = false;
     }
   }
 }

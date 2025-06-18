@@ -1,47 +1,84 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
-import { RouterLink, RouterModule } from '@angular/router';
+import { RouterLink, RouterModule, Router } from '@angular/router';
+
+interface NavItem {
+  name: string;
+  route: string;
+  queryParams?: { 
+    destination?: number;
+    location?: number;
+    category?: string;
+  };
+}
+
+interface NavGroup {
+  label: string;
+  items: NavItem[];
+  locations: NavItem[];
+}
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule,RouterLink,RouterModule],
+  imports: [CommonModule, RouterLink, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   isScrolled = false;
-  isMobileMenuOpen = false;
- isMobileNavVisible = true; // Controls mobile nav visibility
+  isMobileNavVisible = true;
+  navGroups: NavGroup[] = [
+    {
+      label: 'Holiday Packages',
+      items: [{ 
+        name: 'Holiday Packages', 
+        route: '/tours', 
+        queryParams: { category: 'holiday' } 
+      }],
+      locations: []
+    },
+    {
+      label: 'Group Packages',
+      items: [{ 
+        name: 'Group Packages', 
+        route: '/tours', 
+        queryParams: { category: 'group' } 
+      }],
+      locations: []
+    }
+  ];
+
+  constructor(private router: Router) {}
+
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
   }
-hideMobileNav() {
+
+  hideMobileNav() {
     this.isMobileNavVisible = false;
   }
-  toggleMobileMenu() {
-    this.isMobileMenuOpen = !this.isMobileMenuOpen;
-  }
 
-  closeMobileMenu() {
-    this.isMobileMenuOpen = false;
-  }
-// Show mobile nav
   showMobileNav() {
     this.isMobileNavVisible = true;
   }
-  // Close mobile nav when a route is clicked
+
   navigateTo(route: string) {
-    this.closeMobileMenu();
+    this.router.navigate([route]);
+    this.isMobileNavVisible = false;
   }
 
-  // Optional: close menu on outside click
+  customizeHoliday() {
+    console.log('Customize holiday button clicked');
+  }
+
   @HostListener('document:click', ['$event'])
   clickOutside(event: Event) {
     const target = event.target as HTMLElement;
-    const clickedInsideNav = target.closest('.contact-info') || target.closest('.hamburger-menu');
-    if (!clickedInsideNav) {
-      this.closeMobileMenu();
+    const clickedInsideNav = target.closest('.contact-info') || target.closest('.mobile-show-btn');
+    if (!clickedInsideNav && this.isMobileNavVisible) {
+      this.isMobileNavVisible = false;
     }
   }
 }
