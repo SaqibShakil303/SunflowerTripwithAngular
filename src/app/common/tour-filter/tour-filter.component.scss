@@ -443,7 +443,7 @@
     top: calc(100% + 0.75rem);
     left: 4;
     right: 0;
-    z-index: 9999; // Highest z-index for dropdowns
+    z-index: 999; // Highest z-index for dropdowns
     @include glass-card(0.95, 25px, 0.4);
     border-radius: 20px;
     padding: 2rem;

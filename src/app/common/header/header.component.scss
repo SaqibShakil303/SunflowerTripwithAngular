@@ -26,22 +26,31 @@ $desktop: 1024px;
 @mixin mobile {
   @media (max-width: #{$mobile}) {
     @content;
+    .header-right,
+    .header__menu {
+      display: none !important;
+    }
   }
 }
 
 @mixin tablet {
   @media (max-width: #{$tablet}) {
     @content;
-  }
     .header-right,
   .header__menu {
     display: none !important;
   }
+  }
+    
 }
 
 @mixin desktop {
   @media (min-width: #{$tablet + 1px}) {
     @content;
+    .mobile-menu-toggle,
+    .mobile-menu-overlay{
+      display: none !important;
+    }
   }
 }
 .header-box {
@@ -70,7 +79,7 @@ app-navbar {
 
 .menu__list {
   display: flex;
-  gap: 20px;
+  gap: 50px;
   align-items: center;
 
   a {
