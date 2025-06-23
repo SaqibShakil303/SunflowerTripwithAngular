@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLayoutComponent } from './admin-layout.component';
-import { ItineraryComponent } from '../pages/itinerary/itinerary.component';
+
 import { UsersComponent } from './users/users.component';
 import { EnquiriesComponent } from './enquiries/enquiries.component';
 import { DestinationsComponent } from './destinations/destinations.component';
+import { ItneraryAdminComponent } from './itnerary/itnerary-admin/itnerary-admin.component';
 // import { DestinationFormComponent } from './destination-management/destination-form/destination-form.component';
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'enquiries', component: EnquiriesComponent },
       { path: 'destinations', loadChildren: () => import('./destinations/destinations.module').then(m => m.DestinationsModule) },
-      { path: 'itinerary-admin', component: ItineraryComponent },
+      { path: 'itinerary-admin', component: ItneraryAdminComponent },
     ]
   },
   //   {
