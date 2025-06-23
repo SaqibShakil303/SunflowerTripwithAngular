@@ -30,15 +30,16 @@ import { TourDetailComponent } from './pages/tour-detail/tour-detail.component';
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
-  {path:'contact', component: ContactComponent},
-  {path:'careers', component: CareersComponent},
-  {path:'aboutUs', component: AboutUsComponent},
-  {path:'travelGuide', component: TravelGuideComponent},
-  {path:'privacyPolicy', component: PrivacyPolicyComponent},
-    // { path: '', redirectTo: 'home', pathMatch: 'full' },
-    // { path: '**', redirectTo: '' },
-     { path: 'home', component: HomeComponent },
-    {path: '',
+  { path: 'contact', component: ContactComponent },
+  { path: 'careers', component: CareersComponent },
+  { path: 'aboutUs', component: AboutUsComponent },
+  { path: 'travelGuide', component: TravelGuideComponent },
+  { path: 'privacyPolicy', component: PrivacyPolicyComponent },
+  // { path: '', redirectTo: 'home', pathMatch: 'full' },
+  // { path: '**', redirectTo: '' },
+  { path: 'home', component: HomeComponent },
+  {
+    path: '',
     component: HomeComponent,
     children: [
       { path: 'about', component: AboutComponent },
@@ -53,10 +54,10 @@ export const routes: Routes = [
       { path: 'map', component: MapComponent },
       { path: '', redirectTo: '', pathMatch: 'full' }
     ]
-},
- { path: 'login', component: LoginComponent },
+  },
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
- {
+  {
     path: 'dashboard',
     component: DashboardComponent,
     canActivate: [
@@ -65,43 +66,43 @@ export const routes: Routes = [
     ],
     data: { roles: ['user', 'manager', 'admin'] }
   },
-{
-  path: 'admin',
-  loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
-  // component: AdminLayoutComponent, 
-  canActivate: [RoleGuard],
-      data: { roles: ['admin','manager'] }
-},
-// {
-//   path:'itinerary-admin',
-//   component:ItneraryAdminComponent,
-//    canActivate: [RoleGuard],
-//       data: { roles: ['admin','manager'] }
-// },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin-layout/admin-layout.module').then(m => m.AdminLayoutModule),
+    // component: AdminLayoutComponent, 
+    canActivate: [RoleGuard],
+    data: { roles: ['admin', 'manager'] }
+  },
+  // {
+  //   path:'itinerary-admin',
+  //   component:ItneraryAdminComponent,
+  //    canActivate: [RoleGuard],
+  //       data: { roles: ['admin','manager'] }
+  // },
 
-{ path: 'auth/:provider/callback', component: AuthCallbackComponent },
-//  {
-//     path: 'manager',
-//     component: TourPackageComponent,
-//     // canActivate: [AuthGuard, RoleGuard],
-//     data: { roles: ['manager', 'admin'] }
-//   },
+  { path: 'auth/:provider/callback', component: AuthCallbackComponent },
+  //  {
+  //     path: 'manager',
+  //     component: TourPackageComponent,
+  //     // canActivate: [AuthGuard, RoleGuard],
+  //     data: { roles: ['manager', 'admin'] }
+  //   },
   {
     path: 'profile',
     component: DashboardComponent,
     // canActivate: [AuthGuard]
-         canActivate: [RoleGuard],
-      data: { roles: ['admin'] }
+    canActivate: [RoleGuard],
+    data: { roles: ['admin'] }
   },
   {
-  path: 'tours/:slug',
-  loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
-},
-//   {
-//   path: 'destinations/:id',
-//   loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
-// }
-{
+    path: 'tours/:slug',
+    loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
+  },
+  //   {
+  //   path: 'destinations/:id',
+  //   loadComponent: () => import('./pages/tour-detail/tour-detail.component').then(m => m.TourDetailComponent)
+  // }
+  {
     path: 'destination/:title',
     loadComponent: () => import('./pages/destination-main/destination-main.component').then(m => m.DestinationMainComponent)
   },

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/authService/auth.service';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -10,8 +10,24 @@ import { CommonModule } from '@angular/common';
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss'
 })
-export class AdminLayoutComponent {
-constructor(public authService: AuthService){}
+export class AdminLayoutComponent implements OnInit {
+  constructor(private router: Router) { }
 
+  ngOnInit(): void {
+    // Component initialization
+  }
 
+  logout(): void {
+    console.log('Logout clicked');
+
+    // Show confirmation and redirect
+    if (confirm('Are you sure you want to logout?')) {
+      // Clear any stored tokens/data
+      localStorage.removeItem('authToken');
+      sessionStorage.clear();
+
+      // Redirect to login or home page
+      this.router.navigate(['/login']);
+    }
+  }
 }
