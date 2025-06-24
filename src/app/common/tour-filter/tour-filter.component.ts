@@ -70,7 +70,7 @@ export class TourFilterComponent implements OnInit {
       next: (data) => {
         this.destinations = data.filter(d => d.parent_id !== null);
 
-        console.log('DEBUG - Loaded destinations:', data);
+        // console.log('DEBUG - Loaded destinations:', data);
         this.initializeFiltersFromQueryParams();
       },
       error: (err) => console.error('Failed loading destinations', err)
@@ -86,22 +86,22 @@ export class TourFilterComponent implements OnInit {
 
   initializeFiltersFromQueryParams() {
     this.route.queryParams.subscribe(params => {
-      console.log('DEBUG - Query params received:', params);
+      // console.log('DEBUG - Query params received:', params);
       
       const locationId = params['location'] ? +params['location'] : null;
       const destinationId = params['destination'] ? +params['destination'] : null;
       
-      console.log('DEBUG - Parsed locationId:', locationId);
-      console.log('DEBUG - Parsed destinationId:', destinationId);
-      console.log('DEBUG - Available destinations:', this.destinations);
+      // console.log('DEBUG - Parsed locationId:', locationId);
+      // console.log('DEBUG - Parsed destinationId:', destinationId);
+      // console.log('DEBUG - Available destinations:', this.destinations);
 
       if (locationId || destinationId) {
         // Find destination and location based on IDs
         if (locationId) {
           for (const dest of this.destinations) {
-            console.log('DEBUG - Checking destination:', dest);
+            // console.log('DEBUG - Checking destination:', dest);
             const loc = dest.locations.find((l: any) => l.id === locationId);
-            console.log('DEBUG - Found location:', loc);
+            // console.log('DEBUG - Found location:', loc);
             if (loc) {
               this.selectedDestination = dest;
               // this.selectedLocation = loc;
@@ -113,7 +113,7 @@ export class TourFilterComponent implements OnInit {
         } else if (destinationId) {
           this.selectedDestination = this.destinations.find(d => d.id === destinationId) || null;
           // this.selectedLocation = null;
-          console.log('DEBUG - Set selectedDestination (destination only):', this.selectedDestination);
+          // console.log('DEBUG - Set selectedDestination (destination only):', this.selectedDestination);
         }
 
         // Trigger search with current filters

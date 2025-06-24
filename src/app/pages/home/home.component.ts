@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, inject } from '@angular/core';
 import { HeaderComponent } from '../../common/header/header.component';
 import { AnimationDirective } from '../../directives/animation.directive';
 
@@ -22,6 +22,9 @@ import { PanoViewerComponent } from "../../components/pano-viewer/pano-viewer.co
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TourFilterComponent } from '../../common/tour-filter/tour-filter.component';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { TripPlannerComponent } from '../../common/trip-planner/trip-planner.component';
+import { TripPlannerService } from '../../services/TripPlanner/trip-planner.service';
 
 @Component({
   selector: 'app-home',
@@ -39,9 +42,10 @@ kuulaUrl!: SafeResourceUrl;
   loading = false;
   error: string | null = null;
    private searchSubject = new Subject<string>();
+     private dialog = inject(MatDialog);
 
      constructor(private tourService: TourService,private sanitizer: DomSanitizer,
-      private router: Router
+      private router: Router,private planner: TripPlannerService
      ) {
       this.kuulaUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
     'https://kuula.co/share/5D6pm?logo=1&info=1&fs=1&vr=0&sd=1&autorotate=0.39&thumbs=1&margin=1&inst=0'
@@ -50,7 +54,14 @@ kuulaUrl!: SafeResourceUrl;
       this.performSearch(term);
     });
   }
-
+//  openTripPlanner() {
+//     this.dialog.open(TripPlannerComponent, {
+//       width: '600px',
+//       panelClass: 'trip-modal-panel',
+//    disableClose: false ,
+//       backdropClass: 'blur-backdrop'
+//     });
+//   }
 onIframeLoad() {
   this.iframeLoaded = true;
 }
@@ -81,7 +92,11 @@ onIframeError() {
       }
     });
   }
+  ngOnInit() {
+    setTimeout(() => this.planner.openModal(), 10000);
+  }
   ngAfterViewInit() {
+     
     // Any additional initialization if needed
   }
 handleSearch(filters: any) {

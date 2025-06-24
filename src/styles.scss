@@ -200,3 +200,14 @@ df-messenger {
   --df-messenger-chat-background-color: white;
   --df-messenger-font-color: black;
 }
+
+::ng-deep .blur-backdrop {
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .trip-modal-panel {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+}
