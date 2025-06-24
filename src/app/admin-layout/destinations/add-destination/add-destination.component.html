@@ -33,20 +33,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="type" class="form-label">Type *</label>
-                            <select id="type" formControlName="type" class="form-control"
-                                [class.error]="isFieldInvalid('type')">
-                                <option value="Country">Country</option>
-                                <option value="Continent">Continent</option>
-                            </select>
-                            <div class="error-message" *ngIf="isFieldInvalid('type')">
-                                {{ getFieldError('type') }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
                             <label for="continent" class="form-label">Continent *</label>
                             <select id="continent" formControlName="continent" class="form-control"
                                 [class.error]="isFieldInvalid('continent')">
@@ -59,7 +45,9 @@
                                 {{ getFieldError('continent') }}
                             </div>
                         </div>
+                    </div>
 
+                    <div class="form-row single-column">
                         <div class="form-group">
                             <label for="bestTime" class="form-label">Best Time to Visit *</label>
                             <input type="text" id="bestTime" formControlName="bestTime" class="form-control"
@@ -79,20 +67,18 @@
                     </h4>
 
                     <div class="form-group">
-                        <label for="image" class="form-label">Image URL *</label>
-                        <input type="url" id="image" formControlName="image" class="form-control"
-                            [class.error]="isFieldInvalid('image')" placeholder="https://example.com/image.jpg"
-                            (blur)="onImageUrlChange()">
-                        <div class="form-help">Enter a valid image URL (jpg, jpeg, png, gif, webp)</div>
+                        <label for="image" class="form-label">Select Image (PNG, JPG, JPEG) *</label>
+                        <input type="file" id="image" class="form-control"
+                            accept="image/png,image/jpeg,image/jpg" (change)="onImageChange($event)"
+                            [class.error]="isFieldInvalid('image')">
+                        <div class="form-help">Select a PNG, JPG, or JPEG image from your device</div>
                         <div class="error-message" *ngIf="isFieldInvalid('image')">
                             {{ getFieldError('image') }}
                         </div>
 
                         <!-- Image Preview -->
-                        <div class="image-preview"
-                            *ngIf="destinationForm.get('image')?.value && destinationForm.get('image')?.valid">
-                            <img [src]="destinationForm.get('image')?.value" alt="Preview" class="preview-image"
-                                (error)="destinationForm.get('image')?.setErrors({'invalid': true})">
+                        <div class="image-preview" *ngIf="imagePreview">
+                            <img [src]="imagePreview" alt="Preview" class="preview-image">
                         </div>
                     </div>
                 </div>

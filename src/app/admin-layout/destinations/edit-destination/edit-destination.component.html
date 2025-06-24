@@ -1,1 +1,233 @@
-<p>edit-destination works!</p>
+<div class="modal-overlay">
+  <div class="modal-content">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h3 class="modal-title">
+        <i class="fas fa-edit"></i>
+        Edit Destination
+      </h3>
+      <button class="btn btn-secondary modal-close" (click)="onCancel()" type="button">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <form [formGroup]="destinationForm" (ngSubmit)="onSubmit()" class="destination-form">
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h4 class="section-title">
+            <i class="fas fa-info-circle"></i>
+            Basic Information
+          </h4>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name" class="form-label">Destination Name *</label>
+              <input
+                type="text"
+                id="name"
+                formControlName="name"
+                class="form-control"
+                [class.error]="isFieldInvalid('name')"
+                placeholder="Enter destination name"
+              />
+              <div class="error-message" *ngIf="isFieldInvalid('name')">
+                {{ getFieldError('name') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="continent" class="form-label">Continent *</label>
+              <select
+                id="continent"
+                formControlName="continent"
+                class="form-control"
+                [class.error]="isFieldInvalid('continent')"
+              >
+                <option value="">Select continent</option>
+                <option *ngFor="let continent of continents" [value]="continent">
+                  {{ continent }}
+                </option>
+              </select>
+              <div class="error-message" *ngIf="isFieldInvalid('continent')">
+                {{ getFieldError('continent') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row single-column">
+            <div class="form-group">
+              <label for="bestTime" class="form-label">Best Time to Visit *</label>
+              <input
+                type="text"
+                id="bestTime"
+                formControlName="bestTime"
+                class="form-control"
+                [class.error]="isFieldInvalid('bestTime')"
+                placeholder="e.g., April-October"
+              />
+              <div class="error-message" *ngIf="isFieldInvalid('bestTime')">
+                {{ getFieldError('bestTime') }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Section -->
+        <div class="form-section">
+          <h4 class="section-title">
+            <i class="fas fa-image"></i>
+            Image
+          </h4>
+
+          <div class="form-group">
+            <label for="image" class="form-label">Select Image (PNG, JPG, JPEG)</label>
+            <input
+              type="file"
+              id="image"
+              class="form-control"
+              accept="image/png,image/jpeg,image/jpg"
+              (change)="onImageChange($event)"
+              [class.error]="isFieldInvalid('image')"
+            />
+            <div class="form-help">Select a PNG, JPG, or JPEG image to replace the current image</div>
+            <div class="error-message" *ngIf="isFieldInvalid('image')">
+              {{ getFieldError('image') }}
+            </div>
+
+            <!-- Image Preview -->
+            <div class="image-preview" *ngIf="imagePreview">
+              <img [src]="imagePreview" alt="Preview" class="preview-image" />
+            </div>
+            <div class="form-help" *ngIf="!imagePreview">
+              No image selected or available
+            </div>
+          </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="form-section">
+          <h4 class="section-title">
+            <i class="fas fa-globe"></i>
+            Destination Details
+          </h4>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="weather" class="form-label">Weather/Climate *</label>
+              <input
+                type="text"
+                id="weather"
+                formControlName="weather"
+                class="form-control"
+                [class.error]="isFieldInvalid('weather')"
+                placeholder="e.g., Tropical, Temperate"
+              />
+              <div class="error-message" *ngIf="isFieldInvalid('weather')">
+                {{ getFieldError('weather') }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="currency" class="form-label">Currency *</label>
+              <input
+                type="text"
+                id="currency"
+                formControlName="currency"
+                class="form-control"
+                [class.error]="isFieldInvalid('currency')"
+                placeholder="e.g., US Dollar (USD)"
+              />
+              <div class="error-message" *ngIf="isFieldInvalid('currency')">
+                {{ getFieldError('currency') }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="timeZone" class="form-label">Time Zone *</label>
+            <input
+              type="text"
+              id="timeZone"
+              formControlName="timeZone"
+              class="form-control"
+              [class.error]="isFieldInvalid('timeZone')"
+              placeholder="e.g., GMT (UTC+0)"
+            />
+            <div class="error-message" *ngIf="isFieldInvalid('timeZone')">
+              {{ getFieldError('timeZone') }}
+            </div>
+          </div>
+
+          <!-- Languages Section -->
+          <div class="form-group">
+            <label class="form-label">Languages *</label>
+            <div class="language-input-group">
+              <input
+                type="text"
+                [(ngModel)]="languageInput"
+                [ngModelOptions]="{ standalone: true }"
+                class="form-control language-input"
+                placeholder="Enter a language and press Enter"
+                (keypress)="onLanguageKeyPress($event)"
+              />
+              <button
+                type="button"
+                class="btn btn-sm btn-primary add-language-btn"
+                (click)="addLanguage()"
+                [disabled]="!languageInput.trim()"
+              >
+                <i class="fas fa-plus"></i>
+                Add
+              </button>
+            </div>
+
+            <div class="languages-list" *ngIf="destinationForm.get('languages')?.value?.length > 0">
+              <span *ngFor="let language of destinationForm.get('languages')?.value" class="language-tag">
+                {{ language }}
+                <button type="button" class="remove-language" (click)="removeLanguage(language)">
+                  <i class="fas fa-times"></i>
+                </button>
+              </span>
+            </div>
+
+            <div class="error-message" *ngIf="isFieldInvalid('languages')">
+              {{ getFieldError('languages') }}
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="form-label">Description *</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              class="form-control form-textarea"
+              [class.error]="isFieldInvalid('description')"
+              placeholder="Describe the destination..."
+              rows="4"
+            ></textarea>
+            <div class="form-help">
+              {{ destinationForm.get('description')?.value?.length || 0 }}/500 characters
+            </div>
+            <div class="error-message" *ngIf="isFieldInvalid('description')">
+              {{ getFieldError('description') }}
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="isSubmitting">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="onSubmit()" [disabled]="isSubmitting">
+        <i class="fas fa-spinner fa-spin" *ngIf="isSubmitting"></i>
+        <i class="fas fa-save" *ngIf="!isSubmitting"></i>
+        {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
+      </button>
+    </div>
+  </div>
+</div>

@@ -9,8 +9,7 @@ import { EditDestinationComponent } from './edit-destination/edit-destination.co
 interface Destination {
   id: number;
   name: string;
-  type: 'Country' | 'Continent';
-  image: string;
+  image: string | File | null;
   bestTime: string;
   weather: string;
   currency: string;
@@ -63,7 +62,7 @@ export class DestinationsComponent implements OnInit {
       {
         id: 1,
         name: 'Paris',
-        type: 'Country',
+        // type: 'Country',
         continent: 'Europe',
         image: 'https://images.unsplash.com/photo-1524396309943-e03f5249f002?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         bestTime: 'April-October',
@@ -76,7 +75,7 @@ export class DestinationsComponent implements OnInit {
       {
         id: 2,
         name: 'Tokyo',
-        type: 'Country',
+        // type: 'Country',
         continent: 'Asia',
         image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=300&h=200&fit=crop',
         bestTime: 'March-May, September-November',
@@ -89,7 +88,7 @@ export class DestinationsComponent implements OnInit {
       {
         id: 3,
         name: 'New York City',
-        type: 'Country',
+        // type: 'Country',
         continent: 'North America',
         image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=300&h=200&fit=crop',
         bestTime: 'April-June, September-November',
@@ -102,7 +101,7 @@ export class DestinationsComponent implements OnInit {
       {
         id: 4,
         name: 'Bali',
-        type: 'Country',
+        // type: 'Country',
         continent: 'Asia',
         image: 'https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?w=300&h=200&fit=crop',
         bestTime: 'April-October',
@@ -115,7 +114,7 @@ export class DestinationsComponent implements OnInit {
       {
         id: 5,
         name: 'London',
-        type: 'Country',
+        // type: 'Country',
         continent: 'Europe',
         image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=300&h=200&fit=crop',
         bestTime: 'May-September',
@@ -156,7 +155,7 @@ export class DestinationsComponent implements OnInit {
     this.filteredDestinations = this.destinations.filter(destination =>
       destination.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       destination.continent?.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-      destination.type.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      // destination.type.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
       destination.bestTime.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
