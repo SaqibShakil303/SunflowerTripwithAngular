@@ -6,8 +6,7 @@ import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 interface Destination {
   id: number;
   name: string;
-  type: 'Country' | 'Continent';
-  image: string;
+  image: File | null;
   bestTime: string;
   weather: string;
   currency: string;
@@ -28,8 +27,10 @@ export class AddDestinationComponent implements OnInit {
   destinationForm: FormGroup;
   languageInput: string = '';
   isSubmitting: boolean = false;
+  imagePreview: string | null = null;
 
   continents = [
+    'Itself a Continent',
     'Africa',
     'Asia',
     'Europe',
@@ -51,9 +52,8 @@ export class AddDestinationComponent implements OnInit {
   private createForm(): FormGroup {
     return this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      type: ['Country', [Validators.required]],
       continent: ['', [Validators.required]],
-      image: ['', [Validators.required, Validators.pattern(/^https?:\/\/.+\.(jpg|jpeg|png|gif|webp)$/i)]],
+      image: [null, [Validators.required]],
       bestTime: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       weather: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       currency: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
@@ -61,6 +61,44 @@ export class AddDestinationComponent implements OnInit {
       timeZone: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]]
     });
+  }
+
+  // Image handling
+  onImageChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const imageControl = this.destinationForm.get('image');
+
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      const validTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      if (!validTypes.includes(file.type)) {
+        imageControl?.setErrors({ invalidType: true });
+        this.imagePreview = null;
+        return;
+      }
+
+      // Clear any previous errors and set the file
+      imageControl?.setErrors(null);
+      imageControl?.setValue(file);
+      imageControl?.markAsDirty();
+      imageControl?.markAsTouched();
+
+      // Generate preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.onerror = () => {
+        imageControl?.setErrors({ readError: true });
+        this.imagePreview = null;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      imageControl?.setValue(null);
+      imageControl?.setErrors({ required: true });
+      this.imagePreview = null;
+    }
   }
 
   // Language management
@@ -110,8 +148,11 @@ export class AddDestinationComponent implements OnInit {
       if (field.errors['maxlength']) {
         return `${this.getFieldLabel(fieldName)} must not exceed ${field.errors['maxlength'].requiredLength} characters`;
       }
-      if (field.errors['pattern']) {
-        return 'Please enter a valid image URL (jpg, jpeg, png, gif, webp)';
+      if (field.errors['invalidType']) {
+        return 'Please select a valid image (PNG, JPG, or JPEG)';
+      }
+      if (field.errors['readError']) {
+        return 'Error reading the image file';
       }
     }
     
@@ -121,9 +162,8 @@ export class AddDestinationComponent implements OnInit {
   private getFieldLabel(fieldName: string): string {
     const labels: { [key: string]: string } = {
       'name': 'Destination name',
-      'type': 'Type',
       'continent': 'Continent',
-      'image': 'Image URL',
+      'image': 'Image',
       'bestTime': 'Best time to visit',
       'weather': 'Weather',
       'currency': 'Currency',
@@ -143,7 +183,7 @@ export class AddDestinationComponent implements OnInit {
       setTimeout(() => {
         const formValue = this.destinationForm.value;
         const newDestination: Destination = {
-          id: Date.now(), // Generate a simple ID
+          id: Date.now(),
           ...formValue
         };
 
@@ -159,10 +199,5 @@ export class AddDestinationComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
-  }
-
-  // Image preview functionality
-  onImageUrlChange(): void {
-    // This will trigger validation automatically due to reactive forms
   }
 }
