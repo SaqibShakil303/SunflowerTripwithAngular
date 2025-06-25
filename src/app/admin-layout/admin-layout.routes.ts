@@ -24,6 +24,8 @@ const routes: Routes = [
       { path: 'users', component: UsersComponent },
       { path: 'enquiries', component: EnquiriesComponent },
       { path: 'destinations', loadChildren: () => import('./destinations/destinations.module').then(m => m.DestinationsModule) },
+      { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
+      { path: 'tours', loadChildren: () => import('./tours/tours.module').then(m => m.ToursModule) },
       { path: 'itinerary-admin', component: ItneraryAdminComponent },
     ]
   },
