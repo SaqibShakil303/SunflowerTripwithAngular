@@ -1,73 +1,381 @@
-.container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+@import url('https://fonts.googleapis.com/css2?family=Forum:wght@400&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-  h2 {
-    text-align: center;
-    color: #192924;
-    margin-bottom: 20px;
-  }
+// Color Palette Variables
+$saffron: #F4A460;
+$turmeric-yellow: #E9B44C;
+$peacock-blue: #005F73;
+$marigold-orange: #FF8500;
+$warm-white: #FDF6E3;
+$warm-gray: #8B7355;
+$dark-brown: #3E2723;
+$danger-red: #DC3545;
+$success-green: #28A745;
+$info-blue: #17A2B8;
+$warning-yellow: #FFC107;
 
-  .error {
-    color: red;
-    text-align: center;
-    margin-bottom: 20px;
-  }
+// Font Variables
+$font-body: 'Forum', serif;
+$font-heading: 'Playfair Display', serif;
 
-  table {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 10px;
-    overflow: hidden;
+// Component Styles
+.itinerary-container {
+    padding: 2rem;
+    background-color: $warm-white;
+    min-height: 100vh;
+    font-family: $font-body;
 
-    th, td {
-      padding: 12px;
-      text-align: left;
-      color: #192924;
+    .page-header {
+        margin-bottom: 2rem;
+
+        .navigation-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+
+            .home-link {
+                color: $peacock-blue;
+                font-size: 1.1rem;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $saffron;
+                }
+
+                i {
+                    font-size: 1.2rem;
+                }
+            }
+
+            .page-title {
+                font-family: $font-heading;
+                font-size: 2.5rem;
+                font-weight: 600;
+                color: $peacock-blue;
+                margin: 0;
+                letter-spacing: 1px;
+            }
+        }
+
+        .page-description {
+            font-size: 1.1rem;
+            color: $warm-gray;
+            margin: 0;
+            line-height: 1.6;
+        }
     }
 
-    th {
-      background: rgba(59, 144, 69, 0.2);
-      font-weight: bold;
+    .error-message {
+        background: rgba($danger-red, 0.1);
+        color: $danger-red;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        text-align: center;
     }
 
-    tr:nth-child(even) {
-      background: rgba(255, 251, 0, 0.05);
+    .table-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 95, 115, 0.1);
+        overflow: hidden;
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .itineraries-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+            min-width: 0;
+
+            th {
+                background: lighten($peacock-blue, 45%);
+                padding: 1rem 0.5rem;
+                text-align: left;
+                font-family: $font-heading;
+                font-weight: 500;
+                color: $peacock-blue;
+                font-size: 0.9rem;
+                letter-spacing: 0.5px;
+                border-bottom: 2px solid $saffron;
+
+                &.mat-header-cell {
+                    &[aria-sort="ascending"]::after {
+                        content: "\f0de";
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        margin-left: 0.5rem;
+                        color: $saffron;
+                    }
+
+                    &[aria-sort="descending"]::after {
+                        content: "\f0dd";
+                        font-family: "Font Awesome 5 Free";
+                        font-weight: 900;
+                        margin-left: 0.5rem;
+                        color: $saffron;
+                    }
+                }
+
+                &[mat-sort-header] {
+                    cursor: pointer;
+                    &:hover {
+                        background: rgba($saffron, 0.1);
+                    }
+                }
+            }
+
+            td {
+                padding: 1.2rem 0.5rem;
+                border-bottom: 1px solid #E0E0E0;
+                vertical-align: middle;
+                font-size: 0.9rem;
+                color: $dark-brown;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            tr.mat-row {
+                transition: all 0.3s ease;
+
+                &:nth-child(even) {
+                    background: rgba(244, 164, 96, 0.05);
+                }
+
+                &:hover {
+                    background: rgba(244, 164, 96, 0.1);
+                    transform: translateX(2px);
+                }
+            }
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(244, 164, 96, 0.05);
+            border-top: 1px solid #E0E0E0;
+
+            .mat-paginator {
+                background: transparent;
+                font-family: $font-body;
+                color: $warm-gray;
+
+                .mat-paginator-page-size-select {
+                    margin: 0 1rem;
+
+                    .mat-select {
+                        color: $peacock-blue;
+                        font-size: 0.95rem;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                }
+
+                .mat-paginator-navigation-first,
+                .mat-paginator-navigation-previous,
+                .mat-paginator-navigation-next,
+                .mat-paginator-navigation-last {
+                    color: $peacock-blue;
+                    font-size: 1rem;
+                    padding: 0.5rem;
+                    border-radius: 6px;
+                    transition: background 0.3s ease;
+
+                    &:hover:not(:disabled) {
+                        background: rgba($saffron, 0.2);
+                    }
+
+                    &:disabled {
+                        opacity: 0.6;
+                    }
+                }
+
+                .mat-paginator-range-label {
+                    font-size: 0.95rem;
+                    color: $warm-gray;
+                }
+            }
+        }
+    }
+}
+
+// Button Styles (for potential future buttons)
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-family: $font-body;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
 
-    tr:hover {
-      background: rgba(59, 144, 69, 0.1);
-    }
-  }
+    &.btn-primary {
+        background: linear-gradient(135deg, $saffron, $turmeric-yellow);
+        color: white;
 
-  mat-paginator {
-    background: transparent;
-    margin-top: 20px;
-  }
+        &:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(244, 164, 96, 0.3);
+        }
+    }
+
+    &.btn-secondary {
+        background: #6C757D;
+        color: white;
+
+        &:hover:not(:disabled) {
+            background: darken(#6C757D, 10%);
+        }
+    }
+
+    &.btn-danger {
+        background: $danger-red;
+        color: white;
+
+        &:hover:not(:disabled) {
+            background: darken($danger-red, 10%);
+            transform: translateY(-1px);
+        }
+    }
+
+    &.btn-info {
+        background: $info-blue;
+        color: white;
+
+        &:hover:not(:disabled) {
+            background: darken($info-blue, 10%);
+        }
+    }
+
+    &.btn-warning {
+        background: $warning-yellow;
+        color: $dark-brown;
+
+        &:hover:not(:disabled) {
+            background: darken($warning-yellow, 10%);
+        }
+    }
+
+    &.btn-refresh {
+        background: $info-blue;
+        color: white;
+
+        &:hover:not(:disabled) {
+            background: darken($info-blue, 10%);
+        }
+    }
+
+    &.btn-sm {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+    .itinerary-container {
+        .table-container {
+            .itineraries-table {
+                th, td {
+                    font-size: 0.85rem;
+                    padding: 0.8rem 0.4rem;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 768px) {
-  .container {
-    padding: 10px;
+    .itinerary-container {
+        padding: 1rem;
 
-    table {
-      font-size: 14px;
+        .page-header {
+            .navigation-links {
+                flex-direction: column;
+                align-items: flex-start;
 
-      th, td {
-        padding: 8px;
-      }
+                .page-title {
+                    font-size: 2rem;
+                }
+            }
+        }
+
+        .table-container {
+            .table-wrapper {
+                .itineraries-table {
+                    display: block;
+                    overflow-x: hidden;
+
+                    thead {
+                        display: none;
+                    }
+
+                    tbody, tr {
+                        display: block;
+                    }
+
+                    tr.mat-row {
+                        display: flex;
+                        flex-wrap: wrap;
+                        border-bottom: 1px solid #E0E0E0;
+                        padding: 1rem;
+                        margin-bottom: 1rem;
+                        background: white;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+                        td {
+                            display: block;
+                            width: 100% !important;
+                            padding: 0.5rem 0;
+                            text-align: left;
+                            white-space: normal;
+
+                            &:before {
+                                content: attr(data-label);
+                                font-weight: 500;
+                                color: $peacock-blue;
+                                font-size: 0.9rem;
+                                margin-bottom: 0.2rem;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .pagination-container {
+                flex-direction: column;
+                gap: 1rem;
+
+                .mat-paginator {
+                    .mat-paginator-page-size-select {
+                        margin: 0;
+                    }
+                }
+            }
+        }
     }
-  }
-}
-
-@media (max-width: 480px) {
-  .container {
-    table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-  }
 }
