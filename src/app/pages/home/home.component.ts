@@ -54,14 +54,14 @@ kuulaUrl!: SafeResourceUrl;
       this.performSearch(term);
     });
   }
-//  openTripPlanner() {
-//     this.dialog.open(TripPlannerComponent, {
-//       width: '600px',
-//       panelClass: 'trip-modal-panel',
-//    disableClose: false ,
-//       backdropClass: 'blur-backdrop'
-//     });
-//   }
+ openTripPlanner() {
+    this.dialog.open(TripPlannerComponent, {
+      width: '300px',
+      panelClass: 'trip-modal-panel',
+   disableClose: false ,
+      backdropClass: 'blur-backdrop'
+    });
+  }
 onIframeLoad() {
   this.iframeLoaded = true;
 }
@@ -90,10 +90,12 @@ onIframeError() {
         this.searchResults = [];
         this.searching = false;
       }
-    });
+    }); 
   }
   ngOnInit() {
-    setTimeout(() => this.planner.openModal(), 10000);
+    // setTimeout(() => this.planner.openModal(), 10000);
+    setTimeout(() => this.openTripPlanner(), 10000);
+   
   }
   ngAfterViewInit() {
      
