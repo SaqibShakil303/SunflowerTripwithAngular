@@ -27,6 +27,11 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { ItneraryAdminComponent } from './admin-layout/itnerary/itnerary-admin/itnerary-admin.component';
 import { DestinationMainComponent } from './pages/destination-main/destination-main.component';
 import { TourDetailComponent } from './pages/tour-detail/tour-detail.component';
+import { TripPlannerComponent } from './common/trip-planner/trip-planner.component';
+import { CustomPlannerComponent } from './pages/custom-planner/custom-planner.component';
+import { CompanyPortfolioComponent } from './pages/company-portfolio/company-portfolio.component';
+import { GroupBrochureComponent } from './components/group-brochure/group-brochure.component';
+
 
 export const routes: Routes = [
   { path: 'itinerary', component: ItineraryComponent },
@@ -114,5 +119,17 @@ export const routes: Routes = [
   {
     path: 'tour/:slug',
     component: TourDetailComponent
+  },
+  {
+    path:'customize-planner',
+    component: CustomPlannerComponent
+  },
+  {
+    path: 'company-portfolio',
+    component:CompanyPortfolioComponent
+  },
+  {
+    path:'group-brochure',
+    component: GroupBrochureComponent
   }
 ];
