@@ -6,6 +6,7 @@ import { UsersComponent } from './users/users.component';
 import { EnquiriesComponent } from './enquiries/enquiries.component';
 import { DestinationsComponent } from './destinations/destinations.component';
 import { ItneraryAdminComponent } from './itnerary/itnerary-admin/itnerary-admin.component';
+import { BookingsComponent } from './bookings/bookings.component';
 // import { DestinationFormComponent } from './destination-management/destination-form/destination-form.component';
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: '', component: AdminLayoutComponent, children: [
       { path: 'users', component: UsersComponent },
       { path: 'enquiries', component: EnquiriesComponent },
+      { path: 'bookings', component: BookingsComponent },
       { path: 'destinations', loadChildren: () => import('./destinations/destinations.module').then(m => m.DestinationsModule) },
       { path: 'locations', loadChildren: () => import('./locations/locations.module').then(m => m.LocationsModule) },
       { path: 'tours', loadChildren: () => import('./tours/tours.module').then(m => m.ToursModule) },
