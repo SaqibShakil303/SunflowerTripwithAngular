@@ -1,4 +1,6 @@
 export class Itinerary {
+  /** Unique identifier for the itinerary */
+  id?: number;
   /** User's full name */
   name!: string;
   /** User's email address */
@@ -27,4 +29,6 @@ export class Itinerary {
   occupation!: 'service' | 'business' | 'others';
   /** Additional travel preferences or remarks */
   preferences?: string;
+  /** Date and time when the itinerary was created (ISO format) */
+  created_at?: string;
 }
