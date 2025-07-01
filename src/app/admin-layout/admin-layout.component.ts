@@ -11,10 +11,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-layout.component.scss'
 })
 export class AdminLayoutComponent implements OnInit {
+  isSidebarCollapsed: boolean = false;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
     // Component initialization
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
   logout(): void {
