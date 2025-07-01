@@ -43,23 +43,23 @@ export interface Tour {
   duration_days: number;
 }
 
-export interface Destination {
+export class Destination {
   parent_id?: number;
-  id: number;
-  title: string;
+  id!: number;
+  title!: string;
   slug?: string;
-  description: string;
-  image_url: string;
-  best_time_to_visit: string;
-  weather: string;
-  currency: string;
-  language: string;
-  time_zone: string;
-  locations: Location[];
-  attractions: Attraction[];
-  ethnicities: Ethnicity[];
-  cuisines: Cuisine[];
-  activities: Activity[];
-  itinerary_blocks: ItineraryBlock[];
-  tours: Tour[];
+  description!: string;
+  image_url!: string;
+  best_time_to_visit!: string;
+  weather!: string;
+  currency!: string;
+  language!: string;
+  time_zone!: string;
+  locations!: Location[];
+  attractions!: Attraction[];
+  ethnicities!: Ethnicity[];
+  cuisines!: Cuisine[];
+  activities!: Activity[];
+  itinerary_blocks!: ItineraryBlock[];
+  tours!: Tour[];
 }
