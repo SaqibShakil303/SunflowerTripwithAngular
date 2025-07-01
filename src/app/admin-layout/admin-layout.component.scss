@@ -16,6 +16,7 @@ $font-heading: 'Playfair Display', serif;
 
 // Layout Variables
 $sidebar-width: 22.5%;
+$sidebar-collapsed-width: 60px;
 $sidebar-padding: 1.5rem;
 $transition-speed: 0.3s;
 
@@ -25,6 +26,7 @@ $transition-speed: 0.3s;
     height: 100vh;
     font-family: $font-body;
     background-color: $warm-white;
+    transition: all $transition-speed ease;
 }
 
 .admin-sidebar {
@@ -39,7 +41,27 @@ $transition-speed: 0.3s;
     height: 100vh;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    overflow-x: hidden; // Prevent horizontal scroll
+    overflow-x: hidden;
+    transition: width $transition-speed ease;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 1rem;
+    left: $sidebar-width;
+    z-index: 1100;
+    background: $peacock-blue;
+    color: $warm-white;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    font-size: 1rem;
+    transition: left $transition-speed ease;
+
+    &:hover {
+        background: darken($peacock-blue, 10%);
+    }
 }
 
 .sidebar-header {
@@ -55,15 +77,16 @@ $transition-speed: 0.3s;
         color: $turmeric-yellow;
         text-align: center;
         letter-spacing: 1px;
+        transition: opacity $transition-speed ease;
     }
 }
 
 .sidebar-nav {
     flex: 1;
     padding: 1rem 0;
-    overflow-y: auto; // Enable vertical scroll
-    overflow-x: hidden; // Explicitly disable horizontal scroll
-    max-height: calc(100vh - 100px - 80px); // Adjust for header and footer
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 100px - 80px);
     scrollbar-width: thin;
     scrollbar-color: $saffron $peacock-blue;
 
@@ -99,19 +122,19 @@ $transition-speed: 0.3s;
                 transition: all $transition-speed ease;
                 position: relative;
                 border-left: 4px solid transparent;
-                box-sizing: border-box; // Ensure padding/borders don't increase width
+                box-sizing: border-box;
 
                 &:hover {
-                    background: rgba(255, 255, 255, 0.2); // Slightly stronger background
+                    background: rgba(255, 255, 255, 0.2);
                     border-left-color: $saffron;
 
                     .nav-icon {
-                        transform: scale(1.1); // Keep icon scale effect
+                        transform: scale(1.1);
                     }
                 }
 
                 &.active {
-                    background: linear-gradient(90deg, rgba(244, 164, 96, 0.2) 0%, rgba(233, 180, 76, 0.1) 100%);
+                    background: linear-gradient(90deg, rgba(244, 164, 96, 0.2)  Snowden, 25, 0, 0); background: linear-gradient(90deg, rgba(233, 180, 76, 0.1) 100%);
                     border-left-color: $saffron;
                     color: $turmeric-yellow;
                     font-weight: 500;
@@ -145,6 +168,7 @@ $transition-speed: 0.3s;
                     flex: 1;
                     font-weight: 400;
                     letter-spacing: 0.5px;
+                    transition: opacity $transition-speed ease;
                 }
             }
         }
@@ -188,6 +212,7 @@ $transition-speed: 0.3s;
         .nav-text {
             font-weight: 400;
             letter-spacing: 0.5px;
+            transition: opacity $transition-speed ease;
         }
     }
 }
@@ -198,11 +223,76 @@ $transition-speed: 0.3s;
     background-color: $warm-white;
     min-height: 100vh;
     overflow-y: auto;
+    transition: margin-left $transition-speed ease;
+}
+
+// Collapsed Sidebar Styles
+.admin-layout.sidebar-collapsed {
+    .admin-sidebar {
+        width: $sidebar-collapsed-width;
+
+        .sidebar-header {
+            .sidebar-title {
+                opacity: 0;
+                height: 0;
+                overflow: hidden;
+            }
+        }
+
+        .sidebar-nav {
+            .nav-list {
+                .nav-item {
+                    .nav-link {
+                        padding: 1rem 0.8rem;
+                        justify-content: center;
+
+                        .nav-text {
+                            opacity: 0;
+                            width: 0;
+                            overflow: hidden;
+                        }
+
+                        .nav-icon {
+                            margin-right: 0;
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sidebar-footer {
+            .logout-link {
+                padding: 1rem 0.8-norm;
+                justify-content: center;
+
+                .nav-text {
+                    opacity: 0;
+                    width: 0;
+                    overflow: hidden;
+                }
+
+                .nav-icon {
+                    margin-right: 0;
+                    font-size: 1.3rem;
+                }
+            }
+        }
+    }
+
+    .main-content {
+        margin-left: $sidebar-collapsed-width;
+    }
+
+    .sidebar-toggle {
+        left: $sidebar-collapsed-width;
+    }
 }
 
 // Responsive Design
 @media (max-width: 1024px) {
     $sidebar-width-tablet: 280px;
+    $sidebar-collapsed-width-tablet: 60px;
 
     .admin-sidebar {
         width: $sidebar-width-tablet;
@@ -211,52 +301,97 @@ $transition-speed: 0.3s;
     .main-content {
         margin-left: $sidebar-width-tablet;
     }
+
+    .sidebar-toggle {
+        left: $sidebar-width-tablet;
+    }
+
+    .admin-layout.sidebar-collapsed {
+        .admin-sidebar {
+            width: $sidebar-collapsed-width-tablet;
+        }
+
+        .main-content {
+            margin-left: $sidebar-collapsed-width-tablet;
+        }
+
+        .sidebar-toggle {
+            left: $sidebar-collapsed-width-tablet;
+        }
+    }
 }
 
 @media (max-width: 768px) {
+    $sidebar-width-mobile: 250px;
+    $sidebar-collapsed-width-mobile: 60px;
+
     .admin-sidebar {
-        width: 100%;
-        position: relative;
-        height: auto;
+        width: $sidebar-width-mobile;
+        position: fixed;
+        height: 100vh;
+        z-index: 1000;
+    }
+
+    .main-content {
+        margin-left: $sidebar-width-mobile;
+    }
+
+    .sidebar-toggle {
+        left: $sidebar-width-mobile;
+        display: block;
+    }
+
+    .admin-layout.sidebar-collapsed {
+        .admin-sidebar {
+            width: $sidebar-collapsed-width-mobile;
+        }
+
+        .main-content {
+            margin-left: $sidebar-collapsed-width-mobile;
+        }
+
+        .sidebar-toggle {
+            left: $sidebar-collapsed-width-mobile;
+        }
 
         .sidebar-nav {
-            max-height: none;
-            overflow-y: visible;
-            overflow-x: hidden; // Ensure no horizontal scroll on mobile
-
             .nav-list {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                padding: 0 1rem;
-
                 .nav-item {
-                    flex: 1;
-                    min-width: calc(50% - 0.25rem);
-                    margin: 0;
-
                     .nav-link {
-                        padding: 0.8rem;
-                        text-align: center;
-                        flex-direction: column;
-                        border-radius: 8px;
+                        padding: 1rem 0.8rem;
+                        justify-content: center;
+
+                        .nav-text {
+                            opacity: 0;
+                            width: 0;
+                            overflow: hidden;
+                        }
 
                         .nav-icon {
                             margin-right: 0;
-                            margin-bottom: 0.5rem;
-                            font-size: 1.1rem;
-                        }
-
-                        .nav-text {
-                            font-size: 0.9rem;
+                            font-size: 1.3rem;
                         }
                     }
                 }
             }
         }
-    }
 
-    .main-content {
-        margin-left: 0;
+        .sidebar-footer {
+            .logout-link {
+                padding: 1rem 0.8rem;
+                justify-content: center;
+
+                .nav-text {
+                    opacity: 0;
+                    width: 0;
+                    overflow: hidden;
+                }
+
+                .nav-icon {
+                    margin-right: 0;
+                    font-size: 1.3rem;
+                }
+            }
+        }
     }
 }

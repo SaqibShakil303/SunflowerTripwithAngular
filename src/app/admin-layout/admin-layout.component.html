@@ -1,4 +1,9 @@
-<div class="admin-layout">
+<div class="admin-layout" [ngClass]="{'sidebar-collapsed': isSidebarCollapsed}">
+  <!-- Toggle Button -->
+  <button class="sidebar-toggle" (click)="toggleSidebar()">
+    <i class="fas" [ngClass]="isSidebarCollapsed ? 'fa-chevron-right' : 'fa-chevron-left'"></i>
+  </button>
+
   <!-- Sidebar -->
   <div class="admin-sidebar">
     <div class="sidebar-header">
