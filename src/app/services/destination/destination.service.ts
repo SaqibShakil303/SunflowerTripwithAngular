@@ -20,6 +20,7 @@ export class DestinationService {
   ) { }
 private APIurl =environment.apiDomain
 
+
 getDestinations(): Observable<Destination[]> {
     return this.http.get<Destination[]>(`${this.APIurl}/Destination`);  
   }
@@ -46,7 +47,7 @@ getDestinations(): Observable<Destination[]> {
 }
 
 updateDestination(id: number, destinationPayload: any): Observable<any> {
-  return this.http.patch(`${this.APIurl}/Destination/destinations/${id}/details`, destinationPayload);
+  return this.http.patch(`${this.APIurl}/Destination/update/${id}`, destinationPayload);
 }
   
 }

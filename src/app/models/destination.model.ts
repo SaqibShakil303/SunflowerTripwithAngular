@@ -1,5 +1,6 @@
 export interface Location {
-   id: number;
+  id?: number;
+  destination_id?: number;
   name: string;
   description: string;
   image_url: string;
@@ -7,6 +8,8 @@ export interface Location {
 }
 
 export interface Attraction {
+  id?: number;
+  destination_id?: number;
   title: string;
   image_url: string;
   rating: number;
@@ -14,16 +17,22 @@ export interface Attraction {
 }
 
 export interface Ethnicity {
+  id?: number; // Optional, as new ethnicities may not have an ID
+  destination_id?: number;
   title: string;
   image_url: string;
 }
 
 export interface Cuisine {
+  id?: number; // Optional, as new cuisines may not have an ID
+  destination_id?: number;
   title: string;
   image_url: string;
 }
 
 export interface Activity {
+  id?: number; // Optional, as new activities may not have an ID
+  destination_id?: number;
   title: string;
   image_url: string;
 }
@@ -44,7 +53,6 @@ export interface Tour {
 }
 
 export class Destination {
-  parent_id?: number;
   id!: number;
   title!: string;
   slug?: string;
@@ -55,11 +63,12 @@ export class Destination {
   currency!: string;
   language!: string;
   time_zone!: string;
+  parent_id?: number;
   locations!: Location[];
   attractions!: Attraction[];
   ethnicities!: Ethnicity[];
   cuisines!: Cuisine[];
   activities!: Activity[];
-  itinerary_blocks!: ItineraryBlock[];
-  tours!: Tour[];
+  itinerary_blocks?: ItineraryBlock[];
+  tours?: Tour[];
 }

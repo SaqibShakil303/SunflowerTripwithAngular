@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Forum:wght@400&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
-// Color Palette Variables (matching your theme)
-$saffron: #F4A460;
+// Color Palette Variables
+$saffron: #F4A260;
 $turmeric-yellow: #E9B44C;
 $peacock-blue: #005F73;
 $marigold-orange: #FF8500;
@@ -208,58 +208,6 @@ $font-heading: 'Playfair Display', serif;
             }
           }
 
-          // Language input group
-          .language-input-group {
-            display: flex;
-            gap: 0.5rem;
-            align-items: flex-start;
-
-            .language-input {
-              flex: 1;
-            }
-
-            .add-language-btn {
-              padding: 0.8rem 1rem;
-              flex-shrink: 0;
-            }
-          }
-
-          .languages-list {
-            margin-top: 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-
-            .language-tag {
-              display: inline-flex;
-              align-items: center;
-              gap: 0.5rem;
-              background: linear-gradient(135deg, $saffron, $turmeric-yellow);
-              color: white;
-              padding: 0.4rem 0.8rem;
-              border-radius: 20px;
-              font-size: 0.9rem;
-              font-weight: 500;
-
-              .remove-language {
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-                padding: 0.2rem;
-                border-radius: 50%;
-                font-size: 0.8rem;
-                line-height: 1;
-                transition: all 0.2s ease;
-
-                &:hover {
-                  background: rgba(255, 255, 255, 0.2);
-                }
-              }
-            }
-          }
-
-          // Image preview
           .image-preview {
             margin-top: 1rem;
             text-align: center;
@@ -288,7 +236,6 @@ $font-heading: 'Playfair Display', serif;
   }
 }
 
-// Button Styles (matching your theme)
 .btn {
   padding: 0.6rem 1.2rem;
   border: none;
@@ -327,13 +274,21 @@ $font-heading: 'Playfair Display', serif;
     }
   }
 
+  &.btn-danger {
+    background: $danger-red;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($danger-red, 10%);
+    }
+  }
+
   &.btn-sm {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
   }
 }
 
-// Responsive Design
 @media (max-width: 768px) {
   .modal-overlay {
     padding: 0.5rem;
@@ -364,18 +319,6 @@ $font-heading: 'Playfair Display', serif;
           .form-row {
             grid-template-columns: 1fr;
             gap: 1rem;
-          }
-
-          .form-group {
-            margin-bottom: 1rem;
-
-            .language-input-group {
-              flex-direction: column;
-
-              .add-language-btn {
-                align-self: flex-start;
-              }
-            }
           }
         }
       }
