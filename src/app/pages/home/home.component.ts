@@ -94,7 +94,7 @@ onIframeError() {
   }
   ngOnInit() {
     // setTimeout(() => this.planner.openModal(), 10000);
-    setTimeout(() => this.openTripPlanner(), 10000);
+    // setTimeout(() => this.openTripPlanner(), 50000);
    
   }
   ngAfterViewInit() {

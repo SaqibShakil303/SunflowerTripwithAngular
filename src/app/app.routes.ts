@@ -34,7 +34,12 @@ import { GroupBrochureComponent } from './components/group-brochure/group-brochu
 
 
 export const routes: Routes = [
+      {
+    path:'customize-planner',
+    component: ItineraryComponent
+  },
   { path: 'itinerary', component: ItineraryComponent },
+
   { path: 'contact', component: ContactComponent },
   { path: 'careers', component: CareersComponent },
   { path: 'aboutUs', component: AboutUsComponent },
@@ -120,10 +125,10 @@ export const routes: Routes = [
     path: 'tour/:slug',
     component: TourDetailComponent
   },
-  {
-    path:'customize-planner',
-    component: CustomPlannerComponent
-  },
+  // {
+  //   path:'customize-planner',
+  //   component: CustomPlannerComponent
+  // },
   {
     path: 'company-portfolio',
     component:CompanyPortfolioComponent

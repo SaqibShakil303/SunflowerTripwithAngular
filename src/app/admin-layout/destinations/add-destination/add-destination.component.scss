@@ -30,7 +30,7 @@ $font-heading: 'Playfair Display', serif;
   padding: 1rem;
 
   .modal-content {
-    background: white;
+    background: $warm-white;
     border-radius: 12px;
     min-width: 600px;
     max-width: 800px;
@@ -105,11 +105,26 @@ $font-heading: 'Playfair Display', serif;
             align-items: center;
             gap: 0.8rem;
             padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(244, 164, 96, 0.3);
+            border-bottom: 1px solid rgba($saffron, 0.3);
 
             i {
               color: $saffron;
               font-size: 1.1rem;
+            }
+          }
+
+          .form-subsection {
+            background: rgba($warm-white, 0.8);
+            border: 1px solid rgba($saffron, 0.2);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+
+            h5 {
+              font-family: $font-heading;
+              font-size: 1.1rem;
+              color: $dark-brown;
+              margin: 0 0 1rem 0;
             }
           }
         }
@@ -143,17 +158,20 @@ $font-heading: 'Playfair Display', serif;
             font-weight: 500;
             color: $dark-brown;
             margin-bottom: 0.5rem;
-            
-            &::after {
-              content: " *";
-              color: $danger-red;
+
+            &[for$="iframe"],
+            &[for$="video"],
+            &[for="parent_id"] {
+              &::after {
+                content: none;
+              }
             }
           }
 
           .form-control {
             width: 100%;
             padding: 0.8rem 1rem;
-            border: 2px solid #E0E0E0;
+            border: 2px solid $warm-gray;
             border-radius: 8px;
             font-family: $font-body;
             font-size: 1rem;
@@ -164,16 +182,16 @@ $font-heading: 'Playfair Display', serif;
             &:focus {
               outline: none;
               border-color: $saffron;
-              box-shadow: 0 0 0 3px rgba(244, 164, 96, 0.1);
+              box-shadow: 0 0 0 3px rgba($saffron, 0.1);
             }
 
             &.error {
               border-color: $danger-red;
-              box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+              box-shadow: 0 0 0 3px rgba($danger-red, 0.1);
             }
 
             &::placeholder {
-              color: $warm-gray;
+              color: lighten($warm-gray, 20%);
             }
 
             &.form-textarea {
@@ -184,6 +202,12 @@ $font-heading: 'Playfair Display', serif;
 
             &[type="file"] {
               padding: 0.4rem;
+            }
+
+            &[type="select"], select {
+              appearance: none;
+              background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="%238B7355" d="M7 10l5 5 5-5z"/></svg>') no-repeat right 1rem center;
+              background-size: 12px;
             }
           }
 
@@ -208,7 +232,6 @@ $font-heading: 'Playfair Display', serif;
             }
           }
 
-          // Language input group
           .language-input-group {
             display: flex;
             gap: 0.5rem;
@@ -240,26 +263,9 @@ $font-heading: 'Playfair Display', serif;
               border-radius: 20px;
               font-size: 0.9rem;
               font-weight: 500;
-
-              .remove-language {
-                background: none;
-                border: none;
-                color: white;
-                cursor: pointer;
-                padding: 0.2rem;
-                border-radius: 50%;
-                font-size: 0.8rem;
-                line-height: 1;
-                transition: all 0.2s ease;
-
-                &:hover {
-                  background: rgba(255, 255, 255, 0.2);
-                }
-              }
             }
           }
 
-          // Image preview
           .image-preview {
             margin-top: 1rem;
             text-align: center;
@@ -269,7 +275,7 @@ $font-heading: 'Playfair Display', serif;
               max-height: 150px;
               border-radius: 8px;
               border: 2px solid $saffron;
-              box-shadow: 0 4px 15px rgba(244, 164, 96, 0.2);
+              box-shadow: 0 4px 15px rgba($saffron, 0.2);
               object-fit: cover;
             }
           }
@@ -282,13 +288,22 @@ $font-heading: 'Playfair Display', serif;
       justify-content: flex-end;
       gap: 1rem;
       padding: 1.5rem 2rem;
-      border-top: 1px solid #E0E0E0;
-      background: rgba(244, 164, 96, 0.05);
+      border-top: 1px solid $warm-gray;
+      background: rgba($saffron, 0.05);
+    }
+
+    .success-snackbar {
+      background: $success-green;
+      color: white;
+    }
+
+    .error-snackbar {
+      background: $danger-red;
+      color: white;
     }
   }
 }
 
-// Button Styles (matching your theme)
 .btn {
   padding: 0.6rem 1.2rem;
   border: none;
@@ -314,16 +329,27 @@ $font-heading: 'Playfair Display', serif;
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(244, 164, 96, 0.3);
+      box-shadow: 0 4px 15px rgba($saffron, 0.3);
     }
   }
 
   &.btn-secondary {
-    background: #6C757D;
+    background: $warm-gray;
     color: white;
 
     &:hover:not(:disabled) {
-      background: darken(#6C757D, 10%);
+      background: darken($warm-gray, 10%);
+    }
+  }
+
+  &.btn-danger {
+    background: $danger-red;
+    color: white;
+
+    &:hover:not(:disabled) {
+      background: darken($danger-red, 10%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba($danger-red, 0.3);
     }
   }
 
@@ -333,7 +359,6 @@ $font-heading: 'Playfair Display', serif;
   }
 }
 
-// Responsive Design
 @media (max-width: 768px) {
   .modal-overlay {
     padding: 0.5rem;
@@ -358,6 +383,15 @@ $font-heading: 'Playfair Display', serif;
           .form-section {
             .section-title {
               font-size: 1.2rem;
+            }
+
+            .form-subsection {
+              padding: 1rem;
+              margin-bottom: 1rem;
+
+              h5 {
+                font-size: 1rem;
+              }
             }
           }
 
@@ -416,6 +450,10 @@ $font-heading: 'Playfair Display', serif;
 
             .section-title {
               font-size: 1.1rem;
+            }
+
+            .form-subsection {
+              padding: 0.8rem;
             }
           }
         }
